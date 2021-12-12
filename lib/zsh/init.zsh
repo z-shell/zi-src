@@ -26,7 +26,7 @@ zzsetup() {
       [[ $verbose_mode == true ]] && builtin print "(ZI): Installed and ZI (zi.zsh) is found"
       git_refs=("${(@f)$(cd "${ZI[BIN_DIR]}"; command git for-each-ref --format="%(refname:short):%(subject)" refs/heads refs/tags)}")
       print -P "%F{33}▓▒░ %F{34}Successfully installed %F{160}(%F{33}z-shell/zi%F{160})%f%b"
-      print -P "%F{226}▓▒░ %F{34}Last changes:%f%b"
+      print -P "%F{33}▓▒░ %F{226}Last changes:%f%b"
       print -P "%F{33}▓▒░ %F{160}(%F{33}$git_refs%F{160})%f%b"
     else
       print -P "%F{160}▓▒░ The clone has failed…%f%b"
@@ -38,27 +38,28 @@ zzsetup() {
   fi
 }
 
-# Load ZI
+# If setup is successful or ZI is already installed, then load ZI. Otherwise, not continue and exit.
 zzsource() {
-  [[ $verbose_mode == true ]] && builtin print "(ZI): Loading ZI (zi.zsh)"
+  [[ $verbose_mode == true ]] && builtin print "(ZI): If (zzsetup) function status code 0, then load ZI."
+  if zzsetup; then
+  [[ $verbose_mode == true ]] && builtin print "(ZI): Loading (zi.zsh)"
   source "${ZI[BIN_DIR]}/zi.zsh"
+    else
+  [[ $verbose_mode == true ]] && builtin print "(ZI): (zzsetup) function status code 1, not continue and exit."
+    exit 1
+  fi
 }
 
-# Enebale completion
+# Enebale completion (completions should be loaded after zzsource)
 zzcomps() {
-  [[ $verbose_mode == true ]] && builtin print "(ZI): Loading ZI (_zi) completion… (_zi)"
+  [[ $verbose_mode == true ]] && builtin print "(ZI): Loading completion… (_zi)"
   autoload -Uz _zi
   (( ${+_comps} )) && _comps[zi]=_zi
 }
 
-# If repositor available, then load it and enable completion.
+# If
 zzinit() {
-  [[ $verbose_mode == true ]] && builtin print "(ZI): Checking if (zi_setup) function status code is 0, before sourcing ZI (zi.zsh)"
-  if zzsetup; then
-    [[ $verbose_mode == true ]] && builtin print "(ZI): Loading ZI (zi.zsh)"
-    zzsource
-    zzcomps
-    else
-    exit 1
-  fi
+  [[ $verbose_mode == true ]] && builtin print "(ZI): Loading ZI (zi.zsh)"
+  zzsource
+  zzcomps
 }
