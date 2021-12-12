@@ -26,7 +26,7 @@ zzsetup() {
       [[ $verbose_mode == true ]] && builtin print "(ZI): Installed and ZI (zi.zsh) is found"
       git_refs=("${(@f)$(cd "${ZI[BIN_DIR]}"; command git for-each-ref --format="%(refname:short):%(subject)" refs/heads refs/tags)}")
       print -P "%F{33}▓▒░ %F{34}Successfully installed %F{160}(%F{33}z-shell/zi%F{160})%f%b"
-      print -P "%F{33}▓▒░ %F{34}Last changes:%f%b"
+      print -P "%F{226}▓▒░ %F{34}Last changes:%f%b"
       print -P "%F{33}▓▒░ %F{160}(%F{33}$git_refs%F{160})%f%b"
     else
       print -P "%F{160}▓▒░ The clone has failed…%f%b"
