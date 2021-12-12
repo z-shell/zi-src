@@ -4,6 +4,5 @@ fi
 
 source ~/.zi/bin/zi.zsh
 
-autoload -Uz compinit
-compinit
-zi cdreplay -q
+zicompinit
+zicdreplay
