@@ -71,5 +71,3 @@ zzinit() {
     exit 1
   fi
 }
-
-}
