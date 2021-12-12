@@ -14,7 +14,7 @@ ZI[ZCOMPDUMP_PATH]="${HOME}/.zcompdump"
 # If set to 1, then mutes some of the ZI warnings, specifically the plugin already registered warning
 ZI[MUTE_WARNINGS]='0'
 
-git_exec() { command git -C "${ZI[BIN_DIR]}" "${@}"; }
+git_exec() { builtin cd "${ZI[BIN_DIR]}"; command git "${@}"; }
 zi_version() { git_exec describe --tags 2>/dev/null; }
 zi_setup() {
   if [[ $ZI_VERBOSE = on ]]; then
