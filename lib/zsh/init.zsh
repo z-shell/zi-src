@@ -3,7 +3,7 @@
 local repo="https://github.com/z-shell/zi.git"
 local branch="main"
 # Verbose output
-local verbose_mode="${verbose_mode:-false}"
+#local verbose_mode="${verbose_mode:-1}"
 # ZI variables:
 declare -A ZI
 # Where ZI should create all working directories, e.g.: "~/.zi"
