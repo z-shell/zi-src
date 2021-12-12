@@ -15,14 +15,14 @@ ZI[ZCOMPDUMP_PATH]="${HOME}/.zcompdump"
 ZI[MUTE_WARNINGS]='0'
 
 git_exec() { builtin cd "${ZI[BIN_DIR]}"; command git "${@}"; }
-zi_version() { git_exec describe --tags 2>/dev/null; }
-zi_setup() {
+zzversion() { git_exec describe --tags 2>/dev/null; }
+zzsetup() {
   if [[ $ZI_VERBOSE = on ]]; then
-    echo "(ZI-INFO): Checking if ZI (zi.zsh) is available."
+    echo "(ZI): Checking if ZI (zi.zsh) is available."
   fi
   if [[ ! -f "${ZI[BIN_DIR]}/zi.zsh" ]]; then
     if [[ $ZI_VERBOSE = on ]]; then
-      echo "(ZI-INFO): ZI (zi.zsh) is not found. Installing..."
+      echo "(ZI): ZI (zi.zsh) is not found. Installing..."
     fi
   print -P "%F{33}▓▒░ %F{160}Installing interactive feature-rich plugin manager (%F{33}z-shell/zi%F{160})%f%b"
   command mkdir -p "${ZI[BIN_DIR]}" && command chmod g-rwX "${ZI[BIN_DIR]}"
@@ -31,7 +31,7 @@ zi_setup() {
       if [[ $ZI_VERBOSE = on ]]; then
         echo "(ZI-INFO): Installed and ZI (zi.zsh) is found"
       fi
-      print -P "%F{33}▓▒░ %F{34}Successfully installed %F{160}(%F{33}z-shell/zi%F{160}) %F{34} Version:%F{160} (%F{33}\$(zi_version)%F{160})%f%b"
+      print -P "%F{33}▓▒░ %F{34}Successfully installed %F{160}(%F{33}z-shell/zi%F{160}) %F{34} Version:%F{160} (%F{33}\$(zzversion)%F{160})%f%b"
     else
       print -P "%F{160}▓▒░ The clone has failed…%f%b"
       print -P "%F{160}▓▒░ %F{33} Please report the issue:%f%b"
@@ -42,31 +42,31 @@ zi_setup() {
   fi
 }
 
-zi_source() {
+zzsource() {
   if [[ $ZI_VERBOSE = on ]]; then
-    echo "(ZI-INFO): Loading ZI (zi.zsh)"
+    echo "(ZI): Loading ZI (zi.zsh)"
   fi
   source "${ZI[BIN_DIR]}/zi.zsh"
 }
 
-zi_comps() {
+zzcomps() {
   if [[ $ZI_VERBOSE = on ]]; then
-    echo "(ZI-INFO): Loading ZI (_zi) completion… (_zi)"
+    echo "(ZI): Loading ZI (_zi) completion… (_zi)"
   fi
   autoload -Uz _zi
   (( ${+_comps} )) && _comps[zi]=_zi
 }
 
-zi_initialize() {
+zzinit() {
   if [[ $ZI_VERBOSE = on ]]; then
-    echo "(ZI-INFO): Checking if (zi_setup) function status code is 0, before sourcing ZI (zi.zsh)"
+    echo "(ZI): Checking if (zi_setup) function status code is 0, before sourcing ZI (zi.zsh)"
   fi
-  if zi_setup; then
+  if zzsetup; then
   if [[ ${ZI_VERBOSE} = on ]]; then
-    echo "(ZI-INFO): Loading ZI (zi.zsh)"
+    echo "(ZI): Loading ZI (zi.zsh)"
   fi
-    zi_source
-    zi_comps
+    zzsource
+    zzcomps
     else
     exit 1
   fi
