@@ -29,7 +29,7 @@ zzsetup() {
   command git clone -q --progress --branch "$ZI_BRANCH" "$ZI_REPO" "${ZI[BIN_DIR]}"
     if [[ -f "${ZI[BIN_DIR]}/zi.zsh" ]]; then
       if [[ $ZI_VERBOSE = on ]]; then
-        echo "(ZI-INFO): Installed and ZI (zi.zsh) is found"
+        echo "(ZI): Installed and ZI (zi.zsh) is found"
       fi
       print -P "%F{33}▓▒░ %F{34}Successfully installed %F{160}(%F{33}z-shell/zi%F{160}) %F{34} Version:%F{160} (%F{33}$(zzversion)%F{160})%f%b"
     else
