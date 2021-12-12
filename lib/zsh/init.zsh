@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 # Variables:
 ZI_REPO="https://github.com/z-shell/zi.git"
 ZI_BRANCH="main"
@@ -31,7 +32,8 @@ zzsetup() {
       fi
       git_refs=("${(@f)$(cd "${ZI[BIN_DIR]}"; command git for-each-ref --format="%(refname:short):%(subject)" refs/heads refs/tags)}")
       print -P "%F{33}▓▒░ %F{34}Successfully installed %F{160}(%F{33}z-shell/zi%F{160})%f%b"
-      print -P "Last changes: %F{160}(%F{33}$git_refs%F{160})%f%b"
+      print -P "%F{33}▓▒░ %F{34}Last changes:%f%b"
+      print -P "%F{33}▓▒░ %F{160}(%F{33}$git_refs%F{160})%f%b"
     else
       print -P "%F{160}▓▒░ The clone has failed…%f%b"
       print -P "%F{160}▓▒░ %F{33} Please report the issue:%f%b"
@@ -62,7 +64,7 @@ zzinit() {
     builtin print "(ZI): Checking if (zi_setup) function status code is 0, before sourcing ZI (zi.zsh)"
   fi
   if zzsetup; then
-  if [[ ${ZI_VERBOSE} = on ]]; then
+  if [[ $ZI_VERBOSE = on ]]; then
     builtin print "(ZI): Loading ZI (zi.zsh)"
   fi
     zzsource
