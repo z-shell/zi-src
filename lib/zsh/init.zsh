@@ -31,7 +31,7 @@ zzsetup() {
       if [[ $ZI_VERBOSE = on ]]; then
         echo "(ZI-INFO): Installed and ZI (zi.zsh) is found"
       fi
-      print -P "%F{33}▓▒░ %F{34}Successfully installed %F{160}(%F{33}z-shell/zi%F{160}) %F{34} Version:%F{160} (%F{33}\$(zzversion)%F{160})%f%b"
+      print -P "%F{33}▓▒░ %F{34}Successfully installed %F{160}(%F{33}z-shell/zi%F{160}) %F{34} Version:%F{160} (%F{33}$(zzversion)%F{160})%f%b"
     else
       print -P "%F{160}▓▒░ The clone has failed…%f%b"
       print -P "%F{160}▓▒░ %F{33} Please report the issue:%f%b"
