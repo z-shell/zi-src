@@ -14,8 +14,6 @@ ZI[ZCOMPDUMP_PATH]="${HOME}/.zcompdump"
 # If set to 1, then mutes some of the ZI warnings, specifically the plugin already registered warning
 ZI[MUTE_WARNINGS]='0'
 
-git_exec() { command git -C "${ZI[BIN_DIR]}" "${@}"; }
-zzversion() { git_exec describe --tags 2>/dev/null; }
 zzsetup() {
   if [[ $ZI_VERBOSE = on ]]; then
     builtin print "(ZI): Checking if ZI (zi.zsh) is available."
@@ -31,7 +29,9 @@ zzsetup() {
       if [[ $ZI_VERBOSE = on ]]; then
         builtin print "(ZI): Installed and ZI (zi.zsh) is found"
       fi
-      print -P "%F{33}▓▒░ %F{34}Successfully installed %F{160}(%F{33}z-shell/zi%F{160}) %F{34} Version:%F{160} (%F{33}$(zzversion)%F{160})%f%b"
+      git_refs=("${(@f)$(cd "${ZI[BIN_DIR]}"; command git for-each-ref --format="%(refname:short):%(subject)" refs/heads refs/tags)}")
+      print -P "%F{33}▓▒░ %F{34}Successfully installed %F{160}(%F{33}z-shell/zi%F{160})%f%b"
+      print -P "Last changes: %F{160}(%F{33}$git_refs%F{160})%f%b"
     else
       print -P "%F{160}▓▒░ The clone has failed…%f%b"
       print -P "%F{160}▓▒░ %F{33} Please report the issue:%f%b"
@@ -70,4 +70,6 @@ zzinit() {
     else
     exit 1
   fi
+}
+
 }
