@@ -1,9 +1,9 @@
 #!/usr/bin/env zsh
 # Variables:
-ZI_REPO="https://github.com/z-shell/zi.git"
-ZI_BRANCH="main"
+local repo="https://github.com/z-shell/zi.git"
+local branch="main"
 # Verbose output
-ZI_VERBOSE="${ZI_VERBOSE:-off}"
+local verbose_mode="${verbose_mode:-false}"
 # ZI variables:
 declare -A ZI
 # Where ZI should create all working directories, e.g.: "~/.zi"
@@ -16,20 +16,20 @@ ZI[ZCOMPDUMP_PATH]="${HOME}/.zcompdump"
 ZI[MUTE_WARNINGS]='0'
 
 zzsetup() {
-  if [[ $ZI_VERBOSE = on ]]; then
+  if [[ $verbose_mode ]] {
     builtin print "(ZI): Checking if ZI (zi.zsh) is available."
-  fi
+  }
   if [[ ! -f "${ZI[BIN_DIR]}/zi.zsh" ]]; then
-    if [[ $ZI_VERBOSE = on ]]; then
+    if [[ $verbose_mode ]] {
       builtin print "(ZI): ZI (zi.zsh) is not found. Installing..."
-    fi
+    }
   builtin print -P "%F{33}▓▒░ %F{160}Installing interactive feature-rich plugin manager (%F{33}z-shell/zi%F{160})%f%b"
   command mkdir -p "${ZI[BIN_DIR]}" && command chmod g-rwX "${ZI[BIN_DIR]}"
-  command git clone -q --progress --branch "$ZI_BRANCH" "$ZI_REPO" "${ZI[BIN_DIR]}"
+  command git clone -q --progress --branch "$branch" "$repo" "${ZI[BIN_DIR]}"
     if [[ -f "${ZI[BIN_DIR]}/zi.zsh" ]]; then
-      if [[ $ZI_VERBOSE = on ]]; then
+      if [[ $verbose_mode ]] {
         builtin print "(ZI): Installed and ZI (zi.zsh) is found"
-      fi
+      }
       git_refs=("${(@f)$(cd "${ZI[BIN_DIR]}"; command git for-each-ref --format="%(refname:short):%(subject)" refs/heads refs/tags)}")
       print -P "%F{33}▓▒░ %F{34}Successfully installed %F{160}(%F{33}z-shell/zi%F{160})%f%b"
       print -P "%F{33}▓▒░ %F{34}Last changes:%f%b"
@@ -45,28 +45,28 @@ zzsetup() {
 }
 
 zzsource() {
-  if [[ $ZI_VERBOSE = on ]]; then
+  if [[ $verbose_mode ]] {
     builtin print "(ZI): Loading ZI (zi.zsh)"
-  fi
+  }
   source "${ZI[BIN_DIR]}/zi.zsh"
 }
 
 zzcomps() {
-  if [[ $ZI_VERBOSE = on ]]; then
+  if [[ $verbose_mode ]] {
     builtin print "(ZI): Loading ZI (_zi) completion… (_zi)"
-  fi
+  }
   autoload -Uz _zi
   (( ${+_comps} )) && _comps[zi]=_zi
 }
 
 zzinit() {
-  if [[ $ZI_VERBOSE = on ]]; then
+  if [[ $verbose_mode ]] {
     builtin print "(ZI): Checking if (zi_setup) function status code is 0, before sourcing ZI (zi.zsh)"
-  fi
-  if zzsetup; then
-  if [[ $ZI_VERBOSE = on ]]; then
-    builtin print "(ZI): Loading ZI (zi.zsh)"
-  fi
+  }
+  if [[ zzsetup ]]; then
+    if [[ $verbose_mode ]] {
+      builtin print "(ZI): Loading ZI (zi.zsh)"
+    }
     zzsource
     zzcomps
     else
