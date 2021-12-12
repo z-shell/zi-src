@@ -1,4 +1,4 @@
-# ZI SRC
+# ZI Source
 
 ```zsh
 zi_config="${XDG_CONFIG_HOME:-$HOME/.config}/zi"
