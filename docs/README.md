@@ -6,7 +6,7 @@ command mkdir -p $ZI_CONFIG
 ```
 
 ```zsh
-curl -fsSL https://git.io/zi-loader -o $ZI_CONFIG
+curl -fsSL https://git.io/zi-loader -o ${ZI_CONFIG}/init.zsh
 ```
 
 ```zsh
