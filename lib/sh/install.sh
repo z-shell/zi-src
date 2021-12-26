@@ -1,8 +1,6 @@
 #!/usr/bin/env sh
 
 trap 'rm -rvf "$WORKDIR"' EXIT INT
-NO_TTY="${NOTTY:-no}"
-PIPED="${PIPED:-no}"
 WORKDIR="$(mktemp -d)"
 ZOPT=""
 AOPT=""
@@ -23,21 +21,13 @@ done
 shift $((OPTIND - 1))
 
 HAS_TERMINAL() { [ -t 0 ]; }
-IS_TTY() { HAS_TERMINAL; }
-IS_PIPED() { ! [ -t 1 ]; }
 
 if HAS_TERMINAL; then
-  export TERM="xterm-256color"
+   TERM="xterm-256color"
+else
+   printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
 fi
     
-if ! IS_TTY; then
-  NO_TTY=yes
-fi
-    
-if IS_PIPED; then
-  PIPED=yes
-fi
-
 if [ -z "$ZI_HOME" ]; then
   ZI_HOME="${ZDOTDIR:-$HOME}/.zi"
 fi
@@ -70,14 +60,13 @@ elif command -v wget >/dev/null 2>&1; then
     command chmod a+x /tmp/zi/git-process-output.zsh
 fi
 
-echo
 if test -d "${ZI_HOME}/${ZI_BIN_DIR_NAME}/.git"; then
   cd "${ZI_HOME}/${ZI_BIN_DIR_NAME}" || return
   printf '%s\n' "[1;34m▓▒░[0m Updating [1;36m(z-shell/zi)[1;33m plugin manager[0m at [1;35m${ZI_HOME}/${ZI_BIN_DIR_NAME}[0m"
   command git pull -q origin HEAD
 else
   cd "$ZI_HOME" || return
-  echo "[1;34m▓▒░[0m Installing [1;36m(z-shell/zi)[1;33m plugin manager[0m at [1;35m${ZI_HOME}/${ZI_BIN_DIR_NAME}[0m"
+  printf '%s\n' "[1;34m▓▒░[0m Installing [1;36m(z-shell/zi)[1;33m plugin manager[0m at [1;35m${ZI_HOME}/${ZI_BIN_DIR_NAME}[0m"
   { git clone --progress --depth=1 --single-branch https://github.com/z-shell/zi.git "$ZI_BIN_DIR_NAME" \
     2>&1 | { /tmp/zi/git-process-output.zsh || cat; }; } 2>/dev/null
   if [ -d "$ZI_BIN_DIR_NAME" ]; then
