@@ -1,7 +1,9 @@
-name: CI
+name: Check library - sh
 
 on: 
   push:
+    paths:
+      - "lib/sh/**" 
   workflow_dispatch:
 
 jobs:
