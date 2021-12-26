@@ -2,13 +2,13 @@
 ## Install
 
 ```zsh
-# Will make offers or display notes depending on changes or status.
+# Will add minimal configuration
 sh -c "$(curl -fsSL https://git.io/get-zi)" --
 
 # Non interactive. Just clone or update repository.
 sh -c "$(curl -fsSL https://git.io/get-zi)" -- -i skip
 
-# Minimal .zshrc setup. No extras offered.
+# Skip annexes.
 sh -c "$(curl -fsSL https://git.io/get-zi)" -- -a skip
 ```
 
