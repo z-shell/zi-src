@@ -4,7 +4,7 @@ trap 'rm -rvf "$WORKDIR"' EXIT INT
 WORKDIR="$(mktemp -d)"
 ZOPT=""
 AOPT=""
-TERM=xterm
+TERM=xterm-256colors
 while getopts ":i:a:" opt; do
   case ${opt} in
   i) ZOPT="${ZOPT}$OPTARG"
