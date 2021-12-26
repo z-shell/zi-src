@@ -20,6 +20,10 @@ while getopts ":i:a:" opt; do
 done
 shift $((OPTIND - 1))
 
+if [ -z "$TERM" ]; then
+  TERM=xterm
+fi
+
 if [ -z "$ZI_HOME" ]; then
   ZI_HOME="${ZDOTDIR:-$HOME}/.zi"
 fi
@@ -96,10 +100,9 @@ EOF
   command cat <<-EOF >>"$file"
 zi light-mode for \\
   z-shell/z-a-meta-plugins \\
-  annexes  #             <- https://github.com/z-shell/zi/wiki/Annexes
-# examples to place here -> https://github.com/z-shell/zi/wiki/Gallery
-zicompinit  
-zicdreplay #     <- https://github.com/z-shell/zi/wiki/Minimal-Setup
+  annexes # <- https://github.com/z-shell/zi/wiki/Annexes
+# examples here -> https://github.com/z-shell/zi/wiki/Gallery
+          # <- https://github.com/z-shell/zi/wiki/Minimal-Setup
 EOF
   if [ "$AOPT" != skip ]; then
  #   printf '%s\n' "[34m▓▒░[0m[38;5;226m Would you like to add annexes to the zshrc?[0m"
