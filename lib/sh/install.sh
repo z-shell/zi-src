@@ -20,6 +20,10 @@ while getopts ":i:a:" opt; do
 done
 shift $((OPTIND - 1))
 
+if [ -z "$TERM" ]; then
+  export TERM=xterm
+fi
+
 if [ -z "$ZI_HOME" ]; then
   ZI_HOME="${ZDOTDIR:-$HOME}/.zi"
 fi
@@ -72,6 +76,7 @@ fi
 #
 # Modify .zshrc
 #
+
 THE_ZDOTDIR="${ZDOTDIR:-$HOME}"
 if grep -E '(zi|init|zinit)\.zsh' "${THE_ZDOTDIR}/.zshrc" >/dev/null 2>&1; then
   printf '%s\n' "[34m▓▒░[0m Seems that .zshrc has content not making changes."
@@ -106,7 +111,6 @@ EOF
  #   printf '%s\n' "[34m▓▒░[0m Enter y/N and press Return: [0m"
  #   read -r input
  # elif [ "$input" = y ] || [ "$input" = Y ]; then
-    [ -z "$TERM" ] && TERM=xterm
     command cat "$file" >>"${THE_ZDOTDIR}/.zshrc"
     printf '%s\n' "[34m▓▒░[0m[1;36m Installing annexes[0m"
     zsh -ic "@zi-scheduler burst"
