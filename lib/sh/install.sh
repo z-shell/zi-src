@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 # if we have no TERM, and no preexisting COLUMNS, set our own
-[[ $TERM || $COLUMNS ]] || COLUMNS=80
+[ $TERM || $COLUMNS ] || COLUMNS=80
 
 trap 'rm -rvf "$WORKDIR"' EXIT INT
 WORKDIR="$(mktemp -d)"
