@@ -1,6 +1,8 @@
 #!/usr/bin/env sh
 
-setenv TERM xterm
+# if we have no TERM, and no preexisting COLUMNS, set our own
+[[ $TERM || $COLUMNS ]] || COLUMNS=80
+
 trap 'rm -rvf "$WORKDIR"' EXIT INT
 WORKDIR="$(mktemp -d)"
 ZOPT=""
