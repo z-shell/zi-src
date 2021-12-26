@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
-tset
+
+setenv TERM xterm
 trap 'rm -rvf "$WORKDIR"' EXIT INT
 WORKDIR="$(mktemp -d)"
 ZOPT=""
@@ -123,4 +124,3 @@ command cat <<-EOF
 [34m▓▒░[0m[38;5;226m Discussions:  https://github.com/z-shell/zi/discussions[0m
 [34m▓▒░[0m[38;5;226m Issues:       https://github.com/z-shell/zi/issues[0m
 EOF
-reset
