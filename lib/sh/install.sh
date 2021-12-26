@@ -4,6 +4,7 @@ trap 'rm -rvf "$WORKDIR"' EXIT INT
 WORKDIR="$(mktemp -d)"
 ZOPT=""
 AOPT=""
+TERM=xterm
 while getopts ":i:a:" opt; do
   case ${opt} in
   i) ZOPT="${ZOPT}$OPTARG"
@@ -19,10 +20,6 @@ while getopts ":i:a:" opt; do
   esac
 done
 shift $((OPTIND - 1))
-
-if [ -z "$TERM" ]; then
-  export TERM=xterm
-fi
 
 if [ -z "$ZI_HOME" ]; then
   ZI_HOME="${ZDOTDIR:-$HOME}/.zi"
