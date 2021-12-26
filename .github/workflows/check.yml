@@ -1,0 +1,63 @@
+name: CI
+
+on: 
+  push:
+  workflow_dispatch:
+
+jobs:
+  shellcheck:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: ShellCheck
+      uses: ludeeus/action-shellcheck@master
+      with:
+        scandir: './lib/sh'
+
+  run-install:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:    
+      - name: Prepare repository for Windows
+        if: startsWith(matrix.os, 'windows')
+        run: git config --global core.autocrlf input
+      - uses: actions/checkout@v2
+      - uses: rlespinasse/github-slug-action@v3.x
+      - name: Linux dependencies
+        if: startsWith(matrix.os, 'ubuntu-latest')
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y curl git zsh
+      - name: MacOS dependencies
+        if: startsWith(matrix.os, 'macos')
+        run: |
+          brew install curl git zsh
+      - name: Windows dependencies
+        if: startsWith(matrix.os, 'windows')
+        uses: egor-tensin/setup-cygwin@v3
+        with:
+          platform: x64
+          packages: curl git zsh
+      - name: Install on Linux
+        if: startsWith(matrix.os, 'ubuntu')
+        run: |
+          sh -x ./lib/sh/install.sh --
+          sh -x ./lib/sh/install.sh -- -a skip
+          sh -x ./lib/sh/install.sh -- -i skip
+      - name: Install on MacOS
+        if: startsWith(matrix.os, 'macos')
+        run: |
+          sh -x ./lib/sh/install.sh --
+          sh -x ./lib/sh/install.sh -- -a skip
+          sh -x ./lib/sh/install.sh -- -i skip
+      - name: Install on Windows
+        if: startsWith(matrix.os, 'windows')
+        shell: C:\tools\cygwin\bin\bash.exe --login --norc -eo pipefail -o igncr '{0}'
+        run: |
+          cd ${GITHUB_WORKSPACE}
+          sh -x ./lib/sh/install.sh --
+          sh -x ./lib/sh/install.sh -- -a skip
+          sh -x ./lib/sh/install.sh -- -i skip
