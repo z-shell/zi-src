@@ -1,9 +1,8 @@
 #!/usr/bin/env sh
 
-# if we have no TERM, and no preexisting COLUMNS, set our own
-[ $TERM || $COLUMNS ] || COLUMNS=80
-
 trap 'rm -rvf "$WORKDIR"' EXIT INT
+NO_TTY="${NOTTY:-no}"
+PIPED="${PIPED:-no}"
 WORKDIR="$(mktemp -d)"
 ZOPT=""
 AOPT=""
@@ -22,6 +21,22 @@ while getopts ":i:a:" opt; do
   esac
 done
 shift $((OPTIND - 1))
+
+HAS_TERMINAL() { [ -t 0 ]; }
+IS_TTY() { HAS_TERMINAL; }
+IS_PIPED() { ! [ -t 1 ]; }
+
+if HAS_TERMINAL; then
+  export TERM="xterm-256color"
+fi
+    
+if ! IS_TTY; then
+  NO_TTY=yes
+fi
+    
+if IS_PIPED; then
+  PIPED=yes
+fi
 
 if [ -z "$ZI_HOME" ]; then
   ZI_HOME="${ZDOTDIR:-$HOME}/.zi"
