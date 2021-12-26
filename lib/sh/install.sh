@@ -20,10 +20,6 @@ while getopts ":i:a:" opt; do
 done
 shift $((OPTIND - 1))
 
-if [ -z "$TERM" ]; then
-  TERM=xterm
-fi
-
 if [ -z "$ZI_HOME" ]; then
   ZI_HOME="${ZDOTDIR:-$HOME}/.zi"
 fi
@@ -110,6 +106,7 @@ EOF
  #   printf '%s\n' "[34m▓▒░[0m Enter y/N and press Return: [0m"
  #   read -r input
  # elif [ "$input" = y ] || [ "$input" = Y ]; then
+    [ -z "$TERM" ] && TERM=xterm
     command cat "$file" >>"${THE_ZDOTDIR}/.zshrc"
     printf '%s\n' "[34m▓▒░[0m[1;36m Installing annexes[0m"
     zsh -ic "@zi-scheduler burst"
