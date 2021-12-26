@@ -1,10 +1,9 @@
 #!/usr/bin/env sh
-
+tset
 trap 'rm -rvf "$WORKDIR"' EXIT INT
 WORKDIR="$(mktemp -d)"
 ZOPT=""
 AOPT=""
-TERM=xterm-256colors
 while getopts ":i:a:" opt; do
   case ${opt} in
   i) ZOPT="${ZOPT}$OPTARG"
@@ -124,3 +123,4 @@ command cat <<-EOF
 [34m▓▒░[0m[38;5;226m Discussions:  https://github.com/z-shell/zi/discussions[0m
 [34m▓▒░[0m[38;5;226m Issues:       https://github.com/z-shell/zi/issues[0m
 EOF
+reset
