@@ -102,11 +102,11 @@ zicompinit
 zicdreplay #     <- https://github.com/z-shell/zi/wiki/Minimal-Setup
 EOF
   if [ "$AOPT" != skip ]; then
-    printf '%s\n' "[34m▓▒░[0m[38;5;226m Would you like to add annexes to the zshrc?[0m"
-    command cat "$file"
-    printf '%s\n' "[34m▓▒░[0m Enter y/N and press Return: [0m"
-    read -r input
-  elif [ "$input" = y ] || [ "$input" = Y ]; then
+ #   printf '%s\n' "[34m▓▒░[0m[38;5;226m Would you like to add annexes to the zshrc?[0m"
+ #   command cat "$file"
+ #   printf '%s\n' "[34m▓▒░[0m Enter y/N and press Return: [0m"
+ #   read -r input
+ # elif [ "$input" = y ] || [ "$input" = Y ]; then
     command cat "$file" >>"${THE_ZDOTDIR}/.zshrc"
     printf '%s\n' "[34m▓▒░[0m[1;36m Installing annexes[0m"
     zsh -ic "@zi-scheduler burst"
