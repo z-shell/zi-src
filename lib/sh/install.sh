@@ -76,7 +76,7 @@ fi
 
 THE_ZDOTDIR="${ZDOTDIR:-$HOME}"
 if grep -E '(zi|init|zinit)\.zsh' "${THE_ZDOTDIR}/.zshrc" >/dev/null 2>&1; then
-  printf '%s\n' "[34m▓▒░[0m Seems that .zshrc has content not making changes."
+  printf '%s\n' "[34m▓▒░[0m Seems that .zshrc already has content or setup skipped - no changes will be made."
   ZOPT='skip'
 fi
 if [ "$ZOPT" != skip ]; then
