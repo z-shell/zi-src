@@ -55,6 +55,8 @@ fi
 if test -d "${ZI_HOME}/${ZI_BIN_DIR_NAME}/.git"; then
   cd "${ZI_HOME}/${ZI_BIN_DIR_NAME}" || return
   printf '%s\n' "[1;34m▓▒░[0m Updating [1;36m(z-shell/zi)[1;33m plugin manager[0m at [1;35m${ZI_HOME}/${ZI_BIN_DIR_NAME}[0m"
+  command git clean -d -f -f
+  command git reset --hard HEAD
   command git pull -q origin HEAD
 else
   cd "$ZI_HOME" || return
