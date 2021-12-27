@@ -20,12 +20,8 @@ while getopts ":i:a:" opt; do
 done
 shift $((OPTIND - 1))
 
-HAS_TERMINAL() { [ -t 0 ]; }
-
-if HAS_TERMINAL; then
-   TERM="xterm-256color"
-else
-   printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' -
+if [ -z "TERM" ]; then
+  TERM="xterm-256color"
 fi
     
 if [ -z "$ZI_HOME" ]; then
