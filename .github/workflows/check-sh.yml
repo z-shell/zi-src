@@ -48,12 +48,14 @@ jobs:
         run: |
           sh -x ./lib/sh/install.sh -- -i skip
           sh -x ./lib/sh/install.sh -- -a annex
+          sh -x ./lib/sh/install.sh -- -a loader
           sh -x ./lib/sh/install.sh -- -a zunit
       - name: Install on MacOS
         if: startsWith(matrix.os, 'macos')
         run: |
           sh -x ./lib/sh/install.sh -- -i skip
           sh -x ./lib/sh/install.sh -- -a annex
+          sh -x ./lib/sh/install.sh -- -a loader
           sh -x ./lib/sh/install.sh -- -a zunit
       - name: Install on Windows
         if: startsWith(matrix.os, 'windows')
@@ -62,4 +64,6 @@ jobs:
           cd ${GITHUB_WORKSPACE}
           sh -x ./lib/sh/install.sh -- -i skip
           sh -x ./lib/sh/install.sh -- -a annex
+          sh -x ./lib/sh/install.sh -- -a loader
           sh -x ./lib/sh/install.sh -- -a zunit
+ 
