@@ -99,7 +99,7 @@ fi
 MAIN_PROFILE() {
   THE_ZDOTDIR="${ZDOTDIR:-$HOME}"
   if grep -E '(zi|init|zinit)\.zsh' "${THE_ZDOTDIR}/.zshrc" >/dev/null 2>&1; then
-    printf '%s\n' "[34m▓▒░[0m Seems that .zshrc already has content or setup skipped - no changes will be made."
+    printf '%s\n' "[34m▓▒░[34m Seems that .zshrc already has content or setup skipped - no changes will be made."
     ZOPT='skip'
   fi
   if [ "$ZOPT" != skip ]; then
@@ -126,7 +126,7 @@ if [[ -r "${XDG_CONFIG_HOME:-$HOME/.config}/zi/init.zsh" ]]; then
   source "${XDG_CONFIG_HOME:-$HOME/.config}/zi/init.zsh" && zzinit
 fi
 EOF
-    printf '%s\n' "[34m▓▒░[0m[1;36m Loader added[0m"
+    printf '%s\n' "[34m▓▒░[0m[1;36m Loader added[0m"
   fi
 }
 
@@ -159,7 +159,7 @@ EOF
 }
 
 CLOSE_PROFILE() {
-  printf '%s\n' "[34m▓▒░[0m Done.[0m"
+  printf '%s\n' "[34m▓▒░[34m Done.[0m"
   command cat <<-EOF
 [34m▓▒░[0m[1;36m Successfully installed![0m
 [34m▓▒░[0m[38;5;226m Wiki:         https://github.com/z-shell/zi/wiki[0m
