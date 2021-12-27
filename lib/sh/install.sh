@@ -121,7 +121,8 @@ EOF
     command cat "$file" >>"${THE_ZDOTDIR}/.zshrc"
   else
     printf '%s\n' "[34m▓▒░[0m Done (skipped annexes).[0m"
-  elif [ "$ZUOPT" = zunit ]; then
+  fi
+  if [ "$ZUOPT" = zunit ]; then
     printf '%s\n' "[34m▓▒░[0m[1;36m Installing annexes + zunit[0m"
     command cat "$file2" >>"${THE_ZDOTDIR}/.zshrc"
   fi
