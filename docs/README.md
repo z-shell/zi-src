@@ -8,10 +8,10 @@ sh -c "$(curl -fsSL https://git.io/get-zi)" --
 # Non interactive. Just clone or update repository.
 sh -c "$(curl -fsSL https://git.io/get-zi)" -- -i skip
 
-# Add annexes.
+# Minimal configuration + annexes.
 sh -c "$(curl -fsSL https://git.io/get-zi)" -- -a annex
 
-# Add annexes + zunit.
+# Minimal configuration + annexes + zunit.
 sh -c "$(curl -fsSL https://git.io/get-zi)" -- -a zunit
 ```
 
