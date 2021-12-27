@@ -4,13 +4,17 @@ trap 'rm -rvf "$WORKDIR"' EXIT INT
 WORKDIR="$(mktemp -d)"
 ZOPT=""
 AOPT=""
-while getopts ":i:a:" opt; do
+BOPT="main"
+while getopts ":i:a:b:" opt; do
   case ${opt} in
   i)
     ZOPT="${ZOPT}$OPTARG"
     ;;
-  a)
+  a) 
     AOPT="${AOPT}$OPTARG"
+    ;;
+  b)
+    BOPT="${BOPT}$OPTARG"
     ;;
   \?)
     echo "Invalid option: $OPTARG" 1>&2
@@ -74,7 +78,7 @@ if test -d "${ZI_HOME}/${ZI_BIN_DIR_NAME}/.git"; then
 else
   cd "$ZI_HOME" || return
   printf '%s\n' "[1;34m▓▒░[0m Installing [1;36m(z-shell/zi)[1;33m plugin manager[0m at [1;35m${ZI_HOME}/${ZI_BIN_DIR_NAME}[0m"
-  { git clone --progress --depth=1 --single-branch https://github.com/z-shell/zi.git "$ZI_BIN_DIR_NAME" \
+  { git clone --progress --depth=1 --branch "$BOPT" https://github.com/z-shell/zi.git "$ZI_BIN_DIR_NAME" \
     2>&1 | { /tmp/zi/git-process-output.zsh || cat; }; } 2>/dev/null
   if [ -d "$ZI_BIN_DIR_NAME" ]; then
     printf '%s\n' "[1;34m▓▒░[0m Successfully installed at [1;32m${ZI_HOME}/${ZI_BIN_DIR_NAME}[0m".
@@ -99,7 +103,7 @@ if [ "$ZOPT" != skip ]; then
 if [[ ! -f ${ZI_HOME}/${ZI_BIN_DIR_NAME}/zi.zsh ]]; then
   print -P "%F{33}▓▒░ %F{160}Installing (%F{33}z-shell/zi%F{160})…%f"
   command mkdir -p "$ZI_HOME" && command chmod g-rwX "$ZI_HOME"
-  command git clone -q --depth=1 --single-branch https://github.com/z-shell/zi "${ZI_HOME}/${ZI_BIN_DIR_NAME}" && \\
+  command git clone -q --depth=1 --branch "$BOPT" https://github.com/z-shell/zi "${ZI_HOME}/${ZI_BIN_DIR_NAME}" && \\
     print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \\
     print -P "%F{160}▓▒░ The clone has failed.%f%b"
 fi
