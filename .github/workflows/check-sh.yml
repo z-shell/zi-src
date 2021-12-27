@@ -1,4 +1,4 @@
-name: Check library - sh
+name: Install Library
 
 on: 
   push:
