@@ -10,7 +10,7 @@ while getopts ":i:a:b:" opt; do
   i)
     ZOPT="${ZOPT}$OPTARG"
     ;;
-  a) 
+  a)
     AOPT="${AOPT}$OPTARG"
     ;;
   b)
@@ -96,15 +96,16 @@ fi
 # Modify .zshrc
 #
 
-THE_ZDOTDIR="${ZDOTDIR:-$HOME}"
-if grep -E '(zi|init|zinit)\.zsh' "${THE_ZDOTDIR}/.zshrc" >/dev/null 2>&1; then
-  printf '%s\n' "[34m▓▒░[0m Seems that .zshrc already has content or setup skipped - no changes will be made."
-  ZOPT='skip'
-fi
-if [ "$ZOPT" != skip ]; then
-  printf '%s\n' "[34m▓▒░[0m Updating ${THE_ZDOTDIR}/.zshrc"
-  ZI_HOME="$(echo "$ZI_HOME" | sed "s|$HOME|\$HOME|")"
-  command cat <<-EOF >>"${THE_ZDOTDIR}/.zshrc"
+MAIN_PROFILE() {
+  THE_ZDOTDIR="${ZDOTDIR:-$HOME}"
+  if grep -E '(zi|init|zinit)\.zsh' "${THE_ZDOTDIR}/.zshrc" >/dev/null 2>&1; then
+    printf '%s\n' "[34m▓▒░[0m Seems that .zshrc already has content or setup skipped - no changes will be made."
+    ZOPT='skip'
+  fi
+  if [ "$ZOPT" != skip ]; then
+    printf '%s\n' "[34m▓▒░[0m Updating ${THE_ZDOTDIR}/.zshrc"
+    ZI_HOME="$(echo "$ZI_HOME" | sed "s|$HOME|\$HOME|")"
+    command cat <<-EOF >>"${THE_ZDOTDIR}/.zshrc"
 if [[ ! -f ${ZI_HOME}/${ZI_BIN_DIR_NAME}/zi.zsh ]]; then
   print -P "%F{33}▓▒░ %F{160}Installing (%F{33}z-shell/zi%F{160})…%f"
   command mkdir -p "$ZI_HOME" && command chmod g-rwX "$ZI_HOME"
@@ -116,6 +117,19 @@ source "${ZI_HOME}/${ZI_BIN_DIR_NAME}/zi.zsh"
 autoload -Uz _zi
 (( \${+_comps} )) && _comps[zi]=_zi
 EOF
+  fi
+  if [ "$AOPT" = loader ]; then
+    command rm -rf "${THE_ZDOTDIR}/.zshrc"
+    command cat <<-EOF >>"${THE_ZDOTDIR}/.zshrc"
+if [[ -r "${XDG_CONFIG_HOME:-$HOME/.config}/zi/init.zsh" ]]; then
+  source "${XDG_CONFIG_HOME:-$HOME/.config}/zi/init.zsh" && zzinit
+fi
+EOF
+    printf '%s\n' "[34m▓▒░[0m[1;36m Installing Loader[0m"
+  fi
+}
+
+ANNEX_PROFILE() {
   if [ "$AOPT" = annex ]; then
     file="${WORKDIR}/temp-zsh-config"
     command cat <<-EOF >>"$file"
@@ -127,8 +141,7 @@ zi light-mode for \\
 EOF
     printf '%s\n' "[34m▓▒░[0m[1;36m Installing annexes[0m"
     command cat "$file" >>"${THE_ZDOTDIR}/.zshrc"
-  fi
-  if [ "$AOPT" = zunit ]; then
+  elif [ "$AOPT" = zunit ]; then
     file2="${WORKDIR}/temp-zunit-config"
     command cat <<-EOF >>"$file2"
 zi light-mode for \\
@@ -137,24 +150,29 @@ zi light-mode for \\
 EOF
     printf '%s\n' "[34m▓▒░[0m[1;36m Installing annexes + zunit[0m"
     command cat "$file2" >>"${THE_ZDOTDIR}/.zshrc"
+  else
+    printf '%s\n' "[34m▓▒░[0m[1;36m Skipped all annexes[0m"
   fi
-  if [ "$AOPT" = loader ]; then
-    command rm -rf "${THE_ZDOTDIR}/.zshrc"
-    command cat <<-EOF >>"${THE_ZDOTDIR}/.zshrc"
-if [[ -r "${XDG_CONFIG_HOME:-$HOME/.config}/zi/init.zsh" ]]; then
-  source "${XDG_CONFIG_HOME:-$HOME/.config}/zi/init.zsh" && zzinit
-fi
-EOF
-    printf '%s\n' "[34m▓▒░[0m[1;36m Installing Loader[0m"
-  fi
+}
+
+CLOSE_PROFILE() {
   zsh -ic "@zi-scheduler burst"
   printf '%s\n' "[34m▓▒░[0m Done.[0m"
-  command cat <<-EOF >>"${THE_ZDOTDIR}/.zshrc"
-EOF
-fi
-command cat <<-EOF
+  command cat <<-EOF
 [34m▓▒░[0m[1;36m Successfully installed![0m
 [34m▓▒░[0m[38;5;226m Wiki:         https://github.com/z-shell/zi/wiki[0m
 [34m▓▒░[0m[38;5;226m Discussions:  https://github.com/z-shell/zi/discussions[0m
 [34m▓▒░[0m[38;5;226m Issues:       https://github.com/z-shell/zi/issues[0m
 EOF
+}
+
+MAIN() {
+  MAIN_PROFILE
+  ANNEX_PROFILE
+  CLOSE_PROFILE
+  exit 0
+}
+
+while true; do
+  MAIN "${@}"
+done
