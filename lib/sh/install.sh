@@ -20,8 +20,8 @@ while getopts ":i:a:" opt; do
 done
 shift $((OPTIND - 1))
 
-if [ -z "TERM" ]; then
-  TERM="xterm-256color"
+if ! "$(set | grep TERM)" &> /dev/null; then
+  export TERM="xterm-256color"
 fi
     
 if [ -z "$ZI_HOME" ]; then
