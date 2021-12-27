@@ -94,6 +94,7 @@ source "${ZI_HOME}/${ZI_BIN_DIR_NAME}/zi.zsh"
 autoload -Uz _zi
 (( \${+_comps} )) && _comps[zi]=_zi
 EOF
+  if [ "$AOPT" = annex ]; then
   file="${WORKDIR}/temp-zsh-config"
   command cat <<-EOF >>"$file"
 zi light-mode for \\
@@ -102,26 +103,29 @@ zi light-mode for \\
 # examples here -> https://github.com/z-shell/zi/wiki/Gallery
            # <- https://github.com/z-shell/zi/wiki/Minimal-Setup
 EOF
+    printf '%s\n' "[34m▓▒░[0m[1;36m Installing annexes[0m"
+    command cat "$file" >>"${THE_ZDOTDIR}/.zshrc"
+  fi
+  if [ "$AOPT" = zunit ]; then
   file2="${WORKDIR}/temp-zunit-config"
   command cat <<-EOF >>"$file2"
 zi light-mode for \\
   z-shell/z-a-meta-plugins \\
   @annexes @molovo
 EOF
-  if [ "$AOPT" = annex ]; then
- #   printf '%s\n' "[34m▓▒░[0m[38;5;226m Would you like to add annexes to the zshrc?[0m"
- #   command cat "$file"
- #   printf '%s\n' "[34m▓▒░[0m Enter y/N and press Return: [0m"
- #   read -r input
- # elif [ "$input" = y ] || [ "$input" = Y ]; then
-    printf '%s\n' "[34m▓▒░[0m[1;36m Installing annexes[0m"
-    command cat "$file" >>"${THE_ZDOTDIR}/.zshrc"
-#  else
-#    printf '%s\n' "[34m▓▒░[0m Done (skipped annexes).[0m"
-  fi
-  if [ "$AOPT" = zunit ]; then
     printf '%s\n' "[34m▓▒░[0m[1;36m Installing annexes + zunit[0m"
     command cat "$file2" >>"${THE_ZDOTDIR}/.zshrc"
+  fi
+  if [ "$AOPT" = loader ]; then
+    zi_config="${XDG_CONFIG_HOME:-$HOME/.config}/zi"
+    command mkdir -p $zi_config
+    curl -fsSL https://git.io/zi-loader -o ${zi_config}/init.zsh
+    command cat <<-EOF >>"${THE_ZDOTDIR}/.zshrc"
+if [[ -r "${XDG_CONFIG_HOME:-$HOME/.config}/zi/init.zsh" ]]; then
+  source "${XDG_CONFIG_HOME:-$HOME/.config}/zi/init.zsh" && zzinit
+fi
+EOF
+    printf '%s\n' "[34m▓▒░[0m[1;36m Installing Loader[0m"
   fi
   zsh -ic "@zi-scheduler burst"
   printf '%s\n' "[34m▓▒░[0m Done.[0m"
