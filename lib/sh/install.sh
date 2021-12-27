@@ -4,7 +4,7 @@ trap 'rm -rvf "$WORKDIR"' EXIT INT
 WORKDIR="$(mktemp -d)"
 ZOPT=""
 AOPT=""
-while getopts ":i:a:z:" opt; do
+while getopts ":i:a:" opt; do
   case ${opt} in
   i) ZOPT="${ZOPT}$OPTARG"
     ;;
