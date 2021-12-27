@@ -46,20 +46,20 @@ jobs:
       - name: Install on Linux
         if: startsWith(matrix.os, 'ubuntu')
         run: |
-          sh -x ./lib/sh/install.sh --
-          sh -x ./lib/sh/install.sh -- -a skip
           sh -x ./lib/sh/install.sh -- -i skip
+          sh -x ./lib/sh/install.sh -- -a annex
+          sh -x ./lib/sh/install.sh -- -a zunit
       - name: Install on MacOS
         if: startsWith(matrix.os, 'macos')
         run: |
-          sh -x ./lib/sh/install.sh --
-          sh -x ./lib/sh/install.sh -- -a skip
           sh -x ./lib/sh/install.sh -- -i skip
+          sh -x ./lib/sh/install.sh -- -a annex
+          sh -x ./lib/sh/install.sh -- -a zunit
       - name: Install on Windows
         if: startsWith(matrix.os, 'windows')
         shell: C:\tools\cygwin\bin\bash.exe --login --norc -eo pipefail -o igncr '{0}'
         run: |
           cd ${GITHUB_WORKSPACE}
-          sh -x ./lib/sh/install.sh --
-          sh -x ./lib/sh/install.sh -- -a skip
           sh -x ./lib/sh/install.sh -- -i skip
+          sh -x ./lib/sh/install.sh -- -a annex
+          sh -x ./lib/sh/install.sh -- -a zunit
