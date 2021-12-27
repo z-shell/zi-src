@@ -4,7 +4,7 @@ trap 'rm -rvf "$WORKDIR"' EXIT INT
 WORKDIR="$(mktemp -d)"
 ZOPT=""
 AOPT=""
-BOPT="$BOPT:-main"
+BOPT="main"
 while getopts ":i:a:b:" opt; do
   case ${opt} in
   i)
@@ -14,7 +14,7 @@ while getopts ":i:a:b:" opt; do
     AOPT="${AOPT}$OPTARG"
     ;;
   b)
-    BOPT="${BOPT}$OPTARG"
+    BOPT="$OPTARG"
     ;;
   \?)
     echo "Invalid option: $OPTARG" 1>&2
@@ -25,6 +25,10 @@ while getopts ":i:a:b:" opt; do
   esac
 done
 shift $((OPTIND - 1))
+
+#if [ -z "$BOPT" ]; then
+#BOPT="main"
+#fi
 
 if [ "$AOPT" = loader ]; then
   ZI_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/zi"
