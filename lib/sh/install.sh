@@ -106,9 +106,9 @@ EOF
  #   printf '%s\n' "[34m▓▒░[0m Enter y/N and press Return: [0m"
  #   read -r input
  # elif [ "$input" = y ] || [ "$input" = Y ]; then
-    command cat "$file" >>"${THE_ZDOTDIR}/.zshrc"
     printf '%s\n' "[34m▓▒░[0m[1;36m Installing annexes[0m"
-    zsh -ic "@zi-scheduler burst || true"
+    command cat "$file" >>"${THE_ZDOTDIR}/.zshrc"
+    zsh -ic "@zi-scheduler burst"
     printf '%s\n' "[34m▓▒░[0m Done.[0m"
   else
     printf '%s\n' "[34m▓▒░[0m Done (skipped annexes).[0m"
