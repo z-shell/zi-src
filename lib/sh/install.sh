@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
 
+tput -T xterm-256color init
 trap 'rm -rvf "$WORKDIR"' EXIT INT
 WORKDIR="$(mktemp -d)"
 ZOPT=""
@@ -19,10 +20,6 @@ while getopts ":i:a:" opt; do
   esac
 done
 shift $((OPTIND - 1))
-
-if ! "$(set | grep TERM)" &> /dev/null; then
-  export TERM="xterm-256color"
-fi
     
 if [ -z "$ZI_HOME" ]; then
   ZI_HOME="${ZDOTDIR:-$HOME}/.zi"
