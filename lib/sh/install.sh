@@ -117,6 +117,7 @@ source "${ZI_HOME}/${ZI_BIN_DIR_NAME}/zi.zsh"
 autoload -Uz _zi
 (( \${+_comps} )) && _comps[zi]=_zi
 EOF
+    printf '%s\n' "[34m▓▒░[0m[1;36m Setting up minimal configuration[0m"
   fi
   if [ "$AOPT" = loader ]; then
     command rm -rf "${THE_ZDOTDIR}/.zshrc"
@@ -125,7 +126,7 @@ if [[ -r "${XDG_CONFIG_HOME:-$HOME/.config}/zi/init.zsh" ]]; then
   source "${XDG_CONFIG_HOME:-$HOME/.config}/zi/init.zsh" && zzinit
 fi
 EOF
-    printf '%s\n' "[34m▓▒░[0m[1;36m Installing Loader[0m"
+    printf '%s\n' "[34m▓▒░[0m[1;36m Setting up loader configuration[0m"
   fi
 }
 
@@ -141,6 +142,7 @@ zi light-mode for \\
 EOF
     printf '%s\n' "[34m▓▒░[0m[1;36m Installing annexes[0m"
     command cat "$file" >>"${THE_ZDOTDIR}/.zshrc"
+    zsh -ic "@zi-scheduler burst"
   elif [ "$AOPT" = zunit ]; then
     file2="${WORKDIR}/temp-zunit-config"
     command cat <<-EOF >>"$file2"
@@ -150,13 +152,13 @@ zi light-mode for \\
 EOF
     printf '%s\n' "[34m▓▒░[0m[1;36m Installing annexes + zunit[0m"
     command cat "$file2" >>"${THE_ZDOTDIR}/.zshrc"
+    zsh -ic "@zi-scheduler burst"
   else
     printf '%s\n' "[34m▓▒░[0m[1;36m Skipped all annexes[0m"
   fi
 }
 
 CLOSE_PROFILE() {
-  zsh -ic "@zi-scheduler burst"
   printf '%s\n' "[34m▓▒░[0m Done.[0m"
   command cat <<-EOF
 [34m▓▒░[0m[1;36m Successfully installed![0m
