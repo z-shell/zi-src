@@ -6,9 +6,11 @@ ZOPT=""
 AOPT=""
 while getopts ":i:a:" opt; do
   case ${opt} in
-  i) ZOPT="${ZOPT}$OPTARG"
+  i)
+    ZOPT="${ZOPT}$OPTARG"
     ;;
-  a) AOPT="${AOPT}$OPTARG"
+  a)
+    AOPT="${AOPT}$OPTARG"
     ;;
   \?)
     echo "Invalid option: $OPTARG" 1>&2
@@ -19,7 +21,18 @@ while getopts ":i:a:" opt; do
   esac
 done
 shift $((OPTIND - 1))
-    
+
+if [ "$AOPT" = loader ]; then
+  ZI_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/zi"
+  command mkdir -p "$ZI_CONFIG_DIR"
+  if command -v curl >/dev/null 2>&1; then
+    command curl -fsSL https://git.io/zi-loader -o "${ZI_CONFIG_DIR}/init.zsh"
+  elif command -v wget >/dev/null 2>&1; then
+    command wget -qO "${ZI_CONFIG_DIR}/init.zsh" https://git.io/zi-loader
+  fi
+  command chmod a+x "${ZI_CONFIG_DIR}/init.zsh"
+fi
+
 if [ -z "$ZI_HOME" ]; then
   ZI_HOME="${ZDOTDIR:-$HOME}/.zi"
 fi
@@ -95,8 +108,8 @@ autoload -Uz _zi
 (( \${+_comps} )) && _comps[zi]=_zi
 EOF
   if [ "$AOPT" = annex ]; then
-  file="${WORKDIR}/temp-zsh-config"
-  command cat <<-EOF >>"$file"
+    file="${WORKDIR}/temp-zsh-config"
+    command cat <<-EOF >>"$file"
 zi light-mode for \\
   z-shell/z-a-meta-plugins \\
   @annexes # <- https://github.com/z-shell/zi/wiki/Annexes
@@ -107,8 +120,8 @@ EOF
     command cat "$file" >>"${THE_ZDOTDIR}/.zshrc"
   fi
   if [ "$AOPT" = zunit ]; then
-  file2="${WORKDIR}/temp-zunit-config"
-  command cat <<-EOF >>"$file2"
+    file2="${WORKDIR}/temp-zunit-config"
+    command cat <<-EOF >>"$file2"
 zi light-mode for \\
   z-shell/z-a-meta-plugins \\
   @annexes @molovo
@@ -117,9 +130,6 @@ EOF
     command cat "$file2" >>"${THE_ZDOTDIR}/.zshrc"
   fi
   if [ "$AOPT" = loader ]; then
-    zi_config="${XDG_CONFIG_HOME:-$HOME/.config}/zi"
-    command mkdir -p "$zi_config"
-    curl -fsSL https://git.io/zi-loader -o "${zi_config}/init.zsh"
     command rm -rf "${THE_ZDOTDIR}/.zshrc"
     command cat <<-EOF >>"${THE_ZDOTDIR}/.zshrc"
 if [[ -r "${XDG_CONFIG_HOME:-$HOME/.config}/zi/init.zsh" ]]; then
