@@ -18,20 +18,3 @@ sh -c "$(curl -fsSL https://git.io/get-zi)" -- -a zunit
 sh -c "$(curl -fsSL https://git.io/get-zi)" -- -a loader
 ```
 > Branch: `-b branch`
-
-## Loader
-
-```zsh
-# Prepare
-zi_config="${XDG_CONFIG_HOME:-$HOME/.config}/zi"
-command mkdir -p $zi_config
-command curl -fsSL https://git.io/zi-loader -o ${zi_config}/init.zsh
-```
- 
-
-```zsh
-# Add at the top of your .zshrc
-if [[ -r "${XDG_CONFIG_HOME:-$HOME/.config}/zi/init.zsh" ]]; then
-  source "${XDG_CONFIG_HOME:-$HOME/.config}/zi/init.zsh" && zzinit
-fi
-```
