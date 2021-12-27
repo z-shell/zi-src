@@ -117,7 +117,7 @@ source "${ZI_HOME}/${ZI_BIN_DIR_NAME}/zi.zsh"
 autoload -Uz _zi
 (( \${+_comps} )) && _comps[zi]=_zi
 EOF
-    printf '%s\n' "[34m▓▒░[0m[1;36m Setting up minimal configuration[0m"
+    printf '%s\n' "[34m▓▒░[0m[1;36m Minimal configuration[0m"
   fi
   if [ "$AOPT" = loader ]; then
     command rm -rf "${THE_ZDOTDIR}/.zshrc"
@@ -126,7 +126,7 @@ if [[ -r "${XDG_CONFIG_HOME:-$HOME/.config}/zi/init.zsh" ]]; then
   source "${XDG_CONFIG_HOME:-$HOME/.config}/zi/init.zsh" && zzinit
 fi
 EOF
-    printf '%s\n' "[34m▓▒░[0m[1;36m Setting up loader configuration[0m"
+    printf '%s\n' "[34m▓▒░[0m[1;36m Loader added[0m"
   fi
 }
 
