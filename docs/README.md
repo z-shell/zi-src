@@ -17,6 +17,7 @@ sh -c "$(curl -fsSL https://git.io/get-zi)" -- -a zunit
 # Minimal configuration with loader
 sh -c "$(curl -fsSL https://git.io/get-zi)" -- -a loader
 ```
+> Branch: `-b branch`
 
 ## Loader
 
