@@ -39,7 +39,7 @@ if [ "$AOPT" = loader ]; then
     command wget -qO "${ZI_CONFIG_DIR}/init.zsh" https://git.io/zi-loader
   fi
   command chmod a+x "${ZI_CONFIG_DIR}/init.zsh"
-  command sed -i "s/branch="main"/branch=$BOPT/g" init.zsh
+  command sed -i "s/branch="main"/branch=\"$BOPT\"/g" init.zsh
 fi
 
 if [ -z "$ZI_HOME" ]; then
