@@ -4,7 +4,7 @@ trap 'rm -rvf "$WORKDIR"' EXIT INT
 WORKDIR="$(mktemp -d)"
 ZOPT=""
 AOPT=""
-BOPT="main"
+BOPT="$BOPT:-main"
 while getopts ":i:a:b:" opt; do
   case ${opt} in
   i)
