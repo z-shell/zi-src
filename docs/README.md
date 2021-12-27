@@ -13,6 +13,9 @@ sh -c "$(curl -fsSL https://git.io/get-zi)" -- -a annex
 
 # Minimal configuration + annexes + zunit.
 sh -c "$(curl -fsSL https://git.io/get-zi)" -- -a zunit
+
+# Minimal configuration with loader
+sh -c "$(curl -fsSL https://git.io/get-zi)" -- -a loader
 ```
 
 ## Loader
