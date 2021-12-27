@@ -4,14 +4,11 @@ trap 'rm -rvf "$WORKDIR"' EXIT INT
 WORKDIR="$(mktemp -d)"
 ZOPT=""
 AOPT=""
-ZUOPT=""
 while getopts ":i:a:z:" opt; do
   case ${opt} in
   i) ZOPT="${ZOPT}$OPTARG"
     ;;
   a) AOPT="${AOPT}$OPTARG"
-    ;;
-  z) ZUOPT="${ZUOPT}$OPTARG"
     ;;
   \?)
     echo "Invalid option: $OPTARG" 1>&2
@@ -111,7 +108,7 @@ zi light-mode for \\
   z-shell/z-a-meta-plugins \\
   @annexes @molovo
 EOF
-  if [ "$AOPT" != skip ]; then
+  if [ "$AOPT" = annex ]; then
  #   printf '%s\n' "[34m▓▒░[0m[38;5;226m Would you like to add annexes to the zshrc?[0m"
  #   command cat "$file"
  #   printf '%s\n' "[34m▓▒░[0m Enter y/N and press Return: [0m"
@@ -119,10 +116,10 @@ EOF
  # elif [ "$input" = y ] || [ "$input" = Y ]; then
     printf '%s\n' "[34m▓▒░[0m[1;36m Installing annexes[0m"
     command cat "$file" >>"${THE_ZDOTDIR}/.zshrc"
-  else
-    printf '%s\n' "[34m▓▒░[0m Done (skipped annexes).[0m"
+#  else
+#    printf '%s\n' "[34m▓▒░[0m Done (skipped annexes).[0m"
   fi
-  if [ "$ZUOPT" = zunit ]; then
+  if [ "$AOPT" = zunit ]; then
     printf '%s\n' "[34m▓▒░[0m[1;36m Installing annexes + zunit[0m"
     command cat "$file2" >>"${THE_ZDOTDIR}/.zshrc"
   fi
