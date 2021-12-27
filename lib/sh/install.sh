@@ -1,6 +1,5 @@
 #!/usr/bin/env sh
 
-tput -T xterm-256color init
 trap 'rm -rvf "$WORKDIR"' EXIT INT
 WORKDIR="$(mktemp -d)"
 ZOPT=""
@@ -55,17 +54,17 @@ fi
 
 if test -d "${ZI_HOME}/${ZI_BIN_DIR_NAME}/.git"; then
   cd "${ZI_HOME}/${ZI_BIN_DIR_NAME}" || return
-  printf '%s\n' "[1;34m▓▒░[0m Updating [1;36m(z-shell/zi)[1;33m plugin manager[0m at [1;35m${ZI_HOME}/${ZI_BIN_DIR_NAME}[0m"
+  echo -e "[1;34m▓▒░[0m Updating [1;36m(z-shell/zi)[1;33m plugin manager[0m at [1;35m${ZI_HOME}/${ZI_BIN_DIR_NAME}[0m"
   command git pull -q origin HEAD
 else
   cd "$ZI_HOME" || return
-  printf '%s\n' "[1;34m▓▒░[0m Installing [1;36m(z-shell/zi)[1;33m plugin manager[0m at [1;35m${ZI_HOME}/${ZI_BIN_DIR_NAME}[0m"
+  echo -e "[1;34m▓▒░[0m Installing [1;36m(z-shell/zi)[1;33m plugin manager[0m at [1;35m${ZI_HOME}/${ZI_BIN_DIR_NAME}[0m"
   { git clone --progress --depth=1 --single-branch https://github.com/z-shell/zi.git "$ZI_BIN_DIR_NAME" \
     2>&1 | { /tmp/zi/git-process-output.zsh || cat; }; } 2>/dev/null
   if [ -d "$ZI_BIN_DIR_NAME" ]; then
-    printf '%s\n' "[1;34m▓▒░[0m Successfully installed at [1;32m${ZI_HOME}/${ZI_BIN_DIR_NAME}[0m".
+    echo -e "[1;34m▓▒░[0m Successfully installed at [1;32m${ZI_HOME}/${ZI_BIN_DIR_NAME}[0m".
   else
-    printf '%s\n' "[1;31m▓▒░[0m Something went wrong, couldn't install ZI at [1;33m${ZI_HOME}/${ZI_BIN_DIR_NAME}[0m"
+    echo -e "[1;31m▓▒░[0m Something went wrong, couldn't install ZI at [1;33m${ZI_HOME}/${ZI_BIN_DIR_NAME}[0m"
   fi
 fi
 
@@ -75,7 +74,7 @@ fi
 
 THE_ZDOTDIR="${ZDOTDIR:-$HOME}"
 if grep -E '(zi|init|zinit)\.zsh' "${THE_ZDOTDIR}/.zshrc" >/dev/null 2>&1; then
-  printf '%s\n' "[34m▓▒░[0m Seems that .zshrc has content not making changes."
+  echo -e "[34m▓▒░[0m Seems that .zshrc has content not making changes."
   ZOPT='skip'
 fi
 if [ "$ZOPT" != skip ]; then
@@ -108,11 +107,11 @@ EOF
  #   read -r input
  # elif [ "$input" = y ] || [ "$input" = Y ]; then
     command cat "$file" >>"${THE_ZDOTDIR}/.zshrc"
-    printf '%s\n' "[34m▓▒░[0m[1;36m Installing annexes[0m"
+    echo -e "[34m▓▒░[0m[1;36m Installing annexes[0m"
     zsh -ic "@zi-scheduler burst"
-    printf '%s\n' "[34m▓▒░[0m Done.[0m"
+    echo -e '%s\n' "[34m▓▒░[0m Done.[0m"
   else
-    printf '%s\n' "[34m▓▒░[0m Done (skipped annexes).[0m"
+    echo -e "[34m▓▒░[0m Done (skipped annexes).[0m"
   fi
   command cat <<-EOF >>"${THE_ZDOTDIR}/.zshrc"
 EOF
