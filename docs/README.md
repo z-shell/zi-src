@@ -1,5 +1,3 @@
-[![Install Library](https://github.com/z-shell/zi-src/actions/workflows/check-sh.yml/badge.svg)](https://github.com/z-shell/zi-src/actions/workflows/check-sh.yml)
-
 ## Install
 
 ```zsh
