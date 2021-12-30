@@ -116,6 +116,8 @@ fi
 source "${ZI_HOME}/${ZI_BIN_DIR_NAME}/zi.zsh"
 autoload -Uz _zi
 (( \${+_comps} )) && _comps[zi]=_zi
+# examples here -> https://github.com/z-shell/zi/wiki/Gallery
+zicompinit # <- https://github.com/z-shell/zi/wiki/Minimal-Setup
 EOF
     printf '%s\n' "[34m▓▒░[0m[1;36m Minimal configuration[0m"
   fi
@@ -138,7 +140,7 @@ zi light-mode for \\
   z-shell/z-a-meta-plugins \\
   @annexes # <- https://github.com/z-shell/zi/wiki/Annexes
 # examples here -> https://github.com/z-shell/zi/wiki/Gallery
-           # <- https://github.com/z-shell/zi/wiki/Minimal-Setup
+zicompinit # <- https://github.com/z-shell/zi/wiki/Minimal-Setup
 EOF
     printf '%s\n' "[34m▓▒░[0m[1;36m Installing annexes[0m"
     command cat "$file" >>"${THE_ZDOTDIR}/.zshrc"
