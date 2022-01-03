@@ -116,12 +116,12 @@ fi
 source "${ZI_HOME}/${ZI_BIN_DIR_NAME}/zi.zsh"
 autoload -Uz _zi
 (( \${+_comps} )) && _comps[zi]=_zi
-# examples here -> https://github.com/z-shell/zi/wiki/Gallery
-zicompinit # <- https://github.com/z-shell/zi/wiki/Minimal-Setup
+# examples here -> https://z-shell.pages.dev/docs/gallery/collection
+zicompinit # <- https://z-shell.pages.dev/docs/gallery/collection#minimal
 EOF
     printf '%s\n' "[34m▓▒░[0m[1;36m Minimal configuration[0m"
   fi
-  if [ "$AOPT" = loader ]; then
+  if [ "$AOPT" = loader ] && [ "$ZOPT" != skip ]; then
     command rm -rf "${THE_ZDOTDIR}/.zshrc"
     command cat <<-EOF >>"${THE_ZDOTDIR}/.zshrc"
 if [[ -r "${XDG_CONFIG_HOME:-$HOME/.config}/zi/init.zsh" ]]; then
@@ -138,9 +138,9 @@ ANNEX_PROFILE() {
     command cat <<-EOF >>"$file"
 zi light-mode for \\
   z-shell/z-a-meta-plugins \\
-  @annexes # <- https://github.com/z-shell/zi/wiki/Annexes
-# examples here -> https://github.com/z-shell/zi/wiki/Gallery
-zicompinit # <- https://github.com/z-shell/zi/wiki/Minimal-Setup
+  @annexes # <- https://z-shell.pages.dev/docs/ecosystem/annexes
+# examples here -> https://z-shell.pages.dev/docs/gallery/collection
+zicompinit # <- https://z-shell.pages.dev/docs/gallery/collection#minimal
 EOF
     printf '%s\n' "[34m▓▒░[0m[1;36m Installing annexes[0m"
     command cat "$file" >>"${THE_ZDOTDIR}/.zshrc"
@@ -164,7 +164,7 @@ CLOSE_PROFILE() {
   printf '%s\n' "[34m▓▒░[34m Done.[0m"
   command cat <<-EOF
 [34m▓▒░[0m[1;36m Successfully installed![0m
-[34m▓▒░[0m[38;5;226m Wiki:         https://github.com/z-shell/zi/wiki[0m
+[34m▓▒░[0m[38;5;226m Wiki:         https://z-shell.pages.dev[0m
 [34m▓▒░[0m[38;5;226m Discussions:  https://github.com/z-shell/zi/discussions[0m
 [34m▓▒░[0m[38;5;226m Issues:       https://github.com/z-shell/zi/issues[0m
 EOF
