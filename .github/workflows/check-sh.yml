@@ -1,4 +1,5 @@
-name: Install Library
+---
+name: ⚙️ Install Library
 
 on: 
   push:
@@ -11,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: ShellCheck
+    - name: ☑️ ShellCheck
       uses: ludeeus/action-shellcheck@master
       with:
         scandir: './lib/sh'
@@ -23,41 +24,41 @@ jobs:
         os: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:    
-      - name: Prepare repository for Windows
+      - name: ♻️ Prepare repository for Windows
         if: startsWith(matrix.os, 'windows')
         run: git config --global core.autocrlf input
       - uses: actions/checkout@v2
       - uses: rlespinasse/github-slug-action@v3.x
-      - name: Linux dependencies
+      - name: 📦 Linux dependencies
         if: startsWith(matrix.os, 'ubuntu-latest')
         run: |
           sudo apt-get update
           sudo apt-get install -y curl git zsh
-      - name: MacOS dependencies
+      - name: 🍎 MacOS dependencies
         if: startsWith(matrix.os, 'macos')
         run: |
           brew install curl git zsh
-      - name: Windows dependencies
+      - name: 🪟 Windows dependencies
         if: startsWith(matrix.os, 'windows')
         uses: egor-tensin/setup-cygwin@v3
         with:
           platform: x64
           packages: curl git zsh
-      - name: Install on Linux
+      - name: 🐧 Install on Linux
         if: startsWith(matrix.os, 'ubuntu')
         run: |
           sh -x ./lib/sh/install.sh -- -i skip
           sh -x ./lib/sh/install.sh -- -a annex
           sh -x ./lib/sh/install.sh -- -a loader
           sh -x ./lib/sh/install.sh -- -a zunit
-      - name: Install on MacOS
+      - name: 🍎 Install on MacOS
         if: startsWith(matrix.os, 'macos')
         run: |
           sh -x ./lib/sh/install.sh -- -i skip
           sh -x ./lib/sh/install.sh -- -a annex
           sh -x ./lib/sh/install.sh -- -a loader
           sh -x ./lib/sh/install.sh -- -a zunit
-      - name: Install on Windows
+      - name: 🪟 Install on Windows
         if: startsWith(matrix.os, 'windows')
         shell: C:\tools\cygwin\bin\bash.exe --login --norc -eo pipefail -o igncr '{0}'
         run: |
