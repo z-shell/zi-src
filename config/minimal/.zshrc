@@ -4,5 +4,7 @@ fi
 
 source ~/.zi/bin/zi.zsh
 
-zicompinit
-zicdreplay
+#...
+
+#zicompinit
+#zicdreplay
