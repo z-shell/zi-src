@@ -1,11 +1,17 @@
-## Install
+<h2 align="center">
+  <a href="https://github.com/z-shell/zi">
+    <img src="https://github.com/z-shell/zi/raw/main/docs/images/logo.svg" alt="Logo" width="80" height="80">
+  </a>
+❮ ZI ❯ Source
+</h2>
 
-### Links: 
+## Links: 
 
 Install:
 
 - https://git.io/get-zi
-- https://z-shell.pages.dev/install
+- https://z-shell.pages.dev/i-hub
+- https://z-shell.pages.dev/i-lab
 - https://z-shell.github.io/zi-src/sh/install.sh
 - https://raw.githubusercontent.com/z-shell/zi-src/main/lib/sh/install.sh
 
@@ -15,6 +21,8 @@ Loader:
 - https://z-shell.pages.dev/loader
 - https://z-shell.github.io/zi-src/zsh/init.zsh
 - https://raw.githubusercontent.com/z-shell/zi-src/main/lib/zsh/init.zsh
+
+## Install
 
 ```zsh
 # Will add minimal configuration
