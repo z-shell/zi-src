@@ -5,12 +5,14 @@
 Install:
 
 - https://git.io/get-zi
+- https://z-shell.pages.dev/install
 - https://z-shell.github.io/zi-src/sh/install.sh
 - https://raw.githubusercontent.com/z-shell/zi-src/main/lib/sh/install.sh
 
 Loader:
 
 - https://git.io/zi-loader
+- https://z-shell.pages.dev/loader
 - https://z-shell.github.io/zi-src/zsh/init.zsh
 - https://raw.githubusercontent.com/z-shell/zi-src/main/lib/zsh/init.zsh
 
