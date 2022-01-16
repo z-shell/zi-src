@@ -4,6 +4,7 @@ local repo="https://github.com/z-shell/zi.git"
 local branch="main"
 local verbose_mode="${verbose_mode:-false}"
 # ZI variables:
+# https://z-shell.pages.dev/docs/guides/customization
 declare -A ZI
 # Where ZI should create all working directories, e.g.: "~/.zi"
 ZI[HOME_DIR]="${HOME}/.zi"
