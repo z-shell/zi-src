@@ -4,6 +4,7 @@ local repo="https://github.com/z-shell/zi.git"
 local branch="main"
 local verbose_mode="${verbose_mode:-false}"
 # ZI variables:
+# https://z-shell.pages.dev/docs/guides/customization
 declare -A ZI
 # Where ZI should create all working directories, e.g.: "~/.zi"
 ZI[HOME_DIR]="${HOME}/.zi"
@@ -24,7 +25,7 @@ zzsetup() {
   command git clone -q --progress --branch "$branch" "$repo" "${ZI[BIN_DIR]}"
     if [[ -f "${ZI[BIN_DIR]}/zi.zsh" ]]; then
       [[ $verbose_mode == true ]] && builtin print "(ZI): Installed and ZI (zi.zsh) is found"
-      git_refs=("${(@f)$(cd "${ZI[BIN_DIR]}"; command git for-each-ref --format="%(refname:short):%(subject)" refs/heads refs/tags)}")
+      git_refs=("${(@f)$(cd "${ZI[BIN_DIR]}"; command git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit | head -10)}")
       print -P "%F{33}▓▒░ %F{34}Successfully installed %F{160}(%F{33}z-shell/zi%F{160})%f%b"
       print -P "%F{33}▓▒░ %F{226}Last changes:%f%b"
       print -P "%F{33}▓▒░ %F{160}(%F{33}$git_refs%F{160})%f%b"

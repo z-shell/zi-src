@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-trap 'rm -rvf "$WORKDIR"' EXIT INT
+trap 'rm -rf "$WORKDIR"' EXIT INT
 WORKDIR="$(mktemp -d)"
 ZOPT=""
 AOPT=""
@@ -34,9 +34,9 @@ if [ "$AOPT" = loader ]; then
   ZI_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/zi"
   command mkdir -p "$ZI_CONFIG_DIR"
   if command -v curl >/dev/null 2>&1; then
-    command curl -fsSL https://git.io/zi-loader -o "${ZI_CONFIG_DIR}/init.zsh"
+    command curl -fsSL https://raw.githubusercontent.com/z-shell/zi-src/main/lib/zsh/init.zsh -o "${ZI_CONFIG_DIR}/init.zsh"
   elif command -v wget >/dev/null 2>&1; then
-    command wget -qO "${ZI_CONFIG_DIR}/init.zsh" https://git.io/zi-loader
+    command wget -qO "${ZI_CONFIG_DIR}/init.zsh" https://raw.githubusercontent.com/z-shell/zi-src/main/lib/zsh/init.zsh
   fi
   command chmod a+x "${ZI_CONFIG_DIR}/init.zsh"
   command sed -i "s/branch=\"main\"/branch=\"$BOPT\"/g" "${ZI_CONFIG_DIR}/init.zsh"
@@ -165,8 +165,8 @@ CLOSE_PROFILE() {
   command cat <<-EOF
 [34m▓▒░[0m[1;36m Successfully installed![0m
 [34m▓▒░[0m[38;5;226m Wiki:         https://z-shell.pages.dev[0m
-[34m▓▒░[0m[38;5;226m Discussions:  https://github.com/z-shell/zi/discussions[0m
 [34m▓▒░[0m[38;5;226m Issues:       https://github.com/z-shell/zi/issues[0m
+[34m▓▒░[0m[38;5;226m Discussions:  https://github.com/z-shell/zi/discussions[0m
 EOF
 }
 
