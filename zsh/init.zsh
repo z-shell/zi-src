@@ -28,7 +28,7 @@ zzsetup() {
       git_refs=("$(cd "${ZI[BIN_DIR]}"; command git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit | head -10)")
       print -P "%F{33}▓▒░ %F{34}Successfully installed %F{160}(%F{33}z-shell/zi%F{160})%f%b"
       print -P "%F{33}▓▒░ %F{226}Last changes:%f%b"
-      print -P "%F{33}▓▒░ %F{160}(%F{33}$git_refs%F{160})%f%b"
+      print -P "%F{33}▓▒░ %F{160}%F{33}\n${git_refs}%F{160}%f%b"
     else
       print -P "%F{160}▓▒░ The clone has failed…%f%b"
       print -P "%F{160}▓▒░ %F{33} Please report the issue:%f%b"
