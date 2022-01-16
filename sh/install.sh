@@ -161,7 +161,9 @@ EOF
 }
 
 CLOSE_PROFILE() {
-  printf '%s\n' "[34m▓▒░[34m Done.[0m"
+  git_refs="$(command cd "${ZI_HOME}/${ZI_BIN_DIR_NAME}" || true; command git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit | head -5)"
+  printf '%s\n' "[34m▓▒░[0m[38;5;226m Latest changes:[0m"
+  printf '%s\n' "$git_refs"
   command cat <<-EOF
 [34m▓▒░[0m[1;36m Successfully installed![0m
 [34m▓▒░[0m[38;5;226m Wiki:         https://z-shell.pages.dev[0m
