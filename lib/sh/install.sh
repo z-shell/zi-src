@@ -161,8 +161,13 @@ EOF
 }
 
 CLOSE_PROFILE() {
+  git_refs=("$(cd "${ZI[BIN_DIR]}"; command git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit | head -5)")
   printf '%s\n' "[34m▓▒░[34m Done.[0m"
   command cat <<-EOF
+[34m▓▒░[0m[38;5;226m Latest changes:[0m
+
+$git_refs
+
 [34m▓▒░[0m[1;36m Successfully installed![0m
 [34m▓▒░[0m[38;5;226m Wiki:         https://z-shell.pages.dev[0m
 [34m▓▒░[0m[38;5;226m Issues:       https://github.com/z-shell/zi/issues[0m
