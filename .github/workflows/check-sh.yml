@@ -2,6 +2,9 @@
 name: ⚙️ Install Library
 
 on: 
+  pull_request:
+    paths:
+      - "lib/sh/**"
   push:
     paths:
       - "lib/sh/**" 
