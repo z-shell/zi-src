@@ -116,8 +116,8 @@ fi
 source "${ZI_HOME}/${ZI_BIN_DIR_NAME}/zi.zsh"
 autoload -Uz _zi
 (( \${+_comps} )) && _comps[zi]=_zi
-# examples here -> https://z-shell.pages.dev/docs/gallery/collection
-zicompinit # <- https://z-shell.pages.dev/docs/gallery/collection#minimal
+# examples here -> https://z.digitalclouds.dev/docs/ecosystem/annexes
+zicompinit # <- https://z.digitalclouds.dev/docs/guides/commands
 EOF
     printf '%s\n' "[34m▓▒░[0m[1;36m Minimal configuration[0m"
   fi
@@ -138,9 +138,9 @@ ANNEX_PROFILE() {
     command cat <<-EOF >>"$file"
 zi light-mode for \\
   z-shell/z-a-meta-plugins \\
-  @annexes # <- https://z-shell.pages.dev/docs/ecosystem/annexes
-# examples here -> https://z-shell.pages.dev/docs/gallery/collection
-zicompinit # <- https://z-shell.pages.dev/docs/gallery/collection#minimal
+  @annexes # <- https://z.digitalclouds.dev/docs/ecosystem/annexes
+# examples here -> https://z.digitalclouds.dev/docs/gallery/collection
+zicompinit # <- https://z.digitalclouds.dev/docs/guides/commands
 EOF
     printf '%s\n' "[34m▓▒░[0m[1;36m Installing annexes[0m"
     command cat "$file" >>"${THE_ZDOTDIR}/.zshrc"
@@ -166,9 +166,9 @@ CLOSE_PROFILE() {
   printf '%s\n' "$git_refs"
   command cat <<-EOF
 [34m▓▒░[0m[1;36m Successfully installed![0m
-[34m▓▒░[0m[38;5;226m Wiki:         https://z-shell.pages.dev[0m
+[34m▓▒░[0m[38;5;226m Wiki:         https://z.digitalclouds.dev[0m
 [34m▓▒░[0m[38;5;226m Issues:       https://github.com/z-shell/zi/issues[0m
-[34m▓▒░[0m[38;5;226m Discussions:  https://github.com/z-shell/zi/discussions[0m
+[34m▓▒░[0m[38;5;226m Discussions:  https://z.digitalclouds.dev/discussions[0m
 EOF
 }
 
