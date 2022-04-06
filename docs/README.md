@@ -5,22 +5,22 @@
 ❮ ZI ❯ Source
 </h1>
 
-ZI Wiki Pages: https://z-shell.pages.dev :sparkles:
+ZI Wiki Pages: https://z.digitalclouds.dev :sparkles:
 
 ## Links: 
 
 Install:
 
 - https://git.io/get-zi
-- https://z-shell.pages.dev/i-hub
-- https://z-shell.pages.dev/i-lab
+- https://z.digitalclouds.dev/i-hub
+- https://z.digitalclouds.dev/i-lab
 - https://z-shell.github.io/zi-src/sh/install.sh
 - https://raw.githubusercontent.com/z-shell/zi-src/main/lib/sh/install.sh
 
 Loader:
 
 - https://git.io/zi-loader
-- https://z-shell.pages.dev/loader
+- https://z.digitalclouds.dev/loader
 - https://z-shell.github.io/zi-src/zsh/init.zsh
 - https://raw.githubusercontent.com/z-shell/zi-src/main/lib/zsh/init.zsh
 
