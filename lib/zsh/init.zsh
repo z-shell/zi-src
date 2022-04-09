@@ -1,17 +1,31 @@
 #!/usr/bin/env zsh
+
+# ZI Loader
+#
+# https://z.digitalclouds.dev/community/zsh_plugin_standard
+0="${ZERO:-${${0:#$ZSH_ARGZERO}:-${(%):-%N}}}"
+0="${${(M)0:#/*}:-$PWD/$0}"
+if [[ $PMSPEC != *f* ]] {
+  fpath+=( "${0:h}/functions" )
+}
+
 # Variables:
 local repo="https://github.com/z-shell/zi.git"
 local branch="main"
 local verbose_mode="${verbose_mode:-false}"
+
 # ZI variables:
-# https://z-shell.pages.dev/docs/guides/customization
 declare -A ZI
+
 # Where ZI should create all working directories, e.g.: "~/.zi"
 ZI[HOME_DIR]="${HOME}/.zi"
+
 # Where ZI code resides, e.g.: "~/.zi/bin"
 ZI[BIN_DIR]="${HOME}/.zi/bin"
+
 # Path to .zcompdump file, with the file included (i.e. its name can be different)
 ZI[ZCOMPDUMP_PATH]="${HOME}/.zcompdump"
+
 # If set to 1, then mutes some of the ZI warnings, specifically the plugin already registered warning
 ZI[MUTE_WARNINGS]='0'
 
