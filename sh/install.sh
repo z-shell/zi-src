@@ -253,7 +253,7 @@ CLOSE_PROFILE() {
 
 MAIN() {
   if [ "$AOPT" = zpmod ]; then
-    ZPMOD_PROFILE
+    ZPMOD_PROFILE "$@"
   else
     MAIN_PROFILE
     ANNEX_PROFILE
