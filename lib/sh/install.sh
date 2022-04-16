@@ -241,8 +241,8 @@ ZPMOD_PROFILE() {
   printf '%s\n' "${col_info2}Press any key to continue, or Ctrl-C to exit.$col_rst"
   read -r
 
-  setup_zpmod_repository
-  build_zpmod_module "$@"
+  SETUP_ZPMOD
+  BUILD_ZPMOD "$@"
 }
 
 CLOSE_PROFILE() {
