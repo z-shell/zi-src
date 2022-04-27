@@ -5,7 +5,7 @@
 ❮ ZI ❯ Source
 </h1>
 
-ZI Wiki Pages: https://z.digitalclouds.dev
-ZI Source Page: https://zsh.pages.dev
-ZI RAW Page: https://raw.zshell.dev
-ZI IPFS: https://src.zshell.dev
+- Wiki Pages: https://z.digitalclouds.dev
+- Source Page: https://zsh.pages.dev
+- RAW Page: https://raw.zshell.dev
+- IPFS: https://src.zshell.dev
