@@ -20,9 +20,15 @@ while getopts ":i:a:b:" opt; do
     ;;
   \?)
     echo "Invalid option: ${OPTARG}" 1>&2
+    exit 1
     ;;
   :)
     echo "Invalid option: ${OPTARG} requires an argument" 1>&2
+    exit 1
+    ;;
+  *)
+    echo "Invalid option: ${OPTARG}" 1>&2
+    exit 1
     ;;
   esac
 done
