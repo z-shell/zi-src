@@ -1,15 +1,32 @@
-/**
- * Welcome to Cloudflare Workers! This is your first worker.
- *
- * - Run `wrangler dev src/index.ts` in your terminal to start a development server
- * - Open a browser tab at http://localhost:8787/ to see your worker in action
- * - Run `wrangler publish src/index.ts --name my-worker` to publish your worker
- *
- * Learn more at https://developers.cloudflare.com/workers/
- */
+addEventListener('fetch', (event) => {
+  event.respondWith(handleRequest(event))
+})
 
-export default {
-  async fetch(request: Request): Promise<Response> {
-    return new Response("Hello World!");
-  },
-};
+const BUCKET_NAME = 'main'
+const BUCKET_URL = `https://github.com/z-shell/zi-src/raw/${BUCKET_NAME}`
+
+async function serveAsset(event) {
+  const url = new URL(event.request.url)
+  const cache = caches.default
+  let response = await cache.match(event.request)
+
+  if (!response) {
+    response = await fetch(`${BUCKET_URL}${url.pathname}`)
+    const headers = { 'cache-control': 'public, max-age=14400' }
+    response = new Response(response.body, { ...response, headers })
+    event.waitUntil(cache.put(event.request, response.clone()))
+  }
+  return response
+}
+
+async function handleRequest(event) {
+  if (event.request.method === 'GET') {
+    let response = await serveAsset(event)
+    if (response.status > 399) {
+      response = new Response(response.statusText, { status: response.status })
+    }
+    return response
+  } else {
+    return new Response('Method not allowed', { status: 405 })
+  }
+}
