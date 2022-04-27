@@ -2,8 +2,8 @@ addEventListener("fetch", (event) => {
   event.respondWith(handleRequest(event));
 });
 
-const BUCKET_NAME = "main";
-const BUCKET_URL = `https://github.com/z-shell/zi-src/raw/${BUCKET_NAME}`;
+const BRANCH = "main";
+const BUCKET_URL = `https://github.com/z-shell/zi-src/raw/${BRANCH}`;
 
 async function serveAsset(event) {
   const url = new URL(event.request.url);
