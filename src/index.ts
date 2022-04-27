@@ -3,7 +3,7 @@ addEventListener("fetch", (event) => {
 });
 
 const BRANCH = "main";
-const BUCKET_URL = `https://github.com/z-shell/zi-src/raw/${BRANCH}`;
+const BUCKET_URL = `https://raw.githubusercontent.com/z-shell/zi-src/${BRANCH}`;
 
 async function serveAsset(event) {
   const url = new URL(event.request.url);
