@@ -1,24 +1,24 @@
 ---
 name: ⚙️ Install Library
 
-on: 
+on:
   pull_request:
     paths:
       - "lib/sh/**"
   push:
     paths:
-      - "lib/sh/**" 
+      - "lib/sh/**"
   workflow_dispatch:
 
 jobs:
   shellcheck:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: ☑️ ShellCheck
-      uses: ludeeus/action-shellcheck@master
-      with:
-        scandir: './lib/sh'
+      - uses: actions/checkout@v3
+      - name: ☑️ ShellCheck
+        uses: ludeeus/action-shellcheck@master
+        with:
+          scandir: "./lib/sh"
 
   run-install:
     strategy:
@@ -26,7 +26,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
-    steps:    
+    steps:
       - name: ♻️ Prepare repository for Windows
         if: startsWith(matrix.os, 'windows')
         run: git config --global core.autocrlf input
@@ -73,4 +73,3 @@ jobs:
           sh -x ./lib/sh/install.sh -- -a loader
           sh -x ./lib/sh/install.sh -- -a zunit
           sh -x ./lib/sh/install.sh -- -a zpmod
- 

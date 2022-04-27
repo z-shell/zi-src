@@ -7,7 +7,7 @@
 
 ZI Wiki Pages: https://z.digitalclouds.dev :sparkles:
 
-## Links: 
+## Links:
 
 Install:
 
@@ -42,4 +42,5 @@ sh -c "$(curl -fsSL https://zi.zshell.dev/sh/install.sh)" -- -a zunit
 # Minimal configuration with loader
 sh -c "$(curl -fsSL https://zi.zshell.dev/sh/install.sh)" -- -a loader
 ```
+
 > Branch: `-b branch`
