@@ -7,7 +7,7 @@
 
 ZI Wiki Pages: https://z.digitalclouds.dev :sparkles:
 
-## Links:
+## Links
 
 Install:
 
