@@ -6,6 +6,6 @@
 </h1>
 
 - Wiki Pages: https://z.digitalclouds.dev
-- Source Page: https://zsh.pages.dev
+- Source Page: https://src.zshell.dev
 - RAW Page: https://raw.zshell.dev
-- IPFS: https://src.zshell.dev
+- IPFS: https://ipfs.zshell.dev
