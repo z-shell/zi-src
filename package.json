@@ -1,0 +1,22 @@
+{
+  "name": "zi-src",
+  "version": "0.0.0",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format:check": "prettier --check '**/*.{js,css,json,md}'",
+    "format:write": "prettier --write '**/*.{js,css,json,md}'",
+    "format:diff": "prettier --list-different ."
+  },
+  "author": "Salvydas Lukosius <sall@w-ss.io>",
+  "license": "MIT",
+  "devDependencies": {
+    "@cloudflare/workers-types": "^3.7.1",
+    "wrangler": "0.0.27"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "packageManager": "yarn@3.2.0",
+  "private": true
+}

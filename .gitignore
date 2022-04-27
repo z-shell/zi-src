@@ -8,3 +8,14 @@
 # Local files
 .history/
 .drafts/
+/target
+/dist
+**/*.rs.bk
+Cargo.lock
+bin/
+pkg/
+wasm-pack.log
+worker/
+node_modules/
+.pnpm-store/
+.cargo-ok
