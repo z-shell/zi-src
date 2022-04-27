@@ -11,7 +11,7 @@ ZI Wiki Pages: https://z.digitalclouds.dev :sparkles:
 
 Install:
 
-- https://git.io/get-zi
+- https://zi.zshell.dev/sh/install.sh
 - https://z.digitalclouds.dev/i-hub
 - https://z.digitalclouds.dev/i-lab
 - https://z-shell.github.io/zi-src/sh/install.sh
@@ -19,7 +19,7 @@ Install:
 
 Loader:
 
-- https://git.io/zi-loader
+- https://zi.zshell.dev/zsh/init.zsh
 - https://z.digitalclouds.dev/loader
 - https://z-shell.github.io/zi-src/zsh/init.zsh
 - https://raw.githubusercontent.com/z-shell/zi-src/main/lib/zsh/init.zsh
@@ -28,18 +28,18 @@ Loader:
 
 ```zsh
 # Will add minimal configuration
-sh -c "$(curl -fsSL https://git.io/get-zi)" --
+sh -c "$(curl -fsSL https://zi.zshell.dev/sh/install.sh)" --
 
 # Non interactive. Just clone or update repository.
-sh -c "$(curl -fsSL https://git.io/get-zi)" -- -i skip
+sh -c "$(curl -fsSL https://zi.zshell.dev/sh/install.sh)" -- -i skip
 
 # Minimal configuration + annexes.
-sh -c "$(curl -fsSL https://git.io/get-zi)" -- -a annex
+sh -c "$(curl -fsSL https://zi.zshell.dev/sh/install.sh)" -- -a annex
 
 # Minimal configuration + annexes + zunit.
-sh -c "$(curl -fsSL https://git.io/get-zi)" -- -a zunit
+sh -c "$(curl -fsSL https://zi.zshell.dev/sh/install.sh)" -- -a zunit
 
 # Minimal configuration with loader
-sh -c "$(curl -fsSL https://git.io/get-zi)" -- -a loader
+sh -c "$(curl -fsSL https://zi.zshell.dev/sh/install.sh)" -- -a loader
 ```
 > Branch: `-b branch`
