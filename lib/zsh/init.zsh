@@ -1,13 +1,10 @@
 #!/usr/bin/env zsh
 
-# ZI Loader
+# ZI Loader (Values set: default)
 #
 # https://z.digitalclouds.dev/community/zsh_plugin_standard
 0="${ZERO:-${${0:#$ZSH_ARGZERO}:-${(%):-%N}}}"
 0="${${(M)0:#/*}:-$PWD/$0}"
-if [[ $PMSPEC != *f* ]] {
-  fpath+=( "${0:h}/functions" )
-}
 
 # Variables:
 local repo="https://github.com/z-shell/zi.git"
@@ -23,6 +20,9 @@ ZI[HOME_DIR]="${HOME}/.zi"
 # Where ZI code resides, e.g.: "~/.zi/bin"
 ZI[BIN_DIR]="${HOME}/.zi/bin"
 
+# Zsh modules directory
+ZI[ZMODULES_DIR]="${HOME}/.zi/zmodules"
+
 # Path to .zcompdump file, with the file included (i.e. its name can be different)
 ZI[ZCOMPDUMP_PATH]="${HOME}/.zcompdump"
 
@@ -34,9 +34,9 @@ zzsetup() {
   [[ $verbose_mode == true ]] && builtin print "(ZI): Checking if ZI (zi.zsh) is available."
   if [[ ! -f "${ZI[BIN_DIR]}/zi.zsh" ]]; then
     [[ $verbose_mode == true ]] && builtin print "(ZI): ZI (zi.zsh) is not found. Installing..."
-  builtin print -P "%F{33}▓▒░ %F{160}Installing interactive feature-rich plugin manager (%F{33}z-shell/zi%F{160})%f%b"
-  command mkdir -p "${ZI[BIN_DIR]}" && command chmod g-rwX "${ZI[BIN_DIR]}"
-  command git clone -q --progress --branch "$branch" "$repo" "${ZI[BIN_DIR]}"
+    builtin print -P "%F{33}▓▒░ %F{160}Installing interactive feature-rich plugin manager (%F{33}z-shell/zi%F{160})%f%b"
+    command mkdir -p "${ZI[BIN_DIR]}" && command chmod g-rwX "${ZI[BIN_DIR]}"
+    command git clone -q --progress --branch "$branch" "$repo" "${ZI[BIN_DIR]}"
     if [[ -f "${ZI[BIN_DIR]}/zi.zsh" ]]; then
       [[ $verbose_mode == true ]] && builtin print "(ZI): Installed and ZI (zi.zsh) is found"
       git_refs=("$(cd "${ZI[BIN_DIR]}"; command git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit | head -10)")
@@ -57,15 +57,25 @@ zzsetup() {
 zzsource() {
   [[ $verbose_mode == true ]] && builtin print "(ZI): If (zzsetup) function status code 0, then load ZI."
   if zzsetup; then
-  [[ $verbose_mode == true ]] && builtin print "(ZI): Loading (zi.zsh)"
-  source "${ZI[BIN_DIR]}/zi.zsh"
-    else
-  [[ $verbose_mode == true ]] && builtin print "(ZI): (zzsetup) function status code 1, not continue and exit."
+    [[ $verbose_mode == true ]] && builtin print "(ZI): Loading (zi.zsh)"
+    source "${ZI[BIN_DIR]}/zi.zsh"
+  else
+    [[ $verbose_mode == true ]] && builtin print "(ZI): (zzsetup) function status code 1, not continue and exit."
     exit 1
   fi
 }
 
-# Enebale completion (completions should be loaded after zzsource)
+# Load zi module if built
+zzpmod() {
+  [[ $verbose_mode == true ]] && builtin print "(ZI): Checking for ZI module."
+  if [[ -f "${ZI[ZMODULES_DIR]}/zpmod/Src/zi/zpmod.so" ]]; then
+    [[ $verbose_mode == true ]] && builtin print "(ZI): Loading ZI module."
+    module_path+=( "${ZI[ZMODULES_DIR]}/zpmod/Src" )
+    zmodload zi/zpmod &>/dev/null
+  fi
+}
+
+# Enable completion (completions should be loaded after zzsource)
 zzcomps() {
   [[ $verbose_mode == true ]] && builtin print "(ZI): Loading completion… (_zi)"
   autoload -Uz _zi
@@ -77,4 +87,5 @@ zzinit() {
   [[ $verbose_mode == true ]] && builtin print "(ZI): Loading ZI (zi.zsh)"
   zzsource
   zzcomps
+  zzpmod
 }
