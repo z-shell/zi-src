@@ -268,10 +268,11 @@ MAIN() {
     CLOSE_PROFILE
   fi
   command cat <<-EOF
-[34m▓▒░[0m[1;36m Successfully installed![0m
+[34m▓▒░[0m[1;36m ■■■■■■■■■■■■■■■■■ Successfully installed ❮ ZI ❯ ■■■■■■■■■[0m
 [34m▓▒░[0m[38;5;226m Wiki:         https://z.digitalclouds.dev[0m
 [34m▓▒░[0m[38;5;226m Issues:       https://github.com/z-shell/zi/issues[0m
 [34m▓▒░[0m[38;5;226m Discussions:  https://z.digitalclouds.dev/discussions[0m
+[34m▓▒░[0m[1;36m ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■[0m
 EOF
   exit 0
 }
