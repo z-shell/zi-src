@@ -46,31 +46,38 @@ rm_zi_home() {
 
 rm_zi_cache() {
   clear
-  echo -e "Cleaning ❮ ZI ❯ cache"
-  sleep 2
-
-  if [ -d "${HOME}/.cache/zi" ]; then
-    rm -rvf "${HOME}/.cache/zi"
-  elif [ -d "${ZDOTDIR}/.cache/zi" ]; then
-    rm -rvf "${ZDOTDIR}/.cache/zi"
-  elif [ -d "${XDG_DATA_HOME}/.cache/zi" ]; then
-    rm -rvf "${XDG_DATA_HOME}/.cache/zi"
+  echo -e "Clean ❮ ZI ❯ cache?  [y/N]"
+  read -r confirmation
+  if [ "$confirmation" != y ] && [ "$confirmation" != Y ]; the
+    echo -e "Cleaning ❮ ZI ❯ cache"
+    sleep 2
+    if [ -d "${HOME}/.cache/zi" ]; then
+      rm -rvf "${HOME}/.cache/zi"
+    elif [ -d "${ZDOTDIR}/.cache/zi" ]; then
+      rm -rvf "${ZDOTDIR}/.cache/zi"
+    elif [ -d "${XDG_DATA_HOME}/.cache/zi" ]; then
+      rm -rvf "${XDG_DATA_HOME}/.cache/zi"
+    fi
   fi
 }
 
 rm_zi_config() {
   clear
+  echo -e "Remove ❮ ZI ❯ config directory?  [y/N]"
+  read -r confirmation
+  if [ "$confirmation" != y ] && [ "$confirmation" != Y ]; then
   echo -e "Removing ❮ ZI ❯ config directory"
   sleep 2
-  if [ -d "${XDG_CONFIG_HOME}/zi" ]; then
-    rm -rvf "${XDG_CONFIG_HOME}/zi"
-  else
-    if [ -d "${HOME}/.config/zi" ]; then
-      rm -rvf "${HOME}/.config/zi"
-    elif [ -d "${XDG_DATA_HOME}/zi" ]; then
-      rm -rvf "${XDG_DATA_HOME}/zi"
+    if [ -d "${XDG_CONFIG_HOME}/zi" ]; then
+      rm -rvf "${XDG_CONFIG_HOME}/zi"
+    else
+      if [ -d "${HOME}/.config/zi" ]; then
+        rm -rvf "${HOME}/.config/zi"
+      elif [ -d "${XDG_DATA_HOME}/zi" ]; then
+        rm -rvf "${XDG_DATA_HOME}/zi"
+      fi
     fi
-  fi
+  fi 
 }
 
 exit_shell() {
@@ -80,9 +87,7 @@ exit_shell() {
   if [ "$confirmation" != y ] && [ "$confirmation" != Y ]; then
     clear
     exit_script
-    cat "${THE_ZDOTDIR}/.zshrc"
-    sleep 2
-    exit 0
+    source "${THE_ZDOTDIR}/.zshrc"
   else
     exit_script
     exec "$SHELL" -l
