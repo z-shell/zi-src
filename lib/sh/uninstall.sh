@@ -48,7 +48,7 @@ rm_zi_cache() {
   clear
   echo -e "Clean ❮ ZI ❯ cache?  [y/N]"
   read -r confirmation
-  if [ "$confirmation" != y ] && [ "$confirmation" != Y ]; the
+  if [ "$confirmation" != y ] && [ "$confirmation" != Y ]; then
     echo -e "Cleaning ❮ ZI ❯ cache"
     sleep 2
     if [ -d "${HOME}/.cache/zi" ]; then
