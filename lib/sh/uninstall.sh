@@ -3,7 +3,23 @@
 # -*- mode: zsh; sh-indentation: 2; indent-tabs-mode: nil; sh-basic-offset: 2; -*-
 # vim: ft=zsh sw=2 ts=2 et
 
-trap '$(exit_script)' EXIT INT
+THE_ZDOTDIR="${ZDOTDIR:-${HOME}}"
+OLD_ZSHRC="${THE_ZDOTDIR}/zi_zshrc"
+
+exit_script() {
+  the_file="${THE_ZDOTDIR}/.zshrc"
+  if [ -f "$the_file" ]; then
+    mv -vf "$the_file" "$OLD_ZSHRC"
+    command cat <<-EOF >>"${the_file}"
+[34m▓▒░[0m[1;36m ❮ ZI ❯[0m
+[34m▓▒░[0m[38;5;226m Wiki:         https://z.digitalclouds.dev[0m
+[34m▓▒░[0m[38;5;226m Issues:       https://github.com/z-shell/zi/issues[0m
+[34m▓▒░[0m[38;5;226m Discussions:  https://z.digitalclouds.dev/discussions[0m
+EOF
+  else
+    exit 0
+  fi
+}
 
 rm_zi_home() {
   clear
@@ -56,34 +72,27 @@ rm_zi_config() {
   fi
 }
 
-reload_shell() {
+exit_shell() {
   clear
   echo -e "Reload shell?  [y/N]"
   read -r confirmation
   if [ "$confirmation" != y ] && [ "$confirmation" != Y ]; then
     clear
-    echo -e "Reload skipped"
+    exit_script
+    cat "${THE_ZDOTDIR}/.zshrc"
+    sleep 2
+    exit 0
   else
+    exit_script
     exec "$SHELL" -l
   fi
-}
-
-exit_script() {
-  clear
-  command cat <<-EOF
-[34m▓▒░[0m[1;36m Successfully uninstalled![0m
-[34m▓▒░[0m[38;5;226m Wiki:         https://z.digitalclouds.dev[0m
-[34m▓▒░[0m[38;5;226m Issues:       https://github.com/z-shell/zi/issues[0m
-[34m▓▒░[0m[38;5;226m Discussions:  https://z.digitalclouds.dev/discussions[0m
-EOF
-  exit 0
 }
 
 MAIN() {
   rm_zi_home
   rm_zi_cache
   rm_zi_config
-  reload_shell
+  exit_shell
   exit 0
 }
 
