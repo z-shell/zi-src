@@ -124,7 +124,7 @@ fi
 source "${ZI_HOME}/${ZI_BIN_DIR_NAME}/zi.zsh"
 autoload -Uz _zi
 (( \${+_comps} )) && _comps[zi]=_zi
-# examples here -> https://z.digitalclouds.dev/docs/ecosystem/annexes
+# examples here -> https://z.digitalclouds.dev/ecosystem/annexes
 zicompinit # <- https://z.digitalclouds.dev/docs/guides/commands
 EOF
     printf '%s\n' "[34m▓▒░[0m[1;36m Minimal configuration[0m"
@@ -146,7 +146,7 @@ ANNEX_PROFILE() {
     command cat <<-EOF >>"${file}"
 zi light-mode for \\
   z-shell/z-a-meta-plugins \\
-  @annexes # <- https://z.digitalclouds.dev/docs/ecosystem/annexes
+  @annexes # <- https://z.digitalclouds.dev/ecosystem/annexes
 # examples here -> https://z.digitalclouds.dev/docs/gallery/collection
 zicompinit # <- https://z.digitalclouds.dev/docs/guides/commands
 EOF
@@ -233,7 +233,6 @@ EOF
 }
 
 ZPMOD_PROFILE() {
-
   col_pname="[33m"
   col_error="[31m"
   col_info="[32m"
