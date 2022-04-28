@@ -11,10 +11,12 @@ exit_script() {
   if [ -f "$the_file" ]; then
     mv -vf "$the_file" "$OLD_ZSHRC"
     command cat <<-EOF >>"${the_file}"
+      command cat <<-EOF
 [34m▓▒░[0m[1;36m ❮ ZI ❯[0m
 [34m▓▒░[0m[38;5;226m Wiki:         https://z.digitalclouds.dev[0m
 [34m▓▒░[0m[38;5;226m Issues:       https://github.com/z-shell/zi/issues[0m
 [34m▓▒░[0m[38;5;226m Discussions:  https://z.digitalclouds.dev/discussions[0m
+EOF
 EOF
   else
     exit 0
@@ -79,11 +81,11 @@ exit_shell() {
   if [ "$confirmation" != y ] && [ "$confirmation" != Y ]; then
     clear
     exit_script
-    cat "${THE_ZDOTDIR}/.zshrc"
     sleep 2
     exit 0
   else
     exit_script
+    
     exec "$SHELL" -l
   fi
 }
