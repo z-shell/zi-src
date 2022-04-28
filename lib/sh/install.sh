@@ -158,7 +158,7 @@ EOF
     command cat <<-EOF >>"${file2}"
 zi light-mode for \\
   z-shell/z-a-meta-plugins \\
-  @annexes @molovo
+  @annexes @zunit
 EOF
     printf '%s\n' "[34m▓▒░[0m[1;36m Installing annexes + zunit[0m"
     command cat "${file2}" >>"${THE_ZDOTDIR}/.zshrc"
