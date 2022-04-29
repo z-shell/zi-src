@@ -13,11 +13,15 @@ lint:
           list: ["${env.PATH}"]
   enabled:
     - zsh-n@system
-    - actionlint@1.6.9
-    - gitleaks@8.3.0
+    - actionlint@1.6.12
+    - gitleaks@8.8.4
     - markdownlint@0.31.1
-    - prettier@2.5.1
+    - prettier@2.6.2
     - shellcheck@0.8.0
     - shfmt@3.4.0
-    - taplo-fmt@release-cli-0.6.0
-    - taplo@release-cli-0.6.0
+    - taplo-fmt@release-cli-0.6.1
+    - taplo@release-cli-0.6.1
+  ignore:
+    - linters: [ALL]
+      paths:
+        - ".yarn/**"

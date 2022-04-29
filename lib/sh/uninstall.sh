@@ -9,8 +9,8 @@ OLD_ZSHRC="${THE_ZDOTDIR}/zi_zshrc"
 
 exit_script() {
   the_file="${THE_ZDOTDIR}/.zshrc"
-  if [ -f "$the_file" ]; then
-    mv -vf "$the_file" "$OLD_ZSHRC"
+  if [ -f "${the_file}" ]; then
+    mv -vf "${the_file}" "${OLD_ZSHRC}"
     command cat <<-EOF >>"${the_file}"
     printf '%s\n' "
 [34m▓▒░[0m[1;36m ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ ❮ ZI ❯[0m
@@ -18,7 +18,7 @@ exit_script() {
 [34m▓▒░[0m[38;5;226m Issues:       https://github.com/z-shell/zi/issues[0m
 [34m▓▒░[0m[38;5;226m Discussions:  https://z.digitalclouds.dev/discussions[0m"
 EOF
-else
+  else
     exit 0
   fi
 }
@@ -26,17 +26,16 @@ else
 rm_zi_home() {
   clear
   echo
-  echo -e "▓▒░ Remove ❮ ZI ❯? [y/N]"
+  echo "▓▒░ Remove ❮ ZI ❯? [y/N]"
   read -r confirmation
-  if [ "$confirmation" != y ] && [ "$confirmation" != Y ]; then
-    echo -e "Uninstall process cancelled"
+  if [ "${confirmation}" != y ] && [ "${confirmation}" != Y ]; then
+    echo "Uninstall process cancelled"
     exit 0
   fi
 
   clear
-  echo -e "Removing ❮ ZI ❯ home directory"
+  echo "Removing ❮ ZI ❯ home directory"
   sleep 2
-
   if [ -d "${HOME}/.zi" ]; then
     rm -rvf "${HOME}/.zi"
   elif [ -d "${ZDOTDIR}/.zi" ]; then
@@ -49,10 +48,10 @@ rm_zi_home() {
 rm_zi_cache() {
   clear
   echo
-  echo -e "▓▒░ Clean ❮ ZI ❯ cache?  [y/N]"
+  echo "▓▒░ Clean ❮ ZI ❯ cache?  [y/N]"
   read -r confirmation
-  if [ "$confirmation" != y ] && [ "$confirmation" != Y ]; then
-    echo -e "Cleaning ❮ ZI ❯ cache"
+  if [ "${confirmation}" != y ] && [ "${confirmation}" != Y ]; then
+    echo "Cleaning ❮ ZI ❯ cache"
     sleep 2
     if [ -d "${HOME}/.cache/zi" ]; then
       rm -rvf "${HOME}/.cache/zi"
@@ -67,11 +66,11 @@ rm_zi_cache() {
 rm_zi_config() {
   clear
   echo
-  echo -e "▓▒░ Remove ❮ ZI ❯ config directory?  [y/N]"
+  echo "▓▒░ Remove ❮ ZI ❯ config directory?  [y/N]"
   read -r confirmation
-  if [ "$confirmation" != y ] && [ "$confirmation" != Y ]; then
-  echo -e "Removing ❮ ZI ❯ config directory"
-  sleep 2
+  if [ "${confirmation}" != y ] && [ "${confirmation}" != Y ]; then
+    echo "Removing ❮ ZI ❯ config directory"
+    sleep 2
     if [ -d "${XDG_CONFIG_HOME}/zi" ]; then
       rm -rvf "${XDG_CONFIG_HOME}/zi"
     else
@@ -81,22 +80,22 @@ rm_zi_config() {
         rm -rvf "${XDG_DATA_HOME}/zi"
       fi
     fi
-  fi 
+  fi
 }
 
 exit_shell() {
   clear
   echo
-  echo -e "▓▒░ Reload shell?  [y/N]"
+  echo "▓▒░ Reload shell?  [y/N]"
   read -r confirmation
-  if [ "$confirmation" != y ] && [ "$confirmation" != Y ]; then
+  if [ "${confirmation}" != y ] && [ "${confirmation}" != Y ]; then
     exit_script
     clear
-    source "${THE_ZDOTDIR}/.zshrc"
+    sh "${THE_ZDOTDIR}/.zshrc"
   else
     exit_script
     clear
-    exec "$SHELL" -l
+    exec "${SHELL}" -l
   fi
 }
 
