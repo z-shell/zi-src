@@ -40,7 +40,7 @@ jobs:
       - name: 🍎 MacOS dependencies
         if: startsWith(matrix.os, 'macos')
         run: |
-          brew install curl git zsh
+          brew install curl zsh
       - name: 🪟 Windows dependencies
         if: startsWith(matrix.os, 'windows')
         uses: egor-tensin/setup-cygwin@v3
