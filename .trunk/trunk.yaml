@@ -2,7 +2,17 @@ version: 0.1
 cli:
   version: 0.10.2-beta
 lint:
+  linters:
+    - name: zsh-n
+      files: [zsh]
+      type: pass_fail
+      command: [zsh, -c, "zsh -n ${target} 2>&1"]
+      success_codes: [0, 1]
+      environment:
+        - name: PATH
+          list: ["${env.PATH}"]
   enabled:
+    - zsh-n@system
     - actionlint@1.6.9
     - gitleaks@8.3.0
     - markdownlint@0.31.1
