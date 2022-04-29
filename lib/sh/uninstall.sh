@@ -93,7 +93,6 @@ exit_shell() {
     sh "${THE_ZDOTDIR}/.zshrc"
   else
     exit_script
-    clear
     exec "${SHELL}" -l
   fi
 }
