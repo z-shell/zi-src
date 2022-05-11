@@ -36,8 +36,8 @@
 </tr><tr><td align="left">
 
 - Wiki Pages: https://z.digitalclouds.dev
-- Source Page: https://src.zshell.dev
-- RAW Page: https://raw.zshell.dev
+- Git.io: https://git.io/get-zi, https://git.io/zi-loader
+- RAW: https://raw.zshell.dev
 - IPFS: https://ipfs.zshell.dev
 
 </td></tr><tr><td align="center"><h2 align="left">Credits</h2>
@@ -45,7 +45,7 @@
   <img style="width:140;height:40px" src="https://storage.googleapis.com/digital-space/img/brand/trunk/trunk-white.svg" alt="Trunk" />
  </a>
  <a href="https://crowdin.com/?utm_source=badge&utm_medium=referral&utm_campaign=badge-add-on" rel="nofollow">
-  <img style="width:140;height:40px" src="https://space.ss-o.workers.dev/img/brand/crowdin/localization-at-dark-rounded@2x.png" srcset="https://badges.crowdin.net/badge/light/crowdin-on-dark.png 1x,https://badges.crowdin.net/badge/light/crowdin-on-dark@2x.png 2x"alt="Crowdin | Agile localization for tech companies" />
+  <img style="width:140;height:40px" src="https://storage.googleapis.com/digital-space/img/brand/crowdin/localization-at-dark-rounded@2x.png" srcset="https://badges.crowdin.net/badge/light/crowdin-on-dark.png 1x,https://badges.crowdin.net/badge/light/crowdin-on-dark@2x.png 2x"alt="Crowdin | Agile localization for tech companies" />
  </a>
  <a href="https://www.digitalocean.com/?refcode=090bdb63f800&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge" rel="nofollow">
   <img style="width:140;height:40px" src="https://web-platforms.sfo2.digitaloceanspaces.com/WWW/Badge%203.svg" alt="DigitalOcean Referral Badge" />
