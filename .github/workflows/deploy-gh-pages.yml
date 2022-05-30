@@ -19,6 +19,6 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: .
+          publish_dir: lib
           user_name: digital-teams[bot]
           user_email: digital-teams@pm.me

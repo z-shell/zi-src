@@ -28,4 +28,5 @@ lint:
   ignore:
     - linters: [ALL]
       paths:
-        - ".yarn/**"
+        - "**/pnpm-lock.yaml"
+        - "**/node_modules/**"
