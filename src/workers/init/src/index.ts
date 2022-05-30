@@ -1,4 +1,5 @@
-const destinationURL = "https://github.zshell.dev/zi-src/zsh/init.zsh";
+const destinationURL =
+  "https://raw.githubusercontent.com/z-shell/zi-src/main/lib/zsh/init.zsh";
 const statusCode = 301;
 
 async function handleRequest(request) {
