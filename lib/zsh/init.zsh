@@ -23,7 +23,7 @@ ZI[BIN_DIR]="${HOME}/.zi/bin"
 ZI[ZMODULES_DIR]="${HOME}/.zi/zmodules"
 
 # Path to .zcompdump file, with the file included (i.e. its name can be different)
-ZI[ZCOMPDUMP_PATH]="${ZSH_CACHE_DIR}/.zcompdump"
+ZI[ZCOMPDUMP_PATH]="${HOME}/.cache/zi/.zcompdump"
 
 # If set to 1, then mutes some of the ZI warnings, specifically the plugin already registered warning
 ZI[MUTE_WARNINGS]='0'
