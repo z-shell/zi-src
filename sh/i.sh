@@ -141,8 +141,8 @@ CHECK_ZSRC_FILE() {
   printf '%s\n' "[34m▓▒░[0m[1;36m Updating ${THE_ZDOTDIR}/.zshrc"
   if grep -E '(zi|init|zinit)\.zsh' "${THE_ZDOTDIR}/.zshrc" >/dev/null 2>&1; then
     printf '%s\n' "[34m▓▒░[34m File .zshrc have conflicting commands, backuping..."
-    printf '%s\n' "[34m▓▒░[34m creating backup at ${CONFIG_DIR}/zshrc.bak"
-    command mv -f "${THE_ZDOTDIR}/.zshrc" "${CONFIG_DIR}/zshrc.bak"
+    printf '%s\n' "[34m▓▒░[34m creating backup at ${CONFIG_DIR}/zshrc..."
+    command mv -f "${THE_ZDOTDIR}/.zshrc" "${CONFIG_DIR}/zshrc.`date +%H%M%S`.bak"
   fi
 }
 
