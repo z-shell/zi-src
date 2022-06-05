@@ -3,13 +3,101 @@
 # vim: ft=zsh sw=2 ts=2 et
 
 trap 'rm -rf "$WORKDIR"' EXIT INT
-WORKDIR="$(mktemp -d)/tmp"
+WORKDIR="$(ensure mktemp -d)/tmp"
 
 col_pname="[33m"
 col_error="[31m"
 #col_info="[32m"
 col_info2="[32m"
 col_rst="[0m"
+
+_get_ostype() {
+	case $("$(command -v uname)" | tr '[:upper:]' '[:lower:]') in
+	  android*)
+		  OS='android'
+		  ;;
+	  darwin*)
+		  OS='darwin'
+		  ;;
+	  linux*)
+		  OS='linux'
+		  ;;
+	  freebsd*)
+		  OS='freebsd'
+		  ;;
+	  netbsd*)
+		  OS='netbsd'
+		  ;;
+	  openbsd*)
+		  OS='openbsd'
+		  ;;
+	  sunos*)
+		  OS='solaris'
+		  ;;
+	  msys* | cygwin* | mingw*)
+		  OS='windows'
+		  ;;
+	  nt | win*)
+		  OS='windows'
+  		;;
+	  *)
+		  echo 'OS not supported'
+		;;
+	esac
+}
+
+_cpu_type() {
+	case "$(uname -m)" in
+    x86_64 | x86-64 | x64 | amd64)
+		  ARCH='amd64'
+		  ;;
+	  i?86 | x86)
+		  ARCH='386'
+		  ;;
+	  armv8* | aarch64 | arm64)
+		  ARCH='arm64'
+		  ;;
+	  armv7*)
+		  ARCH='armv7'
+		  ;;
+	  armv6*)
+		  ARCH='armv6'
+		  ;;
+	  arm*)
+		  ARCH='arm'
+		  ;;
+	  mips64le*)
+		  ARCH='mips64le'
+		  ;;
+	  mips64*)
+		  ARCH='mips64'
+		  ;;
+	  mipsle*)
+		  ARCH='mipsle'
+		  ;;
+	  mips*)
+		  ARCH='mips'
+		  ;;
+	  ppc64le*)
+		  ARCH='ppc64le'
+		  ;;
+	  ppc64*)
+		  ARCH='ppc64'
+		  ;;
+	  ppcle*)
+		  ARCH='ppcle'
+		  ;;
+	  ppc*)
+		  ARCH='ppc'
+		  ;;
+	  s390*)
+		  ARCH='s390x'
+		  ;;
+	  *)
+		  echo 'OS architecture not supported'
+		;;
+	esac
+}
 
 while getopts ":a:b:c:d:e:f:g:h:i:j:k:l:" opt; do
   case ${opt} in
