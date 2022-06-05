@@ -81,7 +81,7 @@ zzcomps() {
   (( ${+_comps} )) && _comps[zi]=_zi
 }
 
-# If ZI is installed, load ZI and enable completion.
+# If ZI is installed, load ZI, enable completion and load zpmod.
 zzinit() {
   [[ $verbose_mode == true ]] && builtin print "(ZI): Loading ZI (zi.zsh)"
   zzsource
