@@ -11,13 +11,32 @@ on:
   workflow_dispatch: {}
 
 jobs:
-  worker-get:
+  workers:
+    strategy:
+      fail-fast: false
+      matrix:
+        worker: [get, init, raw]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: "🤠 Deploy: get.zshell.dev"
+      - if: startsWith(matrix.worker, 'get')
+        name: "🤠 Deploy > get"
         uses: cloudflare/wrangler-action@2.0.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
           workingDirectory: "workers/get"
+      - if: startsWith(matrix.worker, 'init')
+        name: "🤠 Deploy > init"
+        uses: cloudflare/wrangler-action@2.0.0
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          workingDirectory: "workers/init"
+      - if: startsWith(matrix.worker, 'raw')
+        name: "🤠 Deploy > raw"
+        uses: cloudflare/wrangler-action@2.0.0
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          workingDirectory: "workers/raw"

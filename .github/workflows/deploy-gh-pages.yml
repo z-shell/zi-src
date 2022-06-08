@@ -1,11 +1,11 @@
 ---
-name: 🚀 Deploy Code to GH Pages
+name: "🚀 GitHub Pages"
 
 on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: 'lib/**'
+    paths: "lib/**"
 
 jobs:
   deploy:
