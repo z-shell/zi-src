@@ -1,4 +1,4 @@
-/zsh/init,zsh
+/zsh/init.zsh
   Access-Control-Allow-Origin: *
   Cache-Control: public
   Cache-Control: max-age=365000000
