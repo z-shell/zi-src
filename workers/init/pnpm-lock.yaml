@@ -66,7 +66,7 @@ packages:
       busboy: 1.6.0
       dotenv: 10.0.0
       kleur: 4.1.4
-      set-cookie-parser: 2.4.8
+      set-cookie-parser: 2.5.0
       undici: 5.3.0
       urlpattern-polyfill: 4.0.3
     dev: true
@@ -563,8 +563,8 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /set-cookie-parser/2.4.8:
-    resolution: {integrity: sha512-edRH8mBKEWNVIVMKejNnuJxleqYE/ZSdcT8/Nem9/mmosx12pctd80s2Oy00KNZzrogMZS5mauK2/ymL1bvlvg==}
+  /set-cookie-parser/2.5.0:
+    resolution: {integrity: sha512-cHMAtSXilfyBePduZEBVPTCftTQWz6ehWJD5YNUg4mqvRosrrjKbo4WS8JkB0/RxonMoohHm7cOGH60mDkRQ9w==}
     dev: true
 
   /source-map-support/0.5.21:
