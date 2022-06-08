@@ -31,7 +31,7 @@ jobs:
         if: startsWith(matrix.os, 'windows')
         run: git config --global core.autocrlf input
       - uses: actions/checkout@v3
-      - uses: rlespinasse/github-slug-action@v3.x
+      - uses: rlespinasse/github-slug-action@v3
       - name: 📦 Linux dependencies
         if: startsWith(matrix.os, 'ubuntu-latest')
         run: |
