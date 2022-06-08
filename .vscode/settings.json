@@ -1,3 +1,6 @@
 {
-  "conventionalCommits.scopes": ["improved installer"]
+  "conventionalCommits.scopes": ["maintenance", "workspace", "general"],
+  "markdownlint.config": {
+    "extends": ".github/.markdownlint.yaml"
+  }
 }
