@@ -14,12 +14,12 @@
   "author": "Salvydas Lukosius <sall@w-ss.io>",
   "license": "MIT",
   "devDependencies": {
-    "@cloudflare/workers-types": "^3.7.1",
+    "@cloudflare/workers-types": "^3.11.0",
     "prettier": "2.6.2",
     "wrangler": "2.0.7"
   },
   "engines": {
     "node": ">=16"
   },
-  "packageManager": "pnpm@7.1.7"
+  "packageManager": "pnpm@7.1.9"
 }

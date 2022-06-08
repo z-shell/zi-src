@@ -1,0 +1,23 @@
+---
+name: "🤠 Wrangler"
+
+on:
+  push:
+    branches: [main]
+    paths: "lib/**"
+  pull_request:
+    branches: [main]
+    paths: "lib/**"
+  workflow_dispatch: {}
+
+jobs:
+  worker-get:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: "🤠 Deploy: get.zshell.dev"
+        uses: cloudflare/wrangler-action@2.0.0
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          workingDirectory: "workers/get"
