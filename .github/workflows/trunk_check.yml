@@ -1,14 +1,17 @@
 ---
-name: "♻️ Trunk Check"
+name: "⭕ Trunk"
 on:
-  workflow_dispatch:
   push:
     branches: ["main"]
+    tags: ["v*.*.*"]
   pull_request:
     types: [opened, synchronize]
+  workflow_dispatch: {}
 
 jobs:
-  trunk-check:
+  check:
+    name: "⚡"
     uses: z-shell/.github/.github/workflows/trunk.yml@main
     with:
-      arguments: --no-progress
+      arguments: "--no-progress"
+      get_dependencies: "sudo apt update && sudo apt-get install -yq zsh"
