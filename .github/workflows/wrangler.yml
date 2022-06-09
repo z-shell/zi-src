@@ -9,7 +9,6 @@ on:
       - "workers/**"
   pull_request:
     branches: [main]
-  workflow_dispatch: {}
 
 jobs:
   deploy-worker:
@@ -27,6 +26,7 @@ jobs:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
           workingDirectory: "workers/get"
+          command: "publish"
       - if: startsWith(matrix.worker, 'init')
         name: "🤠 Deploy > init"
         uses: cloudflare/wrangler-action@2.0.0
@@ -34,6 +34,7 @@ jobs:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
           workingDirectory: "workers/init"
+          command: "publish"
       - if: startsWith(matrix.worker, 'raw')
         name: "🤠 Deploy > raw"
         uses: cloudflare/wrangler-action@2.0.0
@@ -41,3 +42,4 @@ jobs:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
           workingDirectory: "workers/raw"
+          command: "publish"
