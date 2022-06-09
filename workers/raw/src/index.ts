@@ -2,8 +2,8 @@ addEventListener("fetch", (event) => {
   event.respondWith(handleRequest(event));
 });
 
-const ASSET_PATH = "z-shell/zi-src/main";
-const HOST_URL = `https://raw.githubusercontent.com/z-shell/zi-src/${ASSET_PATH}`;
+const ASSET_PATH = "z-shell/zi-src/main/lib";
+const HOST_URL = `https://raw.githubusercontent.com/${ASSET_PATH}`;
 
 async function serveAsset(event: FetchEvent) {
   const url = new URL(event.request.url);
