@@ -1,4 +1,3 @@
 name = "init"
 main = "src/index.ts"
 compatibility_date = "2022-05-30"
-routes = ["init.zshell.dev/*"]

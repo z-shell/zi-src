@@ -2,5 +2,7 @@
   "conventionalCommits.scopes": ["maintenance", "workspace", "general"],
   "markdownlint.config": {
     "extends": ".github/.markdownlint.yaml"
-  }
+  },
+  "conventionalCommits.promptCI": true,
+  "conventionalCommits.emojiFormat": "emoji"
 }

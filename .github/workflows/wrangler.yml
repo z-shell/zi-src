@@ -11,7 +11,7 @@ on:
   workflow_dispatch: {}
 
 jobs:
-  workers:
+  deploy-worker:
     strategy:
       fail-fast: false
       matrix:

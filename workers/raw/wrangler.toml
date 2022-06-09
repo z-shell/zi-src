@@ -1,4 +1,3 @@
-name = "zi-src"
+name = "raw"
 main = "src/index.ts"
 compatibility_date = "2022-04-27"
-routes = ["raw.zshell.dev/*"]
