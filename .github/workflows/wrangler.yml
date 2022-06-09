@@ -4,7 +4,9 @@ name: "🤠 Wrangler"
 on:
   push:
     branches: [main]
-    paths: "lib/**"
+    paths:
+      - "lib/**"
+      - "workers/**"
   pull_request:
     branches: [main]
   workflow_dispatch: {}
