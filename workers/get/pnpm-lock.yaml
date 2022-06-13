@@ -101,7 +101,7 @@ packages:
       kleur: 4.1.4
       selfsigned: 2.0.1
       undici: 5.3.0
-      ws: 8.7.0
+      ws: 8.8.0
       youch: 2.2.2
     transitivePeerDependencies:
       - bufferutil
@@ -177,7 +177,7 @@ packages:
       '@miniflare/core': 2.5.0
       '@miniflare/shared': 2.5.0
       undici: 5.3.0
-      ws: 8.7.0
+      ws: 8.8.0
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -626,8 +626,8 @@ packages:
       - utf-8-validate
     dev: true
 
-  /ws/8.7.0:
-    resolution: {integrity: sha512-c2gsP0PRwcLFzUiA8Mkr37/MI7ilIlHQxaEAtd0uNMbVMoy8puJyafRlm0bV9MbGSabUPeLrRRaqIBcFcA2Pqg==}
+  /ws/8.8.0:
+    resolution: {integrity: sha512-JDAgSYQ1ksuwqfChJusw1LSJ8BizJ2e/vVu5Lxjq3YvNJNlROv1ui4i+c/kUUrPheBvQl4c5UbERhTwKa6QBJQ==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       bufferutil: ^4.0.1
