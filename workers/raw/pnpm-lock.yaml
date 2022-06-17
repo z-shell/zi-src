@@ -3,12 +3,12 @@ lockfileVersion: 5.4
 specifiers:
   '@cloudflare/workers-types': 3.13.0
   prettier: 2.7.1
-  wrangler: 2.0.12
+  wrangler: 2.0.14
 
 devDependencies:
   '@cloudflare/workers-types': 3.13.0
   prettier: 2.7.1
-  wrangler: 2.0.12
+  wrangler: 2.0.14
 
 packages:
 
@@ -613,8 +613,8 @@ packages:
     resolution: {integrity: sha512-DOE84vZT2fEcl9gqCUTcnAw5ZY5Id55ikUcziSUntuEFL3pRvavg5kwDmTEUJkeCHInTlV/HexFomgYnzO5kdQ==}
     dev: true
 
-  /wrangler/2.0.12:
-    resolution: {integrity: sha512-Dnzqxl3vW5J16Lt3gEbl/teNnTuAqMwsuMexR7BFSHWTwfWjHT9Sc7B6bPIKw0O01zDU/hUscw8nkyhMMM3xDw==}
+  /wrangler/2.0.14:
+    resolution: {integrity: sha512-uPfz2yJ13nbhEdSqdXBoXBANB60cwZ77KkHcP8AIUWHj2GJovQFvvfbBZwO1Ok8JWPhfpkICnIiGU6IBrT7p/w==}
     engines: {node: '>=16.7.0'}
     hasBin: true
     dependencies:
