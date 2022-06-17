@@ -5,26 +5,19 @@
 0="${ZERO:-${${0:#$ZSH_ARGZERO}:-${(%):-%N}}}"
 0="${${(M)0:#/*}:-$PWD/$0}"
 
-# Variables:
+# https://z.digitalclouds.dev/docs/guides/customization
 local repo="https://github.com/z-shell/zi.git"
 local branch="main"
 local verbose_mode="${verbose_mode:-false}"
-
-# ZI variables:
-declare -A ZI
-
+declare -A ZI ZZ
 # Where ZI should create all working directories, e.g.: "~/.zi"
 ZI[HOME_DIR]="${HOME}/.zi"
-
 # Where ZI code resides, e.g.: "~/.zi/bin"
 ZI[BIN_DIR]="${HOME}/.zi/bin"
-
 # Zsh modules directory
 ZI[ZMODULES_DIR]="${HOME}/.zi/zmodules"
-
 # Path to .zcompdump file, with the file included (i.e. its name can be different)
 ZI[ZCOMPDUMP_PATH]="${HOME}/.cache/zi/.zcompdump"
-
 # If set to 1, then mutes some of the ZI warnings, specifically the plugin already registered warning
 ZI[MUTE_WARNINGS]='0'
 
@@ -54,10 +47,12 @@ zzsetup() {
 
 # If setup is successful or ZI is already installed, then load ZI. Otherwise, not continue and exit.
 zzsource() {
+  ZZ[sourced]=0
   [[ $verbose_mode == true ]] && builtin print "(ZI): If (zzsetup) function status code 0, then load ZI."
   if zzsetup; then
     [[ $verbose_mode == true ]] && builtin print "(ZI): Loading (zi.zsh)"
     source "${ZI[BIN_DIR]}/zi.zsh"
+    ZZ[sourced]=1
   else
     [[ $verbose_mode == true ]] && builtin print "(ZI): (zzsetup) function status code 1, not continue and exit."
     exit 1
@@ -66,11 +61,13 @@ zzsource() {
 
 # Load zi module if built
 zzpmod() {
+  ZZ[zpmod]=0
   [[ $verbose_mode == true ]] && builtin print "(ZI): Checking for ZI module."
   if [[ -f "${ZI[ZMODULES_DIR]}/zpmod/Src/zi/zpmod.so" ]]; then
     [[ $verbose_mode == true ]] && builtin print "(ZI): Loading ZI module."
     module_path+=( "${ZI[ZMODULES_DIR]}/zpmod/Src" )
     zmodload zi/zpmod &>/dev/null
+    ZZ[zpmod]=1
   fi
 }
 
