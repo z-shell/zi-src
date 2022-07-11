@@ -1,0 +1,8 @@
+name = "r2-store"
+main = "src/index.ts"
+workers_dev = false
+compatibility_date = "2022-07-11"
+
+[[r2_buckets]]
+binding = "R2_STORE"
+bucket_name = "r2-store"
