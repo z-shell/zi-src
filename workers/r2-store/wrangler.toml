@@ -1,6 +1,6 @@
 name = "r2-store"
 main = "src/index.ts"
-workers_dev = false
+workers_dev = true
 compatibility_date = "2022-07-11"
 
 [[r2_buckets]]
