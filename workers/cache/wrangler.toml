@@ -1,0 +1,5 @@
+name = "cache"
+main = "src/index.ts"
+workers_dev = false
+compatibility_date = "2022-07-11"
+account_id = "2db2112b269ed3616ed3a863a222f3e8"
