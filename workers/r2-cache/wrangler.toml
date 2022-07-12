@@ -1,0 +1,9 @@
+name = "r2-cache"
+main = "src/index.ts"
+compatibility_date = "2022-07-12"
+account_id = "2db2112b269ed3616ed3a863a222f3e8"
+workers_dev = true
+
+[[r2_buckets]]
+binding = 'R2_CACHE'
+bucket_name = 'r2-cache'
