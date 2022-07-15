@@ -60,8 +60,7 @@ fi
 
 if ! test -d "${ZI_HOME}"; then
   command mkdir "${ZI_HOME}"
-  command chmod g-w "${ZI_HOME}"
-  command chmod o-w "${ZI_HOME}"
+  command chmod go-w "${ZI_HOME}"
 fi
 
 if ! command -v git >/dev/null 2>&1; then
@@ -116,7 +115,7 @@ MAIN_PROFILE() {
     command cat <<-EOF >>"${THE_ZDOTDIR}/.zshrc"
 if [[ ! -f ${ZI_HOME}/${ZI_BIN_DIR_NAME}/zi.zsh ]]; then
   print -P "%F{33}▓▒░ %F{160}Installing (%F{33}z-shell/zi%F{160})…%f"
-  command mkdir -p "${ZI_HOME}" && command chmod g-rwX "${ZI_HOME}"
+  command mkdir -p "${ZI_HOME}" && command chmod go-rwX "${ZI_HOME}"
   command git clone -q --depth=1 --branch "${BOPT}" https://github.com/z-shell/zi "${ZI_HOME}/${ZI_BIN_DIR_NAME}" && \\
     print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \\
     print -P "%F{160}▓▒░ The clone has failed.%f%b"
@@ -171,7 +170,7 @@ EOF
 SETUP_ZPMOD() {
   if ! test -d "${ZI_HOME}/${MOD_HOME}"; then
     mkdir -p "${ZI_HOME}/${MOD_HOME}"
-    chmod g-rwX "${ZI_HOME}/${MOD_HOME}"
+    chmod go-rwX "${ZI_HOME}/${MOD_HOME}"
   fi
 
   printf '%s\n' "${col_pname}== Downloading ZPMOD module to ${ZI_HOME}/${MOD_HOME}"
