@@ -60,7 +60,7 @@ fi
 
 if ! test -d "${ZI_HOME}"; then
   command mkdir "${ZI_HOME}"
-  command chmod go-w "${ZI_HOME}"
+  command chmod g-rwX "${ZI_HOME}"
 fi
 
 if ! command -v git >/dev/null 2>&1; then
@@ -250,9 +250,9 @@ ZPMOD_PROFILE() {
 }
 
 CLOSE_PROFILE() {
-  git_refs="$(
+  local git_refs="$(
     command cd "${ZI_HOME}/${ZI_BIN_DIR_NAME}" || true
-    command git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit | head -10
+    command git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit | head -5
   )"
   printf '%s\n' "[34m▓▒░[0m[38;5;226m Latest changes:[0m"
   printf '%s\n' "${git_refs}"
