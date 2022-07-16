@@ -3,11 +3,13 @@ lockfileVersion: 5.4
 specifiers:
   '@cloudflare/workers-types': 3.14.1
   prettier: 2.7.1
+  typescript: 4.7.4
   wrangler: 2.0.22
 
 devDependencies:
   '@cloudflare/workers-types': 3.14.1
   prettier: 2.7.1
+  typescript: 4.7.4
   wrangler: 2.0.22
 
 packages:
@@ -107,7 +109,7 @@ packages:
       kleur: 4.1.5
       selfsigned: 2.0.1
       undici: 5.5.1
-      ws: 8.8.0
+      ws: 8.8.1
       youch: 2.2.2
     transitivePeerDependencies:
       - bufferutil
@@ -191,7 +193,7 @@ packages:
       '@miniflare/core': 2.6.0
       '@miniflare/shared': 2.6.0
       undici: 5.5.1
-      ws: 8.8.0
+      ws: 8.8.1
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -605,12 +607,18 @@ packages:
     dev: true
 
   /stack-trace/0.0.10:
-    resolution: {integrity: sha512-KGzahc7puUKkzyMt+IqAep+TVNbKP+k2Lmwhub39m1AsTSkaDutx56aDCo+HLDzf/D26BIHTJWNiTG1KAJiQCg==}
+    resolution: {integrity: sha1-VHxws0fo0ytOEI6hoqFZ5f3eGcA=}
     dev: true
 
   /streamsearch/1.1.0:
     resolution: {integrity: sha512-Mcc5wHehp9aXz1ax6bZUyY5afg9u2rv5cqQI3mRrYkGC8rW2hM02jWuwjtL++LS5qinSyhj2QfLyNsuc+VsExg==}
     engines: {node: '>=10.0.0'}
+    dev: true
+
+  /typescript/4.7.4:
+    resolution: {integrity: sha512-C0WQT0gezHuw6AdY1M2jxUO83Rjf0HP7Sk1DtXj6j1EwkQNZrHAg2XPWlq62oqEhYvONq5pkC2Y9oPljWToLmQ==}
+    engines: {node: '>=4.2.0'}
+    hasBin: true
     dev: true
 
   /undici/5.5.1:
@@ -647,8 +655,8 @@ packages:
       - utf-8-validate
     dev: true
 
-  /ws/8.8.0:
-    resolution: {integrity: sha512-JDAgSYQ1ksuwqfChJusw1LSJ8BizJ2e/vVu5Lxjq3YvNJNlROv1ui4i+c/kUUrPheBvQl4c5UbERhTwKa6QBJQ==}
+  /ws/8.8.1:
+    resolution: {integrity: sha512-bGy2JzvzkPowEJV++hF07hAD6niYSr0JzBNo/J29WsB57A2r7Wlc1UFcTR9IzrPvuNVO4B8LGqF8qcpsVOhJCA==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       bufferutil: ^4.0.1
