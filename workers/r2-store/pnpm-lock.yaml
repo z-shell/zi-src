@@ -3,12 +3,14 @@ lockfileVersion: 5.4
 specifiers:
   '@cloudflare/workers-types': 3.14.1
   prettier: 2.7.1
-  wrangler: 2.0.17
+  typescript: 4.7.4
+  wrangler: 2.0.22
 
 devDependencies:
   '@cloudflare/workers-types': 3.14.1
   prettier: 2.7.1
-  wrangler: 2.0.17
+  typescript: 4.7.4
+  wrangler: 2.0.22
 
 packages:
 
@@ -613,6 +615,12 @@ packages:
     engines: {node: '>=10.0.0'}
     dev: true
 
+  /typescript/4.7.4:
+    resolution: {integrity: sha512-C0WQT0gezHuw6AdY1M2jxUO83Rjf0HP7Sk1DtXj6j1EwkQNZrHAg2XPWlq62oqEhYvONq5pkC2Y9oPljWToLmQ==}
+    engines: {node: '>=4.2.0'}
+    hasBin: true
+    dev: true
+
   /undici/5.5.1:
     resolution: {integrity: sha512-MEvryPLf18HvlCbLSzCW0U00IMftKGI5udnjrQbC5D4P0Hodwffhv+iGfWuJwg16Y/TK11ZFK8i+BPVW2z/eAw==}
     engines: {node: '>=12.18'}
@@ -622,8 +630,8 @@ packages:
     resolution: {integrity: sha512-DOE84vZT2fEcl9gqCUTcnAw5ZY5Id55ikUcziSUntuEFL3pRvavg5kwDmTEUJkeCHInTlV/HexFomgYnzO5kdQ==}
     dev: true
 
-  /wrangler/2.0.17:
-    resolution: {integrity: sha512-U4PSx1j0JUPX/fDvQSqeCVZeAww+DLZkm1tWeFovOxgzpvpvZ/2s+2IINR+dhw4FGiSpDUsQgiA4EDm64fV4RA==}
+  /wrangler/2.0.22:
+    resolution: {integrity: sha512-mCKNvv3Yq8ClBaiEKZ/KGTYhwhf5r5ElkTNtUj50Y0Qo9JJYvLnphMteEjfnID5iopv2FxmHDeRSn/Jx7zSAkw==}
     engines: {node: '>=16.7.0'}
     hasBin: true
     dependencies:
@@ -636,7 +644,6 @@ packages:
       nanoid: 3.3.4
       path-to-regexp: 6.2.1
       selfsigned: 2.0.1
-      semiver: 1.1.0
       xxhash-wasm: 1.0.1
     optionalDependencies:
       fsevents: 2.3.2

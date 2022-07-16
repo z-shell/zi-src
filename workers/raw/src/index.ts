@@ -5,7 +5,7 @@ addEventListener("fetch", (event) => {
 const ASSET_PATH = "z-shell/zi-src/main/lib";
 const HOST_URL = `https://raw.githubusercontent.com/${ASSET_PATH}`;
 
-async function serveAsset(event: FetchEvent) {
+async function serveAsset(event) {
   const url = new URL(event.request.url);
   const cache = caches.default;
   let response = await cache.match(event.request);
@@ -19,7 +19,7 @@ async function serveAsset(event: FetchEvent) {
   return response;
 }
 
-async function handleRequest(event: FetchEvent) {
+async function handleRequest(event) {
   if (event.request.method === "GET") {
     let response = await serveAsset(event);
     if (response.status > 399) {
@@ -30,5 +30,3 @@ async function handleRequest(event: FetchEvent) {
     return new Response("Method not allowed", { status: 405 });
   }
 }
-
-export {};
