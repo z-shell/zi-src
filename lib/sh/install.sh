@@ -250,7 +250,7 @@ ZPMOD_PROFILE() {
 }
 
 CLOSE_PROFILE() {
-  local git_refs="$(
+  git_refs="$(
     command cd "${ZI_HOME}/${ZI_BIN_DIR_NAME}" || true
     command git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit | head -5
   )"
