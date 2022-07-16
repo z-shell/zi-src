@@ -9,7 +9,7 @@
 local repo="https://github.com/z-shell/zi.git"
 local branch="main"
 local verbose_mode="${verbose_mode:-false}"
-declare -A ZI ZZ
+typeset -A ZI
 # Where ZI should create all working directories, e.g.: "~/.zi"
 ZI[HOME_DIR]="${HOME}/.zi"
 # Where ZI code resides, e.g.: "~/.zi/bin"
@@ -31,7 +31,7 @@ zzsetup() {
     command git clone -q --progress --branch "$branch" "$repo" "${ZI[BIN_DIR]}"
     if [[ -f "${ZI[BIN_DIR]}/zi.zsh" ]]; then
       [[ $verbose_mode == true ]] && builtin print "(ZI): Installed and ZI (zi.zsh) is found"
-      git_refs=("$(cd "${ZI[BIN_DIR]}"; command git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit | head -10)")
+      local git_refs=("$(cd "${ZI[BIN_DIR]}"; command git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit | head -10)")
       print -P "%F{33}▓▒░ %F{34}Successfully installed %F{160}(%F{33}z-shell/zi%F{160})%f%b"
       print -P "%F{33}▓▒░ %F{226}Last changes:%f%b"
       print -P "%F{33}▓▒░ %F{160}%F{33}\n${git_refs}%F{160}%f%b"
@@ -47,12 +47,10 @@ zzsetup() {
 
 # If setup is successful or ZI is already installed, then load ZI. Otherwise, not continue and exit.
 zzsource() {
-  ZZ[sourced]=0
   [[ $verbose_mode == true ]] && builtin print "(ZI): If (zzsetup) function status code 0, then load ZI."
   if zzsetup; then
     [[ $verbose_mode == true ]] && builtin print "(ZI): Loading (zi.zsh)"
     source "${ZI[BIN_DIR]}/zi.zsh"
-    ZZ[sourced]=1
   else
     [[ $verbose_mode == true ]] && builtin print "(ZI): (zzsetup) function status code 1, not continue and exit."
     exit 1
@@ -61,13 +59,11 @@ zzsource() {
 
 # Load zi module if built
 zzpmod() {
-  ZZ[zpmod]=0
   [[ $verbose_mode == true ]] && builtin print "(ZI): Checking for ZI module."
   if [[ -f "${ZI[ZMODULES_DIR]}/zpmod/Src/zi/zpmod.so" ]]; then
     [[ $verbose_mode == true ]] && builtin print "(ZI): Loading ZI module."
     module_path+=( "${ZI[ZMODULES_DIR]}/zpmod/Src" )
     zmodload zi/zpmod &>/dev/null
-    ZZ[zpmod]=1
   fi
 }
 
@@ -80,6 +76,7 @@ zzcomps() {
 
 # If ZI is installed, load ZI, enable completion and load zpmod.
 zzinit() {
+  (( ZI[SOURCED] )) && return
   [[ $verbose_mode == true ]] && builtin print "(ZI): Loading ZI (zi.zsh)"
   zzsource
   zzcomps
