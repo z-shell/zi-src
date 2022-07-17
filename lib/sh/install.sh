@@ -34,10 +34,6 @@ while getopts ":i:a:b:" opt; do
 done
 shift $((OPTIND - 1))
 
-#if [ -z "$BOPT" ]; then
-#BOPT="main"
-#fi
-
 if [ "${AOPT}" = loader ]; then
   ZI_CONFIG_DIR="${XDG_CONFIG_HOME:-${HOME}/.config}/zi"
   command mkdir -p "${ZI_CONFIG_DIR}"
@@ -46,7 +42,7 @@ if [ "${AOPT}" = loader ]; then
   elif command -v wget >/dev/null 2>&1; then
     command wget -qO "${ZI_CONFIG_DIR}/init.zsh" https://raw.githubusercontent.com/z-shell/zi-src/main/lib/zsh/init.zsh
   fi
-  command chmod a+x "${ZI_CONFIG_DIR}/init.zsh"
+  command chmod go-w "${ZI_CONFIG_DIR}" && command chmod a+x "${ZI_CONFIG_DIR}/init.zsh"
   command sed -i "s/branch=\"main\"/branch=\"${BOPT}\"/g" "${ZI_CONFIG_DIR}/init.zsh"
 fi
 
@@ -60,7 +56,8 @@ fi
 
 if ! test -d "${ZI_HOME}"; then
   command mkdir "${ZI_HOME}"
-  command chmod g-rwX "${ZI_HOME}"
+  command chmod go-w "${ZI_HOME}"
+  command chmod go-w "${ZI_HOME}/${ZI_BIN_DIR_NAME}"
 fi
 
 if ! command -v git >/dev/null 2>&1; then
@@ -169,8 +166,8 @@ EOF
 
 SETUP_ZPMOD() {
   if ! test -d "${ZI_HOME}/${MOD_HOME}"; then
-    mkdir -p "${ZI_HOME}/${MOD_HOME}"
-    chmod go-rwX "${ZI_HOME}/${MOD_HOME}"
+    command mkdir -p "${ZI_HOME}/${MOD_HOME}"
+    command chmod go-w "${ZI_HOME}/${MOD_HOME}"
   fi
 
   printf '%s\n' "${col_pname}== Downloading ZPMOD module to ${ZI_HOME}/${MOD_HOME}"
