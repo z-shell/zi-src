@@ -27,7 +27,7 @@ zzsetup() {
   if [[ ! -f "${ZI[BIN_DIR]}/zi.zsh" ]]; then
     [[ $verbose_mode == true ]] && builtin print "(ZI): ZI (zi.zsh) is not found. Installing..."
     builtin print -P "%F{33}▓▒░ %F{160}Installing interactive feature-rich plugin manager (%F{33}z-shell/zi%F{160})%f%b"
-    command mkdir -p "${ZI[BIN_DIR]}" && command chmod go-w "${ZI[BIN_DIR]}" && compaudit | xargs chmod go-w "${ZI[HOME_DIR]}"
+    command mkdir -p "${ZI[BIN_DIR]}" && command chmod -R go-w "${ZI[HOME_DIR]}"
     command git clone -q --progress --branch "$branch" "$repo" "${ZI[BIN_DIR]}"
     if [[ -f "${ZI[BIN_DIR]}/zi.zsh" ]]; then
       [[ $verbose_mode == true ]] && builtin print "(ZI): Installed and ZI (zi.zsh) is found"
