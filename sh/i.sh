@@ -25,36 +25,36 @@ err() {
 }
 
 _os_type() {
-	OS="$(command -v uname)"
-	case $("${OS}" | tr '[:upper:]' '[:lower:]') in
-    android*)
-      OS='android'
+  OS="$(command -v uname)"
+  case $("${OS}" | tr '[:upper:]' '[:lower:]') in
+  android*)
+    OS='android'
     ;;
-    darwin*)
-      OS='darwin'
+  darwin*)
+    OS='darwin'
     ;;
-    linux*)
-      OS='linux'
+  linux*)
+    OS='linux'
     ;;
-    freebsd*)
-      OS='freebsd'
+  freebsd*)
+    OS='freebsd'
     ;;
-    netbsd*)
-      OS='netbsd'
+  netbsd*)
+    OS='netbsd'
     ;;
-    openbsd*)
-      OS='openbsd'
+  openbsd*)
+    OS='openbsd'
     ;;
-    sunos*)
-      OS='solaris'
+  sunos*)
+    OS='solaris'
     ;;
-    msys* | cygwin* | mingw*)
-      OS='windows'
+  msys* | cygwin* | mingw*)
+    OS='windows'
     ;;
-    nt | win*)
-      OS='windows'
+  nt | win*)
+    OS='windows'
     ;;
-    *)
+  *)
     echo 'OS not supported'
     ;;
   esac
