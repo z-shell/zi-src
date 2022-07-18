@@ -24,11 +24,17 @@
     <img align="center" src="https://img.shields.io/badge/--007ACC?logo=visual%20studio%20code&logoColor=ffffff" alt="Visual Studio Code" />
   </a></p><hr />
  
-- Wiki Pages: https://z.digitalclouds.dev
-- Loader: https://init.zshell.dev, https://git.io/zi-loader
-- Installer: https://get.zshell.dev, https://git.io/get-zi
-- RAW: https://raw.zshell.dev
-- IPFS: https://ipfs.zshell.dev
+- Wiki Pages:
+  - https://z.digitalclouds.dev
+- Loader:
+  - https://init.zshell.dev, https://git.io/zi-loader
+- Installer:
+  - https://get.zshell.dev, https://git.io/get-zi
+- RAW:
+  - https://raw.zshell.dev
+  - https://raw.zshell.dev/zsh/init.zsh
+- IPFS:
+  - https://ipfs.zshell.dev
 
  <h2 align="left">Credits</h2>
  <p align="center"><a href="https://trunk.io" rel="nofollow">
