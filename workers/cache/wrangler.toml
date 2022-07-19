@@ -1,0 +1,5 @@
+name = "cache"
+main = "src/index.ts"
+compatibility_date = "2022-07-19"
+account_id = "2db2112b269ed3616ed3a863a222f3e8"
+route = { pattern = "https://wiki.zshell.dev/*", zone_id = "88404a09f4a582bb65186110a35d1151" }

@@ -7,19 +7,6 @@ repo:
     owner: z-shell
     name: zi-src
 lint:
-  linters:
-    - name: zsh-n
-      files: [zsh]
-      type: pass_fail
-      command: [zsh, -c, "zsh -n ${target} 2>&1"]
-      success_codes: [0, 1]
-      environment:
-        - name: PATH
-          list: ["${env.PATH}"]
-    - name: markdownlint
-      command:
-        [markdownlint, -q, --config, .github/.markdownlint.yaml, "${target}"]
-      direct_configs: [.github/.markdownlint.yaml]
   enabled:
     - git-diff-check@SYSTEM
     - actionlint@1.6.15

@@ -1,8 +1,17 @@
 {
-  "conventionalCommits.scopes": ["maintenance", "workspace", "general"],
-  "markdownlint.config": {
-    "extends": ".github/.markdownlint.yaml"
+  "[markdown]": {
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true
   },
-  "conventionalCommits.promptCI": true,
-  "conventionalCommits.emojiFormat": "emoji"
+  "editor.codeActionsOnSave": {
+    "source.fixAll.markdownlint": true
+  },
+  "conventionalCommits.scopes": [
+    "maintenance",
+    "workspace",
+    "community",
+    "general",
+    "misc"
+  ],
+  "shellformat.useEditorConfig": true
 }
