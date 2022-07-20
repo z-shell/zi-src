@@ -25,7 +25,7 @@
   </a></p><hr />
  
 - Wiki Pages:
-  - https://z.digitalclouds.dev
+  - https://wiki.zshell.dev
 - Loader:
   - https://init.zshell.dev
   - https://git.io/zi-loader
