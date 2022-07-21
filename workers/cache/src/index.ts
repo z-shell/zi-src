@@ -1,14 +1,3 @@
-export interface Env {
-  // Example binding to KV. Learn more at https://developers.cloudflare.com/workers/runtime-apis/kv/
-  // MY_KV_NAMESPACE: KVNamespace;
-  //
-  // Example binding to Durable Object. Learn more at https://developers.cloudflare.com/workers/runtime-apis/durable-objects/
-  // MY_DURABLE_OBJECT: DurableObjectNamespace;
-  //
-  // Example binding to R2. Learn more at https://developers.cloudflare.com/workers/runtime-apis/r2/
-  // MY_BUCKET: R2Bucket;
-}
-
 async function handleRequest(event) {
   const request = event.request;
   const cacheUrl = new URL(request.url);
@@ -32,11 +21,8 @@ async function handleRequest(event) {
     // Must use Response constructor to inherit all of response's fields
     response = new Response(response.body, response);
 
-    // Cache API respects Cache-Control headers. Setting s-max-age to 10
-    // will limit the response to be in cache for 10 seconds max
-
     // Any changes made to the response here will be reflected in the cached value
-    response.headers.append("Cache-Control", "s-maxage=10");
+    response.headers.append("Cache-Control", "s-maxage=360");
 
     // Store the fetched response as cacheKey
     // Use waitUntil so you can return the response without blocking on
