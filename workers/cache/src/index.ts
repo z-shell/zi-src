@@ -12,7 +12,7 @@ async function handleRequest(event) {
     );
     response = await fetch(request);
     response = new Response(response.body, response);
-    response.headers.append("Cache-Control", "s-maxage=120");
+    response.headers.append("Cache-Control", "s-maxage=360");
 
     event.waitUntil(cache.put(cacheKey, response.clone()));
   } else {
