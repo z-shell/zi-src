@@ -3,6 +3,7 @@ async function handleRequest(event) {
   const cacheUrl = new URL(request.url);
   const cacheKey = new Request(cacheUrl.toString(), request);
   const cache = caches.default;
+
   let response = await cache.match(cacheKey);
 
   if (!response) {
@@ -11,7 +12,8 @@ async function handleRequest(event) {
     );
     response = await fetch(request);
     response = new Response(response.body, response);
-    response.headers.append("Cache-Control", "s-maxage=10");
+    response.headers.append("Cache-Control", "s-maxage=120");
+
     event.waitUntil(cache.put(cacheKey, response.clone()));
   } else {
     console.log(`Cache hit for: ${request.url}.`);
