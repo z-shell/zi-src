@@ -8,16 +8,16 @@ r2_buckets = [
   { binding = "R2_STORE", bucket_name = "r2-store", preview_bucket_name = "" },
 ]
 
-[env.r2]
-main = "src/cache.ts"
-route = { pattern = "wiki.zshell.dev/r2/*", zone_id = "88404a09f4a582bb65186110a35d1151" }
-r2_buckets = [
-  { binding = "R2_STORE", bucket_name = "r2-store", preview_bucket_name = "" },
-]
+#[env.r2]
+#main = "src/cache.ts"
+#route = { pattern = "wiki.zshell.dev/r2/*", zone_id = "88404a09f4a582bb65186110a35d1151" }
+#r2_buckets = [
+#  { binding = "R2_STORE", bucket_name = "r2-store", preview_bucket_name = "" },
+#]
 
-[env.r2-worker]
-main = "src/r2-bucket.ts"
-route = { pattern = "wiki.zshell.dev/r2/*", zone_id = "88404a09f4a582bb65186110a35d1151" }
-r2_buckets = [
-  { binding = "R2_STORE", bucket_name = "r2-store", preview_bucket_name = "" },
-]
+#[env.r2-worker]
+#main = "src/r2-bucket.ts"
+#route = { pattern = "wiki.zshell.dev/r2/*", zone_id = "88404a09f4a582bb65186110a35d1151" }
+#r2_buckets = [
+#  { binding = "R2_STORE", bucket_name = "r2-store", preview_bucket_name = "" },
+#]
