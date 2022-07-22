@@ -4,7 +4,7 @@
   "private": true,
   "main": "src/index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "pnpm exec rm -rf node_modules pnpm-lock.yaml",
     "format:check": "prettier --check '**/*.{js,css,json,md}'",
     "format:write": "prettier --write '**/*.{js,css,json,md}'",
     "format:diff": "prettier --list-different .",

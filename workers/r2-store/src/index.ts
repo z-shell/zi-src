@@ -89,6 +89,8 @@ export default {
       const headers = new Headers();
       object.writeHttpMetadata(headers);
       headers.set("etag", object.httpEtag);
+      headers.append("Access-Control-Allow-Origin", "https://wiki.zshell.dev");
+
       return new Response(null, {
         headers,
       });
