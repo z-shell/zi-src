@@ -3,7 +3,11 @@ main = "src/index.ts"
 compatibility_date = "2022-07-11"
 workers_dev = false
 account_id = "2db2112b269ed3616ed3a863a222f3e8"
+routes = [
+  { pattern = "r2.zshell.dev", custom_domain = true },
+  { pattern = "https://*.zshell.dev/r2/*", zone_id = "88404a09f4a582bb65186110a35d1151" },
+]
 
 [[r2_buckets]]
-binding = "R2_BUCKET"
+binding = "R2_STORE"
 bucket_name = "r2-store"
