@@ -20,7 +20,7 @@ function parseRange(
 
 function objectNotFound(objectName: string): Response {
   return new Response(
-    `<html><body>R2 object "<b>${objectName}</b>" not found</body></html>`,
+    `<html><body style="background-color:black; color:white"><h3 style="text-align:center">R2 object "<b>${objectName}</b>" not found</h3></body></html>`,
     {
       status: 404,
       headers: {
@@ -51,7 +51,7 @@ export default {
         };
         console.log(JSON.stringify(options));
 
-        const listing = await env.R2_BUCKET.list(options);
+        const listing = await env.R2_STORE.list(options);
         return new Response(JSON.stringify(listing), {
           headers: {
             "content-type": "application/json; charset=UTF-8",
@@ -61,7 +61,7 @@ export default {
 
       if (request.method === "GET") {
         const range = parseRange(request.headers.get("range"));
-        const object = await env.R2_BUCKET.get(objectName, {
+        const object = await env.R2_STORE.get(objectName, {
           range,
           onlyIf: request.headers,
         });
@@ -73,6 +73,12 @@ export default {
         const headers = new Headers();
         object.writeHttpMetadata(headers);
         headers.set("etag", object.httpEtag);
+        /** headers.append("Access-Control-Allow-Headers", "Content-Type, Set-Cookie, Cache-Control");
+        headers.append("Access-Control-Allow-Methods", "GET, HEAD, POST, PUT, DELETE, OPTIONS");
+        headers.append("Access-Control-Allow-Origin", "htt");
+        headers.append("Access-Control-Max-Age", "600");
+        headers.append("Vary", "Origin, Accept-Encoding"); */
+
         const status = object.body ? (range ? 206 : 200) : 304;
         return new Response(object.body, {
           headers,
@@ -80,7 +86,7 @@ export default {
         });
       }
 
-      const object = await env.R2_BUCKET.head(objectName);
+      const object = await env.R2_STORE.head(objectName);
 
       if (object === null) {
         return objectNotFound(objectName);
@@ -89,14 +95,14 @@ export default {
       const headers = new Headers();
       object.writeHttpMetadata(headers);
       headers.set("etag", object.httpEtag);
-      headers.append("Access-Control-Allow-Origin", "https://wiki.zshell.dev");
-
       return new Response(null, {
         headers,
       });
     }
+
+    /**
     if (request.method === "PUT" || request.method == "POST") {
-      const object = await env.R2_BUCKET.put(objectName, request.body, {
+      const object = await env.R2_STORE.put(objectName, request.body, {
         httpMetadata: request.headers,
       });
       return new Response(null, {
@@ -106,10 +112,10 @@ export default {
       });
     }
     if (request.method === "DELETE") {
-      await env.R2_BUCKET.delete(url.pathname.slice(1));
+      await env.R2_STORE.delete(url.pathname.slice(1));
       return new Response();
     }
-
+    */
     return new Response(`Unsupported method`, {
       status: 400,
     });

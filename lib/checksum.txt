@@ -1,0 +1,2 @@
+b391658cf93cdd79f7dc9bf1ce451c8efb584428aeda8ca78ae1906897c827a4 lib/sh/install.sh
+7fab1ecb8d2ffbdb4aa98dd1e51cebaeaa4d8137e1de11938f3e0df24af262bb lib/zsh/init.zsh

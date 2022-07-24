@@ -25,22 +25,13 @@ export default {
       const headers = new Headers();
       object.writeHttpMetadata(headers);
       headers.set("etag", object.httpEtag);
-      headers.set("Cache-Control", "s-maxage=84000");
-      headers.set("Cache-Control", "max-age=14400");
-      headers.append("Cache-Control", "stale-if-error=400");
-
-      headers.append("Cloudflare-CDN-Cache-Control", "stale-if-error=60");
-      headers.append("CDN-Cache-Control", "stale-if-error=200");
-
-      headers.append("Cloudflare-CDN-Cache-Control", "max-age=24400");
-      headers.append("CDN-Cache-Control", "max-age=18000");
+      headers.append("Cache-Control", "s-maxage=10");
 
       response = new Response(object.body, {
         headers,
       });
 
       context.waitUntil(cache.put(cacheKey, response.clone()));
-
       return response;
     } catch (e) {
       return new Response("Error thrown " + e.message);
