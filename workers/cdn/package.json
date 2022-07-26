@@ -1,5 +1,5 @@
 {
-  "name": "@workers/r2-wiki",
+  "name": "@workers/cdn",
   "version": "1.0.0",
   "private": true,
   "main": "src/index.ts",

@@ -73,11 +73,6 @@ export default {
         const headers = new Headers();
         object.writeHttpMetadata(headers);
         headers.set("etag", object.httpEtag);
-        /** headers.append("Access-Control-Allow-Headers", "Content-Type, Set-Cookie, Cache-Control");
-        headers.append("Access-Control-Allow-Methods", "GET, HEAD, POST, PUT, DELETE, OPTIONS");
-        headers.append("Access-Control-Allow-Origin", "htt");
-        headers.append("Access-Control-Max-Age", "600");
-        headers.append("Vary", "Origin, Accept-Encoding"); */
 
         const status = object.body ? (range ? 206 : 200) : 304;
         return new Response(object.body, {
