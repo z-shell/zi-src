@@ -18,9 +18,9 @@ function parseRange(
   };
 }
 
-function objectNotFound(objectName: string): Response {
+function objectNotFound(key: string): Response {
   return new Response(
-    `<html><body style="background-color:black; color:white"><h3 style="text-align:center">R2 object "<b>${objectName}</b>" not found</h3></body></html>`,
+    `<html><body style="background-color:black; color:white"><h3 style="text-align:center">R2 object "<b>${key}</b>" not found</h3></body></html>`,
     {
       status: 404,
       headers: {
@@ -30,15 +30,59 @@ function objectNotFound(objectName: string): Response {
   );
 }
 
-export default {
-  async fetch(request: Request, env): Promise<Response> {
-    const url = new URL(request.url);
-    const objectName = url.pathname.slice(1);
+const hasValidHeader = (
+  request: { headers: { get: (arg0: string) => any } },
+  env: { AUTH_KEY_SECRET: any }
+) => {
+  return request.headers.get("X-Custom-Auth-Key") === env.AUTH_KEY_SECRET;
+};
 
-    console.log(`${request.method} object ${objectName}: ${request.url}`);
+function authorizeRequest(request: Request, env: any) {
+  switch (request.method) {
+    case "PUT":
+    case "DELETE":
+      return hasValidHeader(request, env);
+    case "GET":
+      return true;
+    default:
+      return false;
+  }
+}
+
+export default {
+  async fetch(
+    request: Request,
+    env: {
+      R2_STORE: {
+        list: (arg0: R2ListOptions) => any;
+        get: (
+          arg0: string,
+          arg1: {
+            range: { offset: number; length: number } | undefined;
+            onlyIf: Headers;
+          }
+        ) => any;
+        head: (arg0: string) => any;
+        put: (
+          arg0: string,
+          arg1: ReadableStream | null,
+          arg2: { httpMetadata: Headers }
+        ) => any;
+        delete: (arg0: string) => any;
+      };
+    }
+  ): Promise<Response> {
+    const url = new URL(request.url);
+    const key = url.pathname.slice(1);
+
+    if (!authorizeRequest(request, env)) {
+      return new Response("Forbidden", { status: 403 });
+    }
+
+    console.log(`${request.method} object ${key}: ${request.url}`);
 
     if (request.method === "GET" || request.method === "HEAD") {
-      if (objectName === "") {
+      if (key === "") {
         if (request.method == "HEAD") {
           return new Response(undefined, { status: 400 });
         }
@@ -61,13 +105,13 @@ export default {
 
       if (request.method === "GET") {
         const range = parseRange(request.headers.get("range"));
-        const object = await env.R2_STORE.get(objectName, {
+        const object = await env.R2_STORE.get(key, {
           range,
           onlyIf: request.headers,
         });
 
         if (object === null) {
-          return objectNotFound(objectName);
+          return objectNotFound(key);
         }
 
         const headers = new Headers();
@@ -81,10 +125,10 @@ export default {
         });
       }
 
-      const object = await env.R2_STORE.head(objectName);
+      const object = await env.R2_STORE.head(key);
 
       if (object === null) {
-        return objectNotFound(objectName);
+        return objectNotFound(key);
       }
 
       const headers = new Headers();
@@ -95,9 +139,8 @@ export default {
       });
     }
 
-    /**
     if (request.method === "PUT" || request.method == "POST") {
-      const object = await env.R2_STORE.put(objectName, request.body, {
+      const object = await env.R2_STORE.put(key, request.body, {
         httpMetadata: request.headers,
       });
       return new Response(null, {
@@ -110,7 +153,7 @@ export default {
       await env.R2_STORE.delete(url.pathname.slice(1));
       return new Response();
     }
-    */
+
     return new Response(`Unsupported method`, {
       status: 400,
     });

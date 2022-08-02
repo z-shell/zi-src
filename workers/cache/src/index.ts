@@ -1,5 +1,5 @@
 export default {
-  async fetch(request, env, context): Promise<Response> {
+  async fetch(request, env, context) {
     try {
       const cacheUrl = new URL(request.url);
       const cacheKey = new Request(cacheUrl.toString(), request);
@@ -11,7 +11,6 @@ export default {
         response = await fetch(request);
         response = new Response(response.body, response);
         response.headers.append("Cache-Control", "s-maxage=10");
-
         context.waitUntil(cache.put(cacheKey, response.clone()));
       }
       return response;
