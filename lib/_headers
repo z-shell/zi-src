@@ -1,8 +1,0 @@
-/zsh/init.zsh
-  Access-Control-Allow-Origin: *
-  Cache-Control: public
-  Cache-Control: max-age=365000000
-  Cache-Control: immutable
-  Content-Type: text/plain
-  Content-Type: charset=utf-8
-  X-Robots-Tag: nosnippet
