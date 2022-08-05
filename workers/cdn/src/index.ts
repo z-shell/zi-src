@@ -3,7 +3,7 @@ addEventListener("fetch", (event) => {
 });
 
 const BUCKET_NAME = "digital-space";
-const BUCKET_URL = `https://storage.googleapis.com/${BUCKET_NAME}`;
+const HOST_URL = `https://storage.googleapis.com/${BUCKET_NAME}`;
 
 async function serveAsset(event) {
   const url = new URL(event.request.url);
@@ -11,9 +11,9 @@ async function serveAsset(event) {
   let response = await cache.match(event.request);
 
   if (!response) {
-    response = await fetch(`${BUCKET_URL}${url.pathname}`);
+    response = await fetch(`${HOST_URL}${url.pathname}`);
     const headers = {
-      "Cache-Control": "public, max-age=14400, s-maxage=84000",
+      "cache-control": "public, max-age=14400, s-maxage=84000",
     };
     response = new Response(response.body, { ...response, headers });
     event.waitUntil(cache.put(event.request, response.clone()));
@@ -32,3 +32,5 @@ async function handleRequest(event) {
     return new Response("Method not allowed", { status: 405 });
   }
 }
+
+export {};

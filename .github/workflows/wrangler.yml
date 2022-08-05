@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        worker: [get, init, raw, cdn, r2-store]
+        worker: [get, init, raw, cdn, r2]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -50,11 +50,11 @@ jobs:
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
           workingDirectory: "workers/cdn"
           command: "publish"
-      - if: startsWith(matrix.worker, 'r2-store')
-        name: "🤠 Deploy > r2-store"
+      - if: startsWith(matrix.worker, 'r2')
+        name: "🤠 Deploy > r2"
         uses: cloudflare/wrangler-action@2.0.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
-          workingDirectory: "workers/r2-store"
+          workingDirectory: "workers/r2"
           command: "publish"
