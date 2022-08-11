@@ -1,12 +1,16 @@
 name: "🆗 Checksum"
 
 on:
-  push:
-    tags:
-      - "v*.*.*"
+  pull_request:
     paths:
       - "lib/sh/**"
       - "lib/zsh/**"
+  push:
+    paths:
+      - "lib/sh/**"
+      - "lib/zsh/**"      
+    tags:
+      - "v*.*.*"      
   workflow_dispatch: {}
 
 jobs:
