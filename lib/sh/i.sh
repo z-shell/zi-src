@@ -407,9 +407,9 @@ _setup_profile() {
       say "[34m▓▒░[0m Uninstall successful"
       command cat <<-EOF
 [34m▓▒░[0m[1;36m ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ ❮ ZI ❯[0m
-[34m▓▒░[0m[38;5;226m Wiki:         https://z.digitalclouds.dev[0m
+[34m▓▒░[0m[38;5;226m Wiki:         https://wiki.zshell.dev[0m
 [34m▓▒░[0m[38;5;226m Issues:       https://github.com/z-shell/zi/issues[0m
-[34m▓▒░[0m[38;5;226m Discussions:  https://z.digitalclouds.dev/discussions[0m"
+[34m▓▒░[0m[38;5;226m Discussions:  https://discussions.zshell.dev[0m"
 EOF
       rm -rf "${WORKDIR}"
       exit 0
@@ -499,9 +499,9 @@ _set_annexes() {
     command cat <<-EOF >>"${file}"
 zi light-mode for \\
   z-shell/z-a-meta-plugins \\
-  @annexes # <- https://z.digitalclouds.dev/ecosystem/annexes
-# examples here -> https://z.digitalclouds.dev/docs/gallery/collection
-zicompinit # <- https://z.digitalclouds.dev/docs/guides/commands
+  @annexes # <- https://wiki.zshell.dev/ecosystem/category/-annexes
+# examples here -> https://wiki.zshell.dev/community/gallery/collection
+zicompinit # <- https://wiki.zshell.dev/docs/guides/commands
 EOF
     say "[34m▓▒░[0m[1;36m Installing annexes[0m"
     command cat "${file}" >>"${THE_ZDOTDIR}/.zshrc"
@@ -534,9 +534,9 @@ MAIN() {
   say "[34m▓▒░[0m[1;36m System: ${OS} - ${ARCH}"
   command cat <<-EOF
 [34m▓▒░[0m[1;36m ■■■■■■■■■■■■■■■■■ Successfully installed ❮ ZI ❯ ■■■■■■■■■[0m
-[34m▓▒░[0m[38;5;226m Wiki:         https://z.digitalclouds.dev[0m
+[34m▓▒░[0m[38;5;226m Wiki:         https://wiki.zshell.dev[0m
 [34m▓▒░[0m[38;5;226m Issues:       https://github.com/z-shell/zi/issues[0m
-[34m▓▒░[0m[38;5;226m Discussions:  https://z.digitalclouds.dev/discussions[0m
+[34m▓▒░[0m[38;5;226m Discussions:  https://discussions.zshell.dev[0m
 [34m▓▒░[0m[1;36m ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■[0m
 EOF
   exit 0
