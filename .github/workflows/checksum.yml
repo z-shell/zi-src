@@ -8,9 +8,10 @@ on:
   push:
     paths:
       - "lib/sh/**"
-      - "lib/zsh/**"      
+      - "lib/zsh/**"
+    branches: [main]
     tags:
-      - "v*.*.*"      
+      - "v*.*.*"
   workflow_dispatch: {}
 
 jobs:
