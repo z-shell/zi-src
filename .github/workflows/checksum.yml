@@ -1,17 +1,11 @@
 name: "🆗 Checksum"
 
 on:
-  pull_request:
-    paths:
-      - "lib/sh/**"
-      - "lib/zsh/**"
   push:
     paths:
       - "lib/sh/**"
       - "lib/zsh/**"
     branches: [main]
-    tags:
-      - "v*.*.*"
   workflow_dispatch: {}
 
 jobs:
