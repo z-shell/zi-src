@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: "🆗 Generate checksum"
-        uses: jmgilman/actions-generate-checksum@24a35957fba81c6cbaefeb1e3d59ee56e3db5077
+        uses: jmgilman/actions-generate-checksum@57c13a1f01a90b2a8bb449ec29bc23728b96c1cd
         with:
           patterns: |
             lib/sh/install.sh
