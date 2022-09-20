@@ -2,12 +2,19 @@
 name: "🤠 Wrangler"
 
 on:
-  workflow_dispatch: {}
+  schedule:
+    - cron: '0 03 * * 1/3'
   push:
     branches: [main]
     paths:
       - "lib/**"
       - "workers/**"
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Choose an environment to deploy to: <dev|staging|prod>'
+        required: true
+        default: 'dev'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
