@@ -29,7 +29,6 @@ jobs:
         uses: cloudflare/wrangler-action@2.0.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
-          accountId: ${{ secrets.CF_ACCOUNT_ID }}
           workingDirectory: "workers/get"
           command: "publish"
       - if: startsWith(matrix.worker, 'init')
@@ -37,7 +36,6 @@ jobs:
         uses: cloudflare/wrangler-action@2.0.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
-          accountId: ${{ secrets.CF_ACCOUNT_ID }}
           workingDirectory: "workers/init"
           command: "publish"
       - if: startsWith(matrix.worker, 'raw')
@@ -45,7 +43,6 @@ jobs:
         uses: cloudflare/wrangler-action@2.0.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
-          accountId: ${{ secrets.CF_ACCOUNT_ID }}
           workingDirectory: "workers/raw"
           command: "publish"
       - if: startsWith(matrix.worker, 'cdn')
@@ -53,7 +50,6 @@ jobs:
         uses: cloudflare/wrangler-action@2.0.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
-          accountId: ${{ secrets.CF_ACCOUNT_ID }}
           workingDirectory: "workers/cdn"
           command: "publish"
       - if: startsWith(matrix.worker, 'r2')
@@ -61,6 +57,5 @@ jobs:
         uses: cloudflare/wrangler-action@2.0.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
-          accountId: ${{ secrets.CF_ACCOUNT_ID }}
           workingDirectory: "workers/r2"
           command: "publish"
