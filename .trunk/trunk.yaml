@@ -1,13 +1,17 @@
 version: 0.1
+runtimes:
+  enabled:
+    - go@1.18.3
+    - node@16.14.2
 cli:
-  version: 0.17.0-beta
+  version: 0.18.0-beta
   options:
     - commands: [check, fmt]
     - args: -y
 plugins:
   sources:
     - id: trunk
-      ref: v0.0.3
+      ref: v0.0.4
       uri: https://github.com/trunk-io/plugins
 repo:
   repo:
@@ -16,6 +20,7 @@ repo:
     name: zi-src
 actions:
   enabled:
+    - trunk-upgrade-available
     - trunk-check-pre-push
     - trunk-fmt-pre-commit
     - trunk-cache-prune
@@ -24,13 +29,13 @@ actions:
 lint:
   enabled:
     - git-diff-check@SYSTEM
-    - actionlint@1.6.18
-    - gitleaks@8.12.0
+    - actionlint@1.6.19
+    - gitleaks@8.13.0
     - markdownlint@0.32.2
     - prettier@2.7.1
     - shellcheck@0.8.0
     - shfmt@3.5.0
-    - taplo@release-taplo-cli-0.7.0
+    - taplo@release-cli-0.6.0
   ignore:
     - linters: [ALL]
       paths:
