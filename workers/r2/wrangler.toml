@@ -1,12 +1,9 @@
 name = "r2-store"
 main = "src/index.ts"
-compatibility_date = "2022-07-11"
-workers_dev = false
+compatibility_date = "2022-09-28"
+workers_dev = true
 account_id = "2db2112b269ed3616ed3a863a222f3e8"
-routes = [
-  { pattern = "r2.zshell.dev", custom_domain = true },
-  #  { pattern = "https://wiki.zshell.dev/r2/*", zone_id = "88404a09f4a582bb65186110a35d1151" },
-]
+routes = [{ pattern = "r2-store.zshell.dev", custom_domain = true }]
 
 [[r2_buckets]]
 binding = "R2_STORE"
