@@ -1,6 +1,6 @@
-addEventListener("fetch", (event) => {
+addEventListener("fetch", async (event) => {
   try {
-    return event.respondWith(handleRequest(event));
+    return event.respondWith(handleRequest(event.request));
   } catch (e) {
     return event.respondWith(new Response(`Error thrown ${e.message}`));
   }
@@ -13,9 +13,7 @@ async function serveAsset(event) {
   const request = event.request;
   const url = new URL(request.url);
   const cache = caches.default;
-
   let response = await cache.match(request);
-
   if (!response) {
     response = await fetch(`${HOST_URL}${url.pathname}`);
     const headers = {
