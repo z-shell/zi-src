@@ -6,15 +6,14 @@ addEventListener("fetch", async (event) => {
   }
 });
 
-const BUCKET_NAME = "digital-space";
-const HOST_URL = `https://storage.googleapis.com/${BUCKET_NAME}`;
-
 async function serveAsset(event) {
   const request = event.request;
   const url = new URL(request.url);
   const cache = caches.default;
   let response = await cache.match(request);
   if (!response) {
+    const BUCKET_NAME = "digital-space";
+    const HOST_URL = `https://storage.googleapis.com/${BUCKET_NAME}`;
     response = await fetch(`${HOST_URL}${url.pathname}`);
     const headers = {
       "cache-control": "public, max-age=14400, s-maxage=84000",
@@ -27,7 +26,8 @@ async function serveAsset(event) {
 }
 
 async function handleRequest(event) {
-  if (event.request.method === "GET") {
+  const request = event.request;
+  if (request.method === "GET") {
     let response = await serveAsset(event);
     if (response.status > 399) {
       response = new Response(response.statusText, { status: response.status });
