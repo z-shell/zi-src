@@ -1,5 +1,9 @@
 addEventListener("fetch", (event) => {
-  event.respondWith(handleRequest(event));
+  try {
+    return event.respondWith(handleRequest(event));
+  } catch (e) {
+    return event.respondWith(new Response(`Error thrown ${e.message}`));
+  }
 });
 
 const ASSET_PATH = "z-shell/zi-src/main/lib";
@@ -12,7 +16,7 @@ async function serveAsset(event) {
 
   if (!response) {
     response = await fetch(`${HOST_URL}${url.pathname}`);
-    const headers = { "cache-control": "public, max-age=14400" };
+    const headers = { "cache-control": "public, max-age=14400, s-maxage=84000", };
     response = new Response(response.body, { ...response, headers });
     event.waitUntil(cache.put(event.request, response.clone()));
   }
