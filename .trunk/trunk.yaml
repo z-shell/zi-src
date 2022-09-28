@@ -4,7 +4,7 @@ runtimes:
     - go@1.18.3
     - node@16.14.2
 cli:
-  version: 0.18.0-beta
+  version: 0.18.1-beta
   options:
     - commands: [check, fmt]
     - args: -y
@@ -27,6 +27,8 @@ actions:
     - trunk-check-upgrade
     - trunk-upgrade
 lint:
+  disabled:
+    - eslint
   enabled:
     - git-diff-check@SYSTEM
     - actionlint@1.6.19
@@ -35,7 +37,7 @@ lint:
     - prettier@2.7.1
     - shellcheck@0.8.0
     - shfmt@3.5.0
-    - taplo@release-cli-0.6.0
+    - taplo@release-taplo-cli-0.7.0
   ignore:
     - linters: [ALL]
       paths:
