@@ -1,6 +1,6 @@
 addEventListener("fetch", async (event) => {
   try {
-    return event.respondWith(handleRequest(event.request));
+    return event.respondWith(handleRequest(event));
   } catch (e) {
     return event.respondWith(new Response(`Error thrown ${e.message}`));
   }
