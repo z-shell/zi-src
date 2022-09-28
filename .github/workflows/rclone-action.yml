@@ -1,0 +1,36 @@
+---
+name: "🔄 Rclone"
+on:
+  push:
+    paths:
+      # Paths which will tigger workflow
+      - "lib/**"
+  workflow_dispatch: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    if: github.repository == 'z-shell/zi-src'
+    runs-on: ubuntu-latest
+    environment: 'cloud-storage'
+    env:
+      local_path: "lib"
+      r2_remote_path: "r2store:r2-store/src"
+    steps:
+      - name: "⤵️ Check out code from GitHub"
+        uses: actions/checkout@v3
+      - name: "⏫ Run rclone"
+        uses: z-shell/.github/actions/rclone@v1.0.0
+        with:
+          # The RCLONE_CONFIG secret must be set to set up for rclone (required)
+          config: ${{ secrets.R2_STORE }}
+          # Pass any argumets supported by rclone (required)
+          args: "sync ${{ env.local_path }} ${{ env.r2_remote_path }}"
+          # Set custom location for rclone configuration file (optional)
+          # Will try to detect the default location using rclone.
+          #config-file: ""
+          # Verbose debugging and logging or carry on, but do quit on errors (optional)
+          debug: false
