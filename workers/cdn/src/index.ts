@@ -10,7 +10,8 @@ const BUCKET_NAME = "digital-space";
 const HOST_URL = `https://storage.googleapis.com/${BUCKET_NAME}`;
 
 async function serveAsset(event) {
-  const url = new URL(event.request.url);
+  const request = event.request;
+  const url = new URL(request.url);
   const cache = caches.default;
 
   let response = await cache.match(request);
