@@ -21,48 +21,39 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy-worker:
-    strategy:
-      fail-fast: false
-      matrix:
-        worker: [get, init, raw, cdn, r2]
+  deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     environment: wrangler
     steps:
       - uses: actions/checkout@v3
-      - if: startsWith(matrix.worker, 'get')
-        name: "🤠 Deploy > get"
+      - name: "🤠 Deploy > get"
         uses: cloudflare/wrangler-action@2.0.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           workingDirectory: "workers/get"
           command: "publish"
-      - if: startsWith(matrix.worker, 'init')
-        name: "🤠 Deploy > init"
+      - name: "🤠 Deploy > init"
         uses: cloudflare/wrangler-action@2.0.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           workingDirectory: "workers/init"
           command: "publish"
-      - if: startsWith(matrix.worker, 'raw')
-        name: "🤠 Deploy > raw"
+      - name: "🤠 Deploy > raw"
         uses: cloudflare/wrangler-action@2.0.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           workingDirectory: "workers/raw"
           command: "publish"
-      - if: startsWith(matrix.worker, 'cdn')
-        name: "🤠 Deploy > cdn"
+      - name: "🤠 Deploy > cdn"
         uses: cloudflare/wrangler-action@2.0.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           workingDirectory: "workers/cdn"
           command: "publish"
-      - if: startsWith(matrix.worker, 'r2')
-        name: "🤠 Deploy > r2"
+      - name: "🤠 Deploy > r2-store"
         uses: cloudflare/wrangler-action@2.0.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
-          workingDirectory: "workers/r2"
+          workingDirectory: "workers/r2-store"
           command: "publish"
