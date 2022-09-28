@@ -17,18 +17,11 @@ jobs:
     environment: "cloud-storage"
     env:
       local_path: "lib"
-      gcp_remote_path: "gcp:gcp-space/src"
       r2_remote_path: "r2store:r2-store/src"
       cdn_remote_path: "cdn:digital-space/src"
     steps:
       - name: "⤵️ Check out code from GitHub"
         uses: actions/checkout@v3
-      - name: "⏫ Run rclone/gcp"
-        uses: z-shell/.github/actions/rclone@v1.0.0
-        with:
-          config: ${{ secrets.GCP_STORE }}
-          args: "sync ${{ env.local_path }} ${{ env.gcp_remote_path }}"
-          debug: false
       - name: "⏫ Run rclone/r2-store"
         uses: z-shell/.github/actions/rclone@v1.0.0
         with:
