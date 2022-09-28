@@ -35,9 +35,8 @@ lint:
     - prettier@2.7.1
     - shellcheck@0.8.0
     - shfmt@3.5.0
-    - taplo@release-taplo-cli-0.7.0
+    - taplo@release-cli-0.6.0
   ignore:
     - linters: [ALL]
       paths:
         - "**/pnpm-lock.yaml"
-        - "**/node_modules/**"

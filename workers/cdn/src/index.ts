@@ -1,9 +1,16 @@
+addEventListener("fetch", (event) => {
+  try {
+    return event.respondWith(handleRequest(event));
+  } catch (e) {
+    return event.respondWith(new Response(`Error thrown ${e.message}`));
+  }
+});
+
 const BUCKET_NAME = "digital-space";
 const HOST_URL = `https://storage.googleapis.com/${BUCKET_NAME}`;
 
 async function serveAsset(event) {
-  const request = event.request;
-  const url = new URL(request.url);
+  const url = new URL(event.request.url);
   const cache = caches.default;
 
   let response = await cache.match(request);
@@ -31,11 +38,3 @@ async function handleRequest(event) {
     return new Response("Method not allowed", { status: 405 });
   }
 }
-
-addEventListener("fetch", (event) => {
-  try {
-    return event.respondWith(handleRequest(event));
-  } catch (e) {
-    return event.respondWith(new Response("Error thrown " + e.message));
-  }
-});
