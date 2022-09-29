@@ -99,7 +99,6 @@ export default {
         return new Response(JSON.stringify(listing), {
           headers: {
             "content-type": "application/json; charset=UTF-8",
-            "access-control-allow-origin": "*",
           },
         });
       }
