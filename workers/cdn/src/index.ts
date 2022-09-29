@@ -18,6 +18,7 @@ async function serveAsset(event) {
     const headers = {
       "cache-control": "public, max-age=14400, s-maxage=84000",
       "x-goog-project-id": "digital-clouds",
+      "access-control-allow-origin": "*",
     };
     response = new Response(response.body, { ...response, headers });
     event.waitUntil(cache.put(request, response.clone()));
