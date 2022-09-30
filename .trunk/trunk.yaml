@@ -31,7 +31,7 @@ lint:
     - eslint
   enabled:
     - git-diff-check@SYSTEM
-    - actionlint@1.6.19
+    - actionlint@1.6.20
     - gitleaks@8.13.0
     - markdownlint@0.32.2
     - prettier@2.7.1
