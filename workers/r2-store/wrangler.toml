@@ -8,3 +8,4 @@ compatibility_date = "2022-09-28"
 [[r2_buckets]]
 binding = "R2_STORE"
 bucket_name = "r2-store"
+preview_bucket_name = "r2-store-preview"
