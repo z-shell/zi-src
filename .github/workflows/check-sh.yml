@@ -20,7 +20,7 @@ jobs:
   shellcheck:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3.0.2    
+      - uses: actions/checkout@v3.0.2
       - name: ☑️ ShellCheck
         uses: ludeeus/action-shellcheck@master
         with:
@@ -75,13 +75,12 @@ jobs:
           sh -x ./lib/sh/install.sh -- -a zunit
           command rm -rf ~/.zi
           sh -x ./lib/sh/install.sh -- -a zpmod
-      - name: 🪟 Install on Windows        
+      - name: 🪟 Install on Windows
         if: startsWith(matrix.os, 'windows')
-        #shell: C:\tools\cygwin\bin\bash.exe --login --norc -eo pipefail -o igncr '{0}'
         shell: bash
         run: |
-          cd ${GITHUB_WORKSPACE}
           git config --global core.autocrlf input
+          cd ${GITHUB_WORKSPACE}
           sh -x ./lib/sh/install.sh -- -i skip
           command rm -rf /home/runneradmin/.zi
           sh -x ./lib/sh/install.sh -- -a annex
