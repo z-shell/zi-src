@@ -16,29 +16,16 @@ on:
         required: true
         default: "dev"
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
     timeout-minutes: 15
     environment: wrangler
     steps:
       - uses: actions/checkout@v3
-      - name: "🤠 Deploy > get"
-        uses: cloudflare/wrangler-action@2.0.0
-        with:
-          apiToken: ${{ secrets.CF_API_TOKEN }}
-          workingDirectory: "workers/get"
-          command: "publish"
-      - name: "🤠 Deploy > init"
-        uses: cloudflare/wrangler-action@2.0.0
-        with:
-          apiToken: ${{ secrets.CF_API_TOKEN }}
-          workingDirectory: "workers/init"
-          command: "publish"
       - name: "🤠 Deploy > raw"
         uses: cloudflare/wrangler-action@2.0.0
         with:
