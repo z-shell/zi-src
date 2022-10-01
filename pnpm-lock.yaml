@@ -45,61 +45,61 @@ importers:
     specifiers:
       '@cloudflare/workers-types': 3.16.0
       prettier: 2.7.1
-      typescript: 4.8.3
-      wrangler: 2.1.6
+      typescript: 4.8.4
+      wrangler: 2.1.9
     devDependencies:
       '@cloudflare/workers-types': 3.16.0
       prettier: 2.7.1
-      typescript: 4.8.3
-      wrangler: 2.1.6
+      typescript: 4.8.4
+      wrangler: 2.1.9
 
   workers/get:
     specifiers:
       '@cloudflare/workers-types': 3.16.0
       prettier: 2.7.1
-      typescript: 4.8.3
-      wrangler: 2.1.6
+      typescript: 4.8.4
+      wrangler: 2.1.9
     devDependencies:
       '@cloudflare/workers-types': 3.16.0
       prettier: 2.7.1
-      typescript: 4.8.3
-      wrangler: 2.1.6
+      typescript: 4.8.4
+      wrangler: 2.1.9
 
   workers/init:
     specifiers:
       '@cloudflare/workers-types': 3.16.0
       prettier: 2.7.1
-      typescript: 4.8.3
-      wrangler: 2.1.6
+      typescript: 4.8.4
+      wrangler: 2.1.9
     devDependencies:
       '@cloudflare/workers-types': 3.16.0
       prettier: 2.7.1
-      typescript: 4.8.3
-      wrangler: 2.1.6
+      typescript: 4.8.4
+      wrangler: 2.1.9
 
   workers/r2-store:
     specifiers:
       '@cloudflare/workers-types': 3.16.0
       prettier: 2.7.1
-      typescript: 4.8.3
+      typescript: 4.8.4
       wrangler: 2.1.9
     devDependencies:
       '@cloudflare/workers-types': 3.16.0
       prettier: 2.7.1
-      typescript: 4.8.3
+      typescript: 4.8.4
       wrangler: 2.1.9
 
   workers/raw:
     specifiers:
       '@cloudflare/workers-types': 3.16.0
       prettier: 2.7.1
-      typescript: 4.8.3
-      wrangler: 2.1.6
+      typescript: 4.8.4
+      wrangler: 2.1.9
     devDependencies:
       '@cloudflare/workers-types': 3.16.0
       prettier: 2.7.1
-      typescript: 4.8.3
-      wrangler: 2.1.6
+      typescript: 4.8.4
+      wrangler: 2.1.9
 
 packages:
 
@@ -2325,12 +2325,6 @@ packages:
     resolution: {integrity: sha512-Ne+eE4r0/iWnpAxD852z3A+N0Bt5RN//NjJwRd2VFHEmrywxf5vsZlh4R6lixl6B+wz/8d+maTSAkN1FIkI3LQ==}
     engines: {node: '>=10'}
 
-  /typescript/4.8.3:
-    resolution: {integrity: sha512-goMHfm00nWPa8UvR/CPSvykqf6dVV8x/dp0c5mFTMTIu0u0FlGWRioyy7Nn0PGAdHxpJZnuO/ut+PpQ8UiHAig==}
-    engines: {node: '>=4.2.0'}
-    hasBin: true
-    dev: true
-
   /typescript/4.8.4:
     resolution: {integrity: sha512-QCh+85mCy+h0IGff8r5XWzOVSbBO+KfeYrMQh7NJ58QujwcE22u+NUSmUxqF+un70P9GXKxa2HCNiTTMJknyjQ==}
     engines: {node: '>=4.2.0'}
@@ -2387,33 +2381,6 @@ packages:
   /word-wrap/1.2.3:
     resolution: {integrity: sha512-Hz/mrNwitNRh/HUAtM/VT/5VH+ygD6DV7mYKZAtHOrbs8U7lvPS6xf7EJKMF0uW1KJCl0H701g3ZGus+muE5vQ==}
     engines: {node: '>=0.10.0'}
-
-  /wrangler/2.1.6:
-    resolution: {integrity: sha512-gwIdA5UPNA/u6U2vCVit3t75ldWmBiN11OQOK48G0u1xN/gdH/ktHWR/C8blDXTAM4c53mLJJw5u5X55ZR1LLw==}
-    engines: {node: '>=16.13.0'}
-    hasBin: true
-    dependencies:
-      '@cloudflare/kv-asset-handler': 0.2.0
-      '@esbuild-plugins/node-globals-polyfill': 0.1.1_esbuild@0.14.51
-      '@esbuild-plugins/node-modules-polyfill': 0.1.4_esbuild@0.14.51
-      blake3-wasm: 2.1.5
-      chokidar: 3.5.3
-      esbuild: 0.14.51
-      miniflare: 2.9.0
-      nanoid: 3.3.4
-      path-to-regexp: 6.2.1
-      selfsigned: 2.1.1
-      source-map: 0.7.4
-      xxhash-wasm: 1.0.1
-    optionalDependencies:
-      fsevents: 2.3.2
-    transitivePeerDependencies:
-      - '@miniflare/storage-redis'
-      - bufferutil
-      - cron-schedule
-      - ioredis
-      - utf-8-validate
-    dev: true
 
   /wrangler/2.1.9:
     resolution: {integrity: sha512-ryrkpUEqgJZIiGgo+VCUYtl0B+shEbyp3FZzT5+GYnyfpLtQutAZlS/s5iOC0qjZ7TcRzWS1PSb9fE9nDSvCKg==}
