@@ -9,16 +9,13 @@
     "clean": "pnpm exec rm -rf node_modules pnpm-lock.yaml",
     "preinstall": "npx only-allow pnpm",
     "postinstall": "pnpm audit",
+    "cdn:publish": "pnpm --filter @workers/cdn -- publish",
+    "r2:publish": "pnpm --filter @zi-src/r2-store -- publish",
     "cdn:dev": "pnpm --filter @workers/cdn -- dev",
-    "r2:dev": "pnpm --filter @workers/r2-store -- dev",
+    "r2:dev": "pnpm --filter @zi-src/r2-store -- dev",
     "fmt": "trunk fmt",
     "check": "trunk check",
     "typecheck": "tsc"
-  },
-  "dependencies": {
-    "@zi-src/eslint": "*",
-    "@workers/r2-store": "*",
-    "@workers/cdn": "*"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "3.16.0",
