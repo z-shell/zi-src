@@ -82,9 +82,7 @@ jobs:
           sh -x ./lib/sh/install.sh -- -a zpmod
       - name: 🪟 Install on Windows
         if: startsWith(matrix.os, 'windows')
-        shell: C:\tools\cygwin\bin\bash.EXE --login --norc -eo pipefail -o igncr {0}
         run: |
-          cd ${GITHUB_WORKSPACE}
           sh -x ./lib/sh/install.sh -- -i skip
           command rm -rf /home/runneradmin/.zi
           sh -x ./lib/sh/install.sh -- -a annex
@@ -94,3 +92,4 @@ jobs:
           sh -x ./lib/sh/install.sh -- -a zunit
           command rm -rf /home/runneradmin/.zi
           sh -x ./lib/sh/install.sh -- -a zpmod
+        shell: bash {0}

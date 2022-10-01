@@ -5,8 +5,8 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    tags: ['v*.*.*']
-    paths: ['lib/**']
+    tags: ["v*.*.*"]
+    paths: ["lib/**"]
 
 jobs:
   deploy:
@@ -24,7 +24,7 @@ jobs:
         run: |
           TAG_NAME="${GITHUB_REF##refs/tags/}"
           echo "::set-output name=tag_name::${TAG_NAME}"
-          echo "::set-output name=deploy_tag_name::deploy-${TAG_NAME}"        
+          echo "::set-output name=deploy_tag_name::deploy-${TAG_NAME}"
       - name: 🚀 Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
@@ -35,4 +35,4 @@ jobs:
           user_email: ${{ secrets.ACTIONS_MAIL }}
           commit_message: ${{ github.event.head_commit.message }}
           tag_name: ${{ steps.prepare_tag.outputs.deploy_tag_name }}
-          tag_message: 'Deployment ${{ steps.prepare_tag.outputs.tag_name }}'          
+          tag_message: "Deployment ${{ steps.prepare_tag.outputs.tag_name }}"
