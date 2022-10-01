@@ -5,10 +5,16 @@ on:
   pull_request:
     paths:
       - "lib/sh/**"
+      - ".github/workflows/check-sh.yml"
   push:
     paths:
       - "lib/sh/**"
-  workflow_dispatch:
+      - ".github/workflows/check-sh.yml"
+  workflow_dispatch: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   shellcheck:
@@ -25,6 +31,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
     needs: [shellcheck]
     steps:
       - uses: actions/checkout@v3.0.2
@@ -68,15 +75,13 @@ jobs:
           sh -x ./lib/sh/install.sh -- -a zunit
           command rm -rf ~/.zi
           sh -x ./lib/sh/install.sh -- -a zpmod
-      - name: ♻️ Prepare repository for Windows
-        if: startsWith(matrix.os, 'windows')
-        run: git config --global core.autocrlf input
       - name: 🪟 Install on Windows        
         if: startsWith(matrix.os, 'windows')
         #shell: C:\tools\cygwin\bin\bash.exe --login --norc -eo pipefail -o igncr '{0}'
         shell: bash
         run: |
           cd ${GITHUB_WORKSPACE}
+          git config --global core.autocrlf input
           sh -x ./lib/sh/install.sh -- -i skip
           command rm -rf /home/runneradmin/.zi
           sh -x ./lib/sh/install.sh -- -a annex
