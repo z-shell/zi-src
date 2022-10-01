@@ -34,9 +34,6 @@ jobs:
     timeout-minutes: 30
     needs: [shellcheck]
     steps:
-      - name: 🪟 Set CRLF (Windows)
-        if: startsWith(matrix.os, 'windows')
-        run: git config --global core.autocrlf input    
       - uses: actions/checkout@v3.0.2
       - uses: rlespinasse/github-slug-action@v4
       - name: 📦 Dependencies (Linux)
@@ -48,7 +45,11 @@ jobs:
         if: startsWith(matrix.os, 'macos')
         run: |
           brew install curl zsh
+      - name: 🪟 Set CRLF (Windows)
+        if: startsWith(matrix.os, 'windows')
+        run: git config --global core.autocrlf input
       - name: 🪟 Dependencies (Windows)
+        if: startsWith(matrix.os, 'windows')
         uses: egor-tensin/setup-cygwin@v3
         with:
           platform: x64
