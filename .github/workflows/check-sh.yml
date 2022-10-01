@@ -36,17 +36,19 @@ jobs:
     steps:
       - uses: actions/checkout@v3.0.2
       - uses: rlespinasse/github-slug-action@v4
-      - name: 📦 Linux dependencies
+      - name: 📦 Dependencies (Linux)
         if: startsWith(matrix.os, 'ubuntu-latest')
         run: |
           sudo apt-get update
           sudo apt-get install -y curl git zsh
-      - name: 🍎 MacOS dependencies
+      - name: 🍎 Dependencies (MacOS)
         if: startsWith(matrix.os, 'macos')
         run: |
           brew install curl zsh
-      - name: 🪟 Windows dependencies
+      - name: 🪟 Set CRLF (Windows)
         if: startsWith(matrix.os, 'windows')
+        run: git config --global core.autocrlf input
+      - name: 🪟 Dependencies (Windows)
         uses: egor-tensin/setup-cygwin@v3
         with:
           platform: x64
@@ -79,7 +81,6 @@ jobs:
         if: startsWith(matrix.os, 'windows')
         shell: bash
         run: |
-          git config --global core.autocrlf input
           cd ${GITHUB_WORKSPACE}
           sh -x ./lib/sh/install.sh -- -i skip
           command rm -rf /home/runneradmin/.zi
