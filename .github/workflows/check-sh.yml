@@ -36,7 +36,9 @@ jobs:
     steps:
       - name: 🪟 Set CRLF (Windows)
         if: startsWith(matrix.os, 'windows')
-        run: git config --global core.autocrlf input    
+        run: |
+          git config --global core.autocrlf input
+          git config --global --add safe.directory /cygdrive/d/a/zi-src/zi-src
       - uses: actions/checkout@v3.0.2
       - uses: rlespinasse/github-slug-action@v4
       - name: 📦 Dependencies (Linux)
@@ -80,7 +82,7 @@ jobs:
           sh -x ./lib/sh/install.sh -- -a zpmod
       - name: 🪟 Install on Windows
         if: startsWith(matrix.os, 'windows')
-        shell: bash
+        shell: C:\tools\cygwin\bin\bash.EXE --login --norc -eo pipefail -o igncr {0}
         run: |
           cd ${GITHUB_WORKSPACE}
           sh -x ./lib/sh/install.sh -- -i skip
