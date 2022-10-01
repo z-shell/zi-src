@@ -7,7 +7,6 @@
     "crowdin": "crowdin",
     "wrangler": "wrangler",
     "clean": "pnpm exec rm -rf node_modules pnpm-lock.yaml",
-    "publish": "pnpm --filter ./workers -- publish",
     "preinstall": "npx only-allow pnpm",
     "postinstall": "pnpm audit",
     "cdn:dev": "pnpm --filter @workers/cdn -- dev",
