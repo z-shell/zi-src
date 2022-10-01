@@ -27,9 +27,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     needs: [shellcheck]
     steps:
-      - name: ♻️ Prepare repository for Windows
-        if: startsWith(matrix.os, 'windows')
-        run: git config --global core.autocrlf input
+      - uses: actions/checkout@v3.0.2
       - uses: rlespinasse/github-slug-action@v4
       - name: 📦 Linux dependencies
         if: startsWith(matrix.os, 'ubuntu-latest')
@@ -70,9 +68,13 @@ jobs:
           sh -x ./lib/sh/install.sh -- -a zunit
           command rm -rf ~/.zi
           sh -x ./lib/sh/install.sh -- -a zpmod
-      - name: 🪟 Install on Windows
+      - name: ♻️ Prepare repository for Windows
         if: startsWith(matrix.os, 'windows')
-        shell: C:\tools\cygwin\bin\bash.exe --login --norc -eo pipefail -o igncr '{0}'
+        run: git config --global core.autocrlf input
+      - name: 🪟 Install on Windows        
+        if: startsWith(matrix.os, 'windows')
+        #shell: C:\tools\cygwin\bin\bash.exe --login --norc -eo pipefail -o igncr '{0}'
+        shell: bash
         run: |
           cd ${GITHUB_WORKSPACE}
           sh -x ./lib/sh/install.sh -- -i skip
