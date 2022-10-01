@@ -51,25 +51,25 @@ jobs:
         if: startsWith(matrix.os, 'ubuntu')
         run: |
           sh -x ./lib/sh/install.sh -- -i skip
-          sh -c rm -vrf ~/.zi
+          command rm -vrf ~/.zi
           sh -x ./lib/sh/install.sh -- -a annex
-          sh -c rm -vrf ~/.zi
+          command rm -vrf ~/.zi
           sh -x ./lib/sh/install.sh -- -a loader
-          sh -c rm -vrf ~/.zi
+          command rm -vrf ~/.zi
           sh -x ./lib/sh/install.sh -- -a zunit
-          sh -c rm -vrf ~/.zi
+          command rm -vrf ~/.zi
           sh -x ./lib/sh/install.sh -- -a zpmod
       - name: 🍎 Install on MacOS
         if: startsWith(matrix.os, 'macos')
         run: |
           sh -x ./lib/sh/install.sh -- -i skip
-          sh -c rm -vrf ~/.zi
+          command rm -vrf ~/.zi
           sh -x ./lib/sh/install.sh -- -a annex
-          sh -c rm -vrf ~/.zi
+          command rm -vrf ~/.zi
           sh -x ./lib/sh/install.sh -- -a loader
-          sh -c rm -vrf ~/.zi
+          command rm -vrf ~/.zi
           sh -x ./lib/sh/install.sh -- -a zunit
-          sh -c rm -vrf ~/.zi
+          command rm -vrf ~/.zi
           sh -x ./lib/sh/install.sh -- -a zpmod
       - name: 🪟 Install on Windows
         if: startsWith(matrix.os, 'windows')
