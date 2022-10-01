@@ -1,5 +1,9 @@
-sh/install.sh
+/sh/install.sh
+  Access-Control-Allow-Origin: *
+  X-Robots-Tag: nosnippet
   Content-Type: text/plain; charset=utf-8
 
-zsh/init.zsh
+/zsh/init.zsh
+  Access-Control-Allow-Origin: *
+  X-Robots-Tag: nosnippet
   Content-Type: text/plain; charset=utf-8
