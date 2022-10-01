@@ -1,6 +1,0 @@
-name = "hot-link_protection"
-main = "src/index.ts"
-compatibility_date = "2022-09-28"
-workers_dev = true
-account_id = "2db2112b269ed3616ed3a863a222f3e8"
-#route = { pattern = "get.zshell.dev", custom_domain = true }

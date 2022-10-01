@@ -7,19 +7,17 @@
     "crowdin": "crowdin",
     "wrangler": "wrangler",
     "clean": "pnpm exec rm -rf node_modules pnpm-lock.yaml",
-    "publish": "wrangler publish",
+    "publish": "pnpm --filter @workers/* publish",
     "preinstall": "npx only-allow pnpm",
     "postinstall": "pnpm audit",
     "cdn:dev": "pnpm --filter @workers/cdn -- dev",
     "r2:dev": "pnpm --filter @workers/r2-store -- dev",
-    "hot-link:dev": "pnpm --filter @workers/hot-link_protection -- dev",
     "fmt": "trunk fmt",
     "check": "trunk check",
     "typecheck": "tsc"
   },
   "dependencies": {
     "@zi-src/eslint": "*",
-    "@workers/hot-link_protection": "*",
     "@workers/r2-store": "*",
     "@workers/cdn": "*"
   },
