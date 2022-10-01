@@ -32,16 +32,9 @@
 - Installer:
   - https://get.zshell.dev
   - https://git.io/get-zi
-- RAW:
-  - https://raw.zshell.dev/zsh/init.zsh
-  - https://raw.ss-o.workers.dev/sh/install.sh
 - R2:
-  - https://r2-store.ss-o.workers.dev
   - https://r2-store.zshell.dev
-  - https://r2.zshell.dev/img/logo.svg
-- CDN:
-  - https://cdn.zshell.dev
-  - https://cdn.ss-o.workers.dev
+  - https://r2.zshell.dev
 - IPFS:
   - https://ipfs.zshell.dev
 
