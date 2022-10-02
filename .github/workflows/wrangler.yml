@@ -25,13 +25,7 @@ jobs:
     timeout-minutes: 15
     environment: wrangler
     steps:
-      - uses: actions/checkout@v3
-      - name: "🤠 Deploy > raw"
-        uses: cloudflare/wrangler-action@2.0.0
-        with:
-          apiToken: ${{ secrets.CF_API_TOKEN }}
-          workingDirectory: "workers/raw"
-          command: "publish"
+      - uses: actions/checkout@v3.0.2
       - name: "🤠 Deploy > cdn"
         uses: cloudflare/wrangler-action@2.0.0
         with:
