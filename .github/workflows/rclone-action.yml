@@ -18,26 +18,26 @@ jobs:
     env:
       local_path: "lib"
       r2_remote_path: "r2store:r2-store/src"
-      cdn_remote_path: "cdn:digital-space/src"
-      cdn_us_central_remote_path: "cdn-us-central:gcp-space/src"
+      #cdn_remote_path: "cdn:digital-space/src"
+      #cdn_us_central_remote_path: "cdn-us-central:gcp-space/src"
     steps:
       - name: "⤵️ Check out code from GitHub"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3.0.2
       - name: "⏫ Run rclone/r2-store"
         uses: z-shell/.github/actions/rclone@v1.0.0
         with:
           config: ${{ secrets.R2_STORE }}
           args: "sync ${{ env.local_path }} ${{ env.r2_remote_path }}"
           debug: false
-      - name: "⏫ Run rclone/cdn"
-        uses: z-shell/.github/actions/rclone@v1.0.0
-        with:
-          config: ${{ secrets.CDN_STORE }}
-          args: "sync ${{ env.local_path }} ${{ env.cdn_remote_path }}"
-          debug: false
-      - name: "⏫ Run rclone/cdn_us_central_remote_path"
-        uses: z-shell/.github/actions/rclone@v1.0.0
-        with:
-          config: ${{ secrets.GCP_STORE }}
-          args: "sync ${{ env.local_path }} ${{ env.cdn_us_central_remote_path }}"
-          debug: false
+        #- name: "⏫ Run rclone/cdn"
+        #uses: z-shell/.github/actions/rclone@v1.0.0
+        #with:
+        #  config: ${{ secrets.CDN_STORE }}
+        #  args: "sync ${{ env.local_path }} ${{ env.cdn_remote_path }}"
+        #  debug: false
+        #- name: "⏫ Run rclone/cdn_us_central_remote_path"
+        #uses: z-shell/.github/actions/rclone@v1.0.0
+        #with:
+        #  config: ${{ secrets.GCP_STORE }}
+        #  args: "sync ${{ env.local_path }} ${{ env.cdn_us_central_remote_path }}"
+        #  debug: false
