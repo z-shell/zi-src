@@ -20,7 +20,7 @@
   "devDependencies": {
     "@cloudflare/workers-types": "3.16.0",
     "@trunkio/launcher": "1.2.1",
-    "wrangler": "2.1.9",
+    "wrangler": "2.1.10",
     "typescript": "4.8.4"
   },
   "engines": {
