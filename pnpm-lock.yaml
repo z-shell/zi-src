@@ -7,12 +7,12 @@ importers:
       '@cloudflare/workers-types': 3.16.0
       '@trunkio/launcher': 1.2.1
       typescript: 4.8.4
-      wrangler: 2.1.10
+      wrangler: 2.1.11
     devDependencies:
       '@cloudflare/workers-types': 3.16.0
       '@trunkio/launcher': 1.2.1
       typescript: 4.8.4
-      wrangler: 2.1.10
+      wrangler: 2.1.11
 
   packages/eslint:
     specifiers:
@@ -24,7 +24,7 @@ importers:
       eslint-plugin-import: 2.26.0
       eslint-plugin-n: 15.3.0
       eslint-plugin-promise: 6.0.1
-      eslint-plugin-react: 7.31.8
+      eslint-plugin-react: 7.31.9
       typescript: '*'
     dependencies:
       eslint-config-prettier: 8.5.0_eslint@8.24.0
@@ -36,20 +36,20 @@ importers:
       eslint-plugin-import: 2.26.0_gofx6msuqd4luqedfouzks2s4u
       eslint-plugin-n: 15.3.0_eslint@8.24.0
       eslint-plugin-promise: 6.0.1_eslint@8.24.0
-      eslint-plugin-react: 7.31.8_eslint@8.24.0
+      eslint-plugin-react: 7.31.9_eslint@8.24.0
       typescript: 4.8.4
 
   workers/cdn:
     specifiers:
-      wrangler: 2.1.10
+      wrangler: 2.1.11
     devDependencies:
-      wrangler: 2.1.10
+      wrangler: 2.1.11
 
   workers/r2-store:
     specifiers:
-      wrangler: 2.1.10
+      wrangler: 2.1.11
     devDependencies:
-      wrangler: 2.1.10
+      wrangler: 2.1.11
 
 packages:
 
@@ -1137,8 +1137,8 @@ packages:
       eslint: 8.24.0
     dev: true
 
-  /eslint-plugin-react/7.31.8_eslint@8.24.0:
-    resolution: {integrity: sha512-5lBTZmgQmARLLSYiwI71tiGVTLUuqXantZM6vlSY39OaDSV0M7+32K5DnLkmFrwTe+Ksz0ffuLUC91RUviVZfw==}
+  /eslint-plugin-react/7.31.9_eslint@8.24.0:
+    resolution: {integrity: sha512-vrVJwusIw4L99lyfXjtCw8HWdloajsiYslMavogrBe2Gl8gr95TJsJnOMRasN4b4N24I3XuJf6aAV6MhyGmjqw==}
     engines: {node: '>=4'}
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8
@@ -2326,8 +2326,8 @@ packages:
     resolution: {integrity: sha512-Hz/mrNwitNRh/HUAtM/VT/5VH+ygD6DV7mYKZAtHOrbs8U7lvPS6xf7EJKMF0uW1KJCl0H701g3ZGus+muE5vQ==}
     engines: {node: '>=0.10.0'}
 
-  /wrangler/2.1.10:
-    resolution: {integrity: sha512-hiaTNvkKw8axZljxHOjtDXIVo4GOrDclyxr0cF2aypzAwtrGlaYWD+WP0Z66BqRLpUpbF3BdzrPn1k+xGp0u+Q==}
+  /wrangler/2.1.11:
+    resolution: {integrity: sha512-zXydDzU+KKOwYDD9IX+XdSZMFEPWTghzTN/CiZc+pxHGIjTuQBtbk97trY3i9YKeih/QOSlo+H7Clfoq+6rZLw==}
     engines: {node: '>=16.13.0'}
     hasBin: true
     dependencies:
