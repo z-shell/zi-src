@@ -4,14 +4,14 @@ runtimes:
     - go@1.18.3
     - node@16.14.2
 cli:
-  version: 0.18.1-beta
+  version: 1.0.1
   options:
     - commands: [check, fmt]
     - args: -y
 plugins:
   sources:
     - id: trunk
-      ref: v0.0.4
+      ref: v0.0.5
       uri: https://github.com/trunk-io/plugins
 repo:
   repo:
@@ -31,8 +31,8 @@ lint:
     - eslint
   enabled:
     - git-diff-check@SYSTEM
-    - actionlint@1.6.20
-    - gitleaks@8.13.0
+    - actionlint@1.6.21
+    - gitleaks@8.15.0
     - markdownlint@0.32.2
     - prettier@2.7.1
     - shellcheck@0.8.0
