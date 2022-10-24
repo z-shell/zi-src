@@ -10,7 +10,7 @@
     "eslint-plugin-n": "15.3.0",
     "eslint-plugin-promise": "6.1.1",
     "eslint-plugin-react": "7.31.10",
-    "typescript": "*"
+    "typescript": "4.8.4"
   },
   "dependencies": {
     "eslint-config-prettier": "8.5.0"
