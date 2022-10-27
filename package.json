@@ -9,6 +9,7 @@
     "clean": "pnpm exec rm -rf node_modules pnpm-lock.yaml",
     "preinstall": "npx only-allow pnpm",
     "postinstall": "pnpm audit",
+    "deploy": "pnpm -r run publish",
     "cdn:dev": "pnpm --filter @zi-src/cdn -- dev",
     "r2:dev": "pnpm --filter @zi-src/r2-store -- dev",
     "fmt": "trunk fmt",
@@ -16,10 +17,8 @@
     "typecheck": "tsc"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "3.18.0",
     "@trunkio/launcher": "1.2.2",
-    "wrangler": "2.1.13",
-    "typescript": "4.8.4"
+    "wrangler": "2.1.13"
   },
   "engines": {
     "node": ">=16",
