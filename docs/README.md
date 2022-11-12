@@ -35,13 +35,11 @@
   - https://get.zshell.dev
   - https://git.io/get-zi
 
-
 ### CDN
 
 - R2: https://r2.zshell.dev
 - IPFS: https://ipfs.zshell.dev
 - jsDeliver: https://cdn.jsdelivr.net/gh/z-shell/zi-src@main
-
 
 <h2 align="left">Credits</h2>
  <p align="center"><a href="https://trunk.io" rel="nofollow">

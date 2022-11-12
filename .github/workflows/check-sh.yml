@@ -31,7 +31,7 @@ jobs:
     needs: [shellcheck]
     concurrency:
       group: ci-${{ github.workflow }}-${{ github.ref }}
-      cancel-in-progress: false    
+      cancel-in-progress: false
     steps:
       - name: 🪟 Set CRLF (Windows)
         if: startsWith(matrix.os, 'windows')
