@@ -1,5 +1,5 @@
 ---
-name: ⚙️ Windows Install Library
+name: ⚙️ Windows Install
 
 on:
   pull_request:
@@ -23,9 +23,6 @@ jobs:
           scandir: "./lib/sh"
   run-install:
     runs-on: windows-latest
-    defaults:
-      run:
-        shell: C:\tools\cygwin\bin\bash.exe --login -o igncr '{0}'
     timeout-minutes: 30
     needs: [shellcheck]
     concurrency:
@@ -54,3 +51,4 @@ jobs:
           sh -x ./lib/sh/install.sh -- -a zunit
           command rm -rf /home/runneradmin/.zi
           sh -x ./lib/sh/install.sh -- -a zpmod
+        shell: C:\tools\cygwin\bin\bash.exe --login -o igncr '{0}'
