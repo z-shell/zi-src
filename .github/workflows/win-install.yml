@@ -18,7 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3.1.0
       - name: ☑️ ShellCheck
-        uses: ludeeus/action-shellcheck@94e0aab03ca135d11a35e5bfc14e6746dc56e7e9
+        uses: ludeeus/action-shellcheck@6d3f514f44620b9d4488e380339edc0d9bbe2fba
         with:
           scandir: "./lib/sh"
   run-install:
