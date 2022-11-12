@@ -4,10 +4,10 @@ importers:
 
   .:
     specifiers:
-      '@trunkio/launcher': 1.2.2
+      '@trunkio/launcher': 1.2.3
       wrangler: 2.1.13
     devDependencies:
-      '@trunkio/launcher': 1.2.2
+      '@trunkio/launcher': 1.2.3
       wrangler: 2.1.13
 
   packages/eslint:
@@ -311,8 +311,8 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.13.0
 
-  /@trunkio/launcher/1.2.2:
-    resolution: {integrity: sha512-HHgrpW1QkfoORWnhlJhrGpsqtNCvHuNaoFVMLIhb7duay9Ra0k4tCzZ8eVjzd5n2aHMVzKQ0rZMmr0zrk2Rndw==}
+  /@trunkio/launcher/1.2.3:
+    resolution: {integrity: sha512-eq0mhRr4ZlJxzcOJO5/scfQUZ+/kk9iwM8dHXQ6GPMWUq4qz40vW4EMMcYEwjSopJKLNxCVldZrXI02pq9Gx2Q==}
     hasBin: true
     dev: true
 
