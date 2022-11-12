@@ -91,4 +91,4 @@ jobs:
           sh -x ./lib/sh/install.sh -- -a zunit
           command rm -rf /home/runneradmin/.zi
           sh -x ./lib/sh/install.sh -- -a zpmod
-        shell: bash {0}
+        shell: C:\tools\cygwin\bin\bash.exe --login --norc -eo pipefail -o igncr '{0}'
