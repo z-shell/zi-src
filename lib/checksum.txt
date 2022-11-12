@@ -1,2 +1,2 @@
-667e7c0ffce49d20181ab7b7ecc1c8c4ed6625e1863ee2bb58954aebfc1ecc15 lib/sh/install.sh
+68c402db34a810e65684726324783c095a9a5dc2ea56ee8c6aa442a890200e93 lib/sh/install.sh
 7fab1ecb8d2ffbdb4aa98dd1e51cebaeaa4d8137e1de11938f3e0df24af262bb lib/zsh/init.zsh
