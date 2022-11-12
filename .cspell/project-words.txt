@@ -1,6 +1,7 @@
 AOPT
 atinit
 atload
+atpull
 autoload
 blockf
 BOPT
@@ -10,6 +11,7 @@ Checkig
 COLORTERM
 COMPINIT
 CPPFLAGS
+creinstall
 Creset
 distclean
 gdbm

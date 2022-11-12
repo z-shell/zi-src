@@ -2,11 +2,90 @@
 # -*- mode: zsh; sh-indentation: 2; indent-tabs-mode: nil; sh-basic-offset: 2; -*-
 # vim: ft=zsh sw=2 ts=2 et
 
+# Temporary work directory
 trap 'rm -rf "$WORKDIR"' EXIT INT
+
+# Variables
 WORKDIR="$(mktemp -d)"
-ZOPT=""
-AOPT=""
-BOPT="main"
+ZI_REPO="https://github.com/z-shell/zi"
+MOD_REPO="https://github.com/z-shell/zpmod"
+GIT_BAR="${WORKDIR}/git-progress-bar.zsh"
+GIT_BAR_URL="https://raw.githubusercontent.com/z-shell/zi/main/lib/zsh/git-process-output.zsh"
+LOADER_URL="https://raw.githubusercontent.com/z-shell/zi-src/main/lib/zsh/init.zsh"
+
+# Messages
+say() {
+  while [ -n "$1" ]; do
+    case "$1" in
+    -normal) col="\033[00m" ;;
+    -black) col="\033[30;01m" ;;
+    -red) col="\033[31;01m" ;;
+    -green) col="\033[32;01m" ;;
+    -yellow) col="\033[33;01m" ;;
+    -blue) col="\033[34;01m" ;;
+    -magenta) col="\033[35;01m" ;;
+    -cyan) col="\033[36;01m" ;;
+    -white) col="\033[37;01m" ;;
+    -n)
+      one_line=1
+      shift
+      continue
+      ;;
+    *)
+      printf '%s' "$1"
+      shift
+      continue
+      ;;
+    esac
+    shift
+    printf "%s${col}"
+    printf '%s' "$1"
+    printf "\033[00m"
+    shift
+  done
+  [ -z "${one_line}" ] && printf "\n"
+}
+
+ask() {
+  question="$1"
+  printf "\033[34;1m▓▒░ \033[00m» "
+  say -yellow "$question" -n
+  printf " \033[00m[y/N]: "
+  read -r answer
+  case $answer in
+  [yY]*)
+    true
+    ;;
+  *)
+    false
+    ;;
+  esac
+}
+
+err() {
+  say -red "$1" >&2
+  exit 1
+}
+
+say_ok() {
+  printf "\033[34;1m▓▒░\033[32;01m ✔ \033[00m» "
+  say -green "$1"
+  printf "\033[00m"
+}
+
+say_err() {
+  printf "\033[34;01m▓▒░\033[31;01m ✘ \033[00m» "
+  say -red "$*" >&2
+  printf "\033[00m"
+  exit 1
+}
+
+say_info() {
+  printf "\033[34;1m▓▒░\033[36;01m ⚡\033[00m» "
+  say -cyan "$1"
+  printf "\033[00m"
+}
+
 while getopts ":i:a:b:" opt; do
   case ${opt} in
   i)
@@ -19,258 +98,411 @@ while getopts ":i:a:b:" opt; do
     BOPT="${OPTARG}"
     ;;
   \?)
-    echo "Invalid option: ${OPTARG}" 1>&2
-    exit 1
+    say_err "Invalid option: ${OPTARG}"
     ;;
   :)
-    echo "Invalid option: ${OPTARG} requires an argument" 1>&2
-    exit 1
+    say_err "Invalid option: ${OPTARG} requires an argument"
     ;;
   *)
-    echo "Invalid option: ${OPTARG}" 1>&2
-    exit 1
+    say_err "Invalid option: ${OPTARG}"
     ;;
   esac
 done
 shift $((OPTIND - 1))
 
-if [ "${AOPT}" = loader ]; then
-  ZI_CONFIG_DIR="${XDG_CONFIG_HOME:-${HOME}/.config}/zi"
-  command mkdir -p "${ZI_CONFIG_DIR}"
-  if command -v curl >/dev/null 2>&1; then
-    command curl -fsSL https://raw.githubusercontent.com/z-shell/zi-src/main/lib/zsh/init.zsh -o "${ZI_CONFIG_DIR}/init.zsh"
-  elif command -v wget >/dev/null 2>&1; then
-    command wget -qO "${ZI_CONFIG_DIR}/init.zsh" https://raw.githubusercontent.com/z-shell/zi-src/main/lib/zsh/init.zsh
+# Default options
+[ -z "$BOPT" ] && BOPT="main"
+
+# Functions
+is_cmd() { command -v "$1" >/dev/null 2>&1; }
+
+check_cmd() {
+  if ! is_cmd "$1"; then
+    say_err "$1 not found. Please install it and try again."
   fi
-  command chmod go-w "${ZI_CONFIG_DIR}" && command chmod a+x "${ZI_CONFIG_DIR}/init.zsh"
-  command sed -i "s/branch=\"main\"/branch=\"${BOPT}\"/g" "${ZI_CONFIG_DIR}/init.zsh"
-fi
+}
 
-if [ -z "${ZI_HOME}" ]; then
-  ZI_HOME="${ZDOTDIR:-${HOME}}/.zi"
-fi
-
-if [ -z "${ZI_BIN_DIR_NAME}" ]; then
-  ZI_BIN_DIR_NAME="bin"
-fi
-
-if ! test -d "${ZI_HOME}"; then
-  command mkdir "${ZI_HOME}"
-  command chmod go-w "${ZI_HOME}"
-  command chmod go-w "${ZI_HOME}/${ZI_BIN_DIR_NAME}"
-fi
-
-if ! command -v git >/dev/null 2>&1; then
-  printf '%s\n' "[1;31m▓▒░[0m Something went wrong: no [1;32mgit[0m available, cannot proceed."
-  exit 1
-fi
-
-# Get the download-progress bar tool
-if command -v curl >/dev/null 2>&1; then
-  command mkdir -p /tmp/zi
-  cd /tmp/zi || return
-  command curl -fsSLO https://raw.githubusercontent.com/z-shell/zi/main/lib/zsh/git-process-output.zsh &&
-    command chmod a+x /tmp/zi/git-process-output.zsh
-elif command -v wget >/dev/null 2>&1; then
-  command mkdir -p /tmp/zi
-  cd /tmp/zi || return
-  command wget -q https://raw.githubusercontent.com/z-shell/zi/main/lib/zsh/git-process-output.zsh &&
-    command chmod a+x /tmp/zi/git-process-output.zsh
-fi
-
-if test -d "${ZI_HOME}/${ZI_BIN_DIR_NAME}/.git"; then
-  cd "${ZI_HOME}/${ZI_BIN_DIR_NAME}" || return
-  printf '%s\n' "[1;34m▓▒░[0m Updating [1;36m(z-shell/zi)[1;33m plugin manager[0m at [1;35m${ZI_HOME}/${ZI_BIN_DIR_NAME}[0m"
-  command git clean -d -f -f
-  command git reset --hard HEAD
-  command git pull -q origin HEAD
-else
-  cd "${ZI_HOME}" || return
-  printf '%s\n' "[1;34m▓▒░[0m Installing [1;36m(z-shell/zi)[1;33m plugin manager[0m at [1;35m${ZI_HOME}/${ZI_BIN_DIR_NAME}[0m"
-  { git clone --progress --depth=1 --branch "${BOPT}" https://github.com/z-shell/zi.git "${ZI_BIN_DIR_NAME}" \
-    2>&1 | { /tmp/zi/git-process-output.zsh || cat; }; } 2>/dev/null
-  if [ -d "${ZI_BIN_DIR_NAME}" ]; then
-    printf '%s\n' "[1;34m▓▒░[0m Successfully installed at [1;32m${ZI_HOME}/${ZI_BIN_DIR_NAME}[0m".
+download() {
+  # Set download command
+  if is_cmd curl; then
+    command curl -fsSL "$1" -o "$2" && command chmod a+x "$2"
+  elif is_cmd wget; then
+    command wget -qO "$2" "$1" && command chmod a+x "$2"
   else
-    printf '%s\n' "[1;31m▓▒░[0m Something went wrong, couldn't install ZI at [1;33m${ZI_HOME}/${ZI_BIN_DIR_NAME}[0m"
+    say_err "curl or wget is required. Please install it and try again."
   fi
-fi
+}
 
-#
-# Modify .zshrc
-#
+git_clone() {
+  command git clone --progress --depth 1 --branch "$BOPT" "$1" "$2" 2>&1 | { "$GIT_BAR" || cat; } 2>/dev/null
+}
 
-MAIN_PROFILE() {
-  THE_ZDOTDIR="${ZDOTDIR:-${HOME}}"
-  if grep -E '(zi|init|zinit)\.zsh' "${THE_ZDOTDIR}/.zshrc" >/dev/null 2>&1; then
-    printf '%s\n' "[34m▓▒░[34m Seems that .zshrc already has content or setup skipped - no changes will be made."
-    ZOPT='skip'
+prepare_installer() {
+  # Check for required commands
+  check_cmd git
+  check_cmd zsh
+
+  # Establish Zi home directory
+  if [ -z "$ZI_HOME" ]; then
+    if [ -d "${HOME}" ]; then
+      ZSH_HOME_DIR="$HOME"
+      ZI_HOME="${HOME}/.zi"
+    elif [ -d "${ZDOTDIR}" ]; then
+      ZSH_HOME_DIR="$ZDOTDIR"
+      ZI_HOME="${ZDOTDIR}/.zi"
+    elif [ -d "${XDG_DATA_HOME}" ]; then
+      ZSH_HOME_DIR="$XDG_DATA_HOME"
+      ZI_HOME="${XDG_DATA_HOME}/.zi"
+    fi
   fi
-  if [ "${ZOPT}" != skip ]; then
-    printf '%s\n' "[34m▓▒░[0m Updating ${THE_ZDOTDIR}/.zshrc"
-    ZI_HOME="$(echo "${ZI_HOME}" | sed "s|${HOME}|\$HOME|")"
-    command cat <<-EOF >>"${THE_ZDOTDIR}/.zshrc"
-if [[ ! -f ${ZI_HOME}/${ZI_BIN_DIR_NAME}/zi.zsh ]]; then
-  print -P "%F{33}▓▒░ %F{160}Installing (%F{33}z-shell/zi%F{160})…%f"
-  command mkdir -p "${ZI_HOME}" && command chmod go-rwX "${ZI_HOME}"
-  command git clone -q --depth=1 --branch "${BOPT}" https://github.com/z-shell/zi "${ZI_HOME}/${ZI_BIN_DIR_NAME}" && \\
-    print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \\
-    print -P "%F{160}▓▒░ The clone has failed.%f%b"
-fi
-source "${ZI_HOME}/${ZI_BIN_DIR_NAME}/zi.zsh"
-autoload -Uz _zi
-(( \${+_comps} )) && _comps[zi]=_zi
-# examples here -> https://wiki.zshell.dev/ecosystem/category/-annexes
-zicompinit # <- https://wiki.zshell.dev/docs/guides/commands
+
+  if [ ! -d "$ZI_HOME" ]; then
+    command mkdir -p "$ZI_HOME"
+  fi
+
+  if [ ! -w "$ZI_HOME" ]; then
+    command chown -R "$(whoami)"
+    command chmod -R go-w "$ZI_HOME"
+  fi
+
+  # Establish Zi bin directory
+  if [ -z "$ZI_BIN_DIR" ]; then
+    ZI_BIN_DIR="${ZI_HOME}/bin"
+  fi
+
+  if [ ! -d "$ZI_BIN_DIR" ]; then
+    command mkdir -p "$ZI_BIN_DIR"
+  fi
+
+  if [ ! -w "$ZI_BIN_DIR" ]; then
+    command chown -R "$(whoami)"
+    command chmod -R go-w "$ZI_BIN_DIR"
+  fi
+
+  if [ -z "$ZSH_CACHE_DIR" ]; then
+    ZSH_CACHE_DIR="${ZSH_HOME_DIR}/.cache/zi"
+  fi
+
+  if [ ! -d "$ZSH_CACHE_DIR" ]; then
+    command mkdir -p "$ZSH_CACHE_DIR"
+  fi
+
+  if [ ! -w "$ZSH_CACHE_DIR" ]; then
+    command chown -R "$(whoami)"
+    command chmod -R go-w "$ZSH_CACHE_DIR"
+  fi
+
+  if [ -z "$ZSH_LOG_DIR" ]; then
+    ZSH_LOG_DIR="${ZSH_HOME_DIR}/.cache/zi/logs"
+  fi
+
+  if [ -z "$ZSH_LOG_FILE" ]; then
+    ZSH_LOG_FILE="${ZSH_LOG_DIR}/$(date +%Y-%m-%d).log"
+  fi
+
+  if [ ! -f "$GIT_BAR" ]; then
+    download "$GIT_BAR_URL" "$GIT_BAR"
+  fi
+}
+
+check_zshrc() {
+  # Check if Zi is already installed
+  if grep -E '(zi|init|zinit)\.zsh' "${ZSH_HOME_DIR}/.zshrc" >/dev/null 2>&1; then
+    say_info "Zi already set in .zshrc, backing up to .zshrc.bak"
+    command mv "${ZSH_HOME_DIR}/.zshrc" "${ZSH_HOME_DIR}/.zshrc.bak"
+  elif [ -f "${ZSH_HOME_DIR}/.zshrc" ]; then
+    say_info "Backing up to current .zshrc to .zshrc.bak"
+    command mv "${ZSH_HOME_DIR}/.zshrc" "${ZSH_HOME_DIR}/.zshrc.bak"
+  fi
+}
+
+set_repository() {
+  prepare_installer "$@"
+
+  if [ -d "${ZI_BIN_DIR}/.git" ]; then
+    builtin cd "${ZI_BIN_DIR}" && say_info "Found Zi at $ZI_BIN_DIR, updating..."
+    command git clean --quiet -d -f -f
+    command git reset --quiet --hard HEAD
+    command git pull --quiet origin HEAD
+    say_ok "Update Successful!"
+    return 0
+  elif [ -d "$ZI_BIN_DIR" ]; then
+    git_clone "$ZI_REPO" "$ZI_BIN_DIR"
+    if [ -f "${ZI_BIN_DIR}/zi.zsh" ]; then
+      command cat <<-EOF
+[34m▓▒░[0m[1;36m ■■■■■■■■■■■■■■■■■ Successfully installed Zi ■■■■■■■■■■■■■[0m
 EOF
-    printf '%s\n' "[34m▓▒░[0m[1;36m Minimal configuration[0m"
+      return 0
+    else
+      say_err "Something went wrong, couldn't proceed with installation."
+    fi
   fi
-  if [ "${AOPT}" = loader ] && [ "${ZOPT}" != skip ]; then
-    command rm -rf "${THE_ZDOTDIR}/.zshrc"
-    command cat <<-EOF >>"${THE_ZDOTDIR}/.zshrc"
+}
+
+set_loader() {
+  check_zshrc
+  # Establish Zi config directory
+  if [ -z "$ZI_CONFIG_DIR" ]; then
+    ZI_CONFIG_DIR="${XDG_CONFIG_HOME:-${HOME}/.config}/zi"
+  fi
+
+  if [ ! -d "$ZI_CONFIG_DIR" ]; then
+    command mkdir -p "$ZI_CONFIG_DIR"
+  fi
+
+  if [ ! -w "$ZI_CONFIG_DIR" ]; then
+    command chmod go-w "$ZI_CONFIG_DIR"
+  fi
+
+  download "$LOADER_URL" "${ZI_CONFIG_DIR}/init.zsh"
+  command sed -i "s/branch=\"main\"/branch=\"${BOPT}\"/g" "${ZI_CONFIG_DIR}/init.zsh"
+  command cat <<-EOF >>"$ZSH_HOME_DIR/.zshrc"
+# Zi Loader ========================================================================================================= #
+# https://wiki.zshell.dev/docs/getting_started/installation
 if [[ -r "${XDG_CONFIG_HOME:-${HOME}/.config}/zi/init.zsh" ]]; then
   source "${XDG_CONFIG_HOME:-${HOME}/.config}/zi/init.zsh" && zzinit
 fi
+
 EOF
-    printf '%s\n' "[34m▓▒░[0m[1;36m Loader added[0m"
-  fi
+  return 0
 }
 
-ANNEX_PROFILE() {
-  if [ "${AOPT}" = annex ]; then
-    file="${WORKDIR}/temp-zsh-config"
-    command cat <<-EOF >>"${file}"
-zi light-mode for \\
+set_installer() {
+  check_zshrc
+  command cat <<-EOF >>"$ZSH_HOME_DIR/.zshrc"
+# Zi source directory =============================================================================================== #
+# https://wiki.zshell.dev/docs/guides/customization#customizing-paths
+typeset -A ZI
+ZI[BIN_DIR]="$ZI_BIN_DIR"
+
+# Auto install Zi =================================================================================================== #
+if [[ ! -f \${ZI[BIN_DIR]}/zi.zsh ]]; then
+  print -P "%F{33}▓▒░ %F{160}Installing (%F{33}z-shell/zi%F{160})…%f"
+  command mkdir -p "\$ZI[BIN_DIR]" && \\
+  command git clone -q --branch "${BOPT}" $ZI_REPO "\${ZI[BIN_DIR]}" && \\
+  print -P "%F{33}▓▒░ %F{34}Installation successful…%f%b" || print -P "%F{160}▓▒░ The clone has failed.%f%b"
+fi
+
+# Enable Zi ========================================================================================================= #
+# https://wiki.zshell.dev/docs/getting_started/installation#manual-setup
+source "\${ZI[BIN_DIR]}/zi.zsh"
+autoload -Uz _zi
+(( \${+_comps} )) && _comps[zi]=_zi
+
+EOF
+  return 0
+}
+
+set_omz_lib() {
+  command cat <<-EOF >>"$ZSH_HOME_DIR/.zshrc"
+# Oh-My-Zsh lib ===================================================================================================== #
+# https://wiki.zshell.dev/docs/getting_started/migration#omz-library
+zi is-snippet wait lucid for \\
+    OMZL::{git,theme-and-appearance,prompt_info_functions,vcs_info}.zsh \\
+  atinit'COMPLETION_WAITING_DOTS=true' \\
+    OMZL::completion.zsh \\
+  atinit'typeset -gx HISTSIZE=290000 SAVEHIST=290000 HISTFILE=${ZSH_CACHE_DIR}/.history' \\
+    OMZL::history.zsh
+
+EOF
+}
+
+set_omz_plugins() {
+  command cat <<-EOF >>"$ZSH_HOME_DIR/.zshrc"
+# Oh-My-Zsh plugins ================================================================================================= #
+# https://wiki.zshell.dev/docs/getting_started/migration#omz-plugins
+zi is-snippet wait lucid for \\
+  atload"unalias grv" \\
+    OMZP::git \\
+  if'[[ -d ~/.ssh ]]' \\
+    OMZP::ssh-agent \\
+  if'[[ -d ~/.gnupg ]]' \\
+    OMZP::gpg-agent
+
+EOF
+}
+
+set_omz_themes() {
+  command cat <<-EOF >>"$ZSH_HOME_DIR/.zshrc"
+# Oh-My-Zsh theme =================================================================================================== #
+# https://wiki.zshell.dev/community/gallery/collection/themes
+# https://wiki.zshell.dev/docs/getting_started/migration#omz-themes
+zi wait'!' lucid for \\
+  atinit'setopt prompt_subst' \\
+    OMZT::robbyrussell
+
+EOF
+}
+
+set_plugins() {
+  command cat <<-EOF >>"$ZSH_HOME_DIR/.zshrc"
+# Popular plugins =================================================================================================== #
+# https://wiki.zshell.dev/ecosystem
+# https://wiki.zshell.dev/community/gallery/collection/plugins
+zi wait lucid for \\
+  atinit'ZI[COMPINIT_OPTS]=-C; zicompinit; zicdreplay' \\
+    z-shell/F-Sy-H \\
+  atload'!_zsh_autosuggest_start' \\
+    zsh-users/zsh-autosuggestions \\
+  blockf atpull' zi creinstall -q .' \\
+    zsh-users/zsh-completions \\
+  atinit'zstyle ":history-search-multi-word" page-size "7"' \\
+    z-shell/H-S-MW
+EOF
+}
+
+set_themes() {
+  command cat <<-EOF >>"$ZSH_HOME_DIR/.zshrc"
+# Popular themes ==================================================================================================== #
+# https://wiki.zshell.dev/community/gallery/collection/themes
+
+EOF
+}
+
+set_annexes() {
+  command cat <<-EOF >>"$ZSH_HOME_DIR/.zshrc"
+#  Meta-plugins & annexes =========================================================================================== #
+# https://wiki.zshell.dev/ecosystem/category/-annexes
+zi for \\
   z-shell/z-a-meta-plugins \\
-  @annexes # <- https://wiki.zshell.dev/ecosystem/category/-annexes
-# examples here -> https://wiki.zshell.dev/community/gallery/collection
-zicompinit # <- https://wiki.zshell.dev/docs/guides/commands
+    @annexes
+
 EOF
-    printf '%s\n' "[34m▓▒░[0m[1;36m Installing annexes[0m"
-    command cat "${file}" >>"${THE_ZDOTDIR}/.zshrc"
-    zsh -ic "@zi-scheduler burst"
-  elif [ "${AOPT}" = zunit ]; then
-    file2="${WORKDIR}/temp-zunit-config"
-    command cat <<-EOF >>"${file2}"
-zi light-mode for \\
-  z-shell/z-a-meta-plugins \\
-  @annexes @zunit
-EOF
-    printf '%s\n' "[34m▓▒░[0m[1;36m Installing annexes + zunit[0m"
-    command cat "${file2}" >>"${THE_ZDOTDIR}/.zshrc"
-    zsh -ic "@zi-scheduler burst"
-  else
-    printf '%s\n' "[34m▓▒░[0m[1;36m Skipped all annexes[0m"
-  fi
 }
 
-SETUP_ZPMOD() {
-  if ! test -d "${ZI_HOME}/${MOD_HOME}"; then
-    command mkdir -p "${ZI_HOME}/${MOD_HOME}"
-    command chmod go-w "${ZI_HOME}/${MOD_HOME}"
+set_zpmod() {
+  check_cmd make
+
+  # Establish zpmod directory
+  if [ -z "$MOD_HOME" ]; then
+    MOD_HOME="${ZI_HOME}/zmodules/zpmod"
   fi
 
-  printf '%s\n' "${col_pname}== Downloading ZPMOD module to ${ZI_HOME}/${MOD_HOME}"
-  if test -d "${ZI_HOME}/${MOD_HOME}/.git"; then
-    cd "${ZI_HOME}/${MOD_HOME}" || return
-    git pull -q origin main
+  if [ ! -d "$MOD_HOME" ]; then
+    command mkdir -p "$MOD_HOME"
+  fi
+
+  if [ ! -w "$MOD_HOME" ]; then
+    command chmod go-w "$MOD_HOME"
+  fi
+
+  if [ -d "${MOD_HOME}/.git" ]; then
+    say_info "Updating ZPMOD at $MOD_HOME"
+    builtin cd "$MOD_HOME" && command git pull -q --ff-only origin main
   else
-    cd "${ZI_HOME}" || return
-    git clone -q https://github.com/z-shell/zpmod.git "${MOD_HOME}"
+    say_info "Downloading ZPMOD to $MOD_HOME"
+    command git clone -q "$MOD_REPO" "$MOD_HOME"
   fi
-  printf '%s\n' "${col_pname}== Done"
-}
 
-BUILD_ZPMOD() {
-  if command -v zsh >/dev/null; then
-    printf '%s\n' "${col_info2}-- Checkig version --${col_rst}"
-    ZSH_CURRENT=$(zsh --version </dev/null | head -n1 | cut -d" " -f2,6- | tr -d '-')
-    ZSH_REQUIRED="5.8.1"
-    if expr "${ZSH_CURRENT}" \< "${ZSH_REQUIRED}" >/dev/null; then
-      printf '%s\n' "${col_error}-- Zsh version 5.8.1 and above required --${col_rst}"
-      exit 1
-    else
-      printf '%s\n' "${col_info2}-- Zsh version ${ZSH_CURRENT} --${col_rst}"
-      cd "${ZI_HOME}/${MOD_HOME}" || return
-      printf '%s\n' "${col_pname}== Building module ZPMOD, running: a make clean, then ./configure and then make ==${col_rst}"
-      printf '%s\n' "${col_pname}== The module sources are located at: ${ZI_HOME}/${MOD_HOME} ==${col_rst}"
-      if test -f Makefile; then
-        if [ "$1" = "--clean" ]; then
-          printf '%s\n' "${col_info2}-- make distclean --${col_rst}"
-          make -s distclean
-          true
-        else
-          printf '%s\n' "${col_info2}-- make clean (pass --clean to invoke \`make distclean') --${col_rst}"
-          make -s clean
-        fi
+  say_info "Checkig version for zsh..."
+  ZSH_CURRENT=$(zsh --version </dev/null | head -n1 | cut -d" " -f2,6- | tr -d '-')
+  ZSH_REQUIRED="5.8.1"
+  if expr "${ZSH_CURRENT}" \< "${ZSH_REQUIRED}" >/dev/null; then
+    say_err "Zsh version 5.8.1 and above required."
+  else
+    say_info "Zsh version ${ZSH_CURRENT} is compatible."
+    builtin cd "$MOD_HOME" || err "Failed to change directory to $MOD_HOME."
+    say_info "Building module ZPMOD, running: a make clean, then ./configure and then make."
+    say_info "The module source are located at: $MOD_HOME"
+    if test -f Makefile; then
+      if [ "$1" = "--clean" ]; then
+        say_info "Running: make distclean..."
+        make distclean
+        true
+      else
+        say_info "Running: make clean (pass --clean to invoke \`make distclean')..."
+        make clean
       fi
-      printf '%s\n' "${col_info2}-- Configuring --${col_rst}"
-      if CPPFLAGS=-I/usr/local/include CFLAGS="-g -Wall -O3" LDFLAGS=-L/usr/local/lib ./configure --disable-gdbm --without-tcsetpgrp; then
-        printf '%s\n' "${col_info2}-- Running make --${col_rst}"
-        if make -s; then
-          command cat <<-EOF
+    fi
+    say_info "Configuring..."
+    if CPPFLAGS=-I/usr/local/include CFLAGS="-g -Wall -O3" LDFLAGS=-L/usr/local/lib ./configure --disable-gdbm --without-tcsetpgrp; then
+      say_info "Building..."
+      if make -s; then
+        command cat <<-EOF
 [38;5;219m▓▒░[0m [38;5;220mModule [38;5;177mhas been built correctly.
 [38;5;219m▓▒░[0m [38;5;220mTo [38;5;160mload the module, add following [38;5;220m2 lines to [38;5;172m.zshrc, at top:
-[0m [38;5;51m module_path+=( "${ZI_HOME}/${MOD_HOME}/Src" )
+[0m [38;5;51m module_path+=( "${MOD_HOME}/Src" )
 [0m [38;5;51m zmodload zi/zpmod
 [38;5;219m▓▒░[0m [38;5;220mSee 'zpmod -h' for more information.
 [38;5;219m▓▒░[0m [38;5;220mRun 'zpmod source-study' to see profile data,
 [38;5;219m▓▒░[0m [38;5;177mGuaranteed, automatic compilation of any sourced script.
 EOF
-        else
-          printf '%s\n' "${col_error}Module didn't build.${col_rst}. You can copy the error messages and submit"
-          printf '%s\n' "error-report at: https://github.com/z-shell/zpmod/issues"
-        fi
+      else
+        say_err "Module failed build. Please report error at: ${MOD_REPO}/issues"
       fi
     fi
-  else
-    printf '%s\n' "${col_error} Zsh is not installed. Please install zsh and try again.${col_rst}"
   fi
 }
 
-ZPMOD_PROFILE() {
-  col_pname="[33m"
-  col_error="[31m"
-  col_info="[32m"
-  col_info2="[32m"
-  col_rst="[0m"
+interactive_zshrc() {
+  if [ "$ZOPT" != skip ] && [ "$AOPT" = interactive ]; then
+    say_info "Creating .zshrc interactively..."
+    if ask "Install Zi Loader?"; then
+      set_loader
+    else
+      set_installer
+    fi
 
-  ZI_HOME="${ZI_HOME:-${ZDOTDIR:-${HOME}}/.zi}"
-  MOD_HOME="${MOD_HOME:-zmodules}/zpmod"
+    if ask "Install annexes?"; then
+      set_annexes
+    fi
 
-  printf '%s\n' "${col_info}Re-run this script to update (from Github) and rebuild the module.${col_rst}"
-  printf '%s\n' "${col_info2}Press any key to continue, or Ctrl-C to exit.${col_rst}"
-  read -r
+    if ask "Add recommended Oh-My-Zsh library?"; then
+      set_omz_lib
+    fi
 
-  SETUP_ZPMOD
-  BUILD_ZPMOD "$@"
+    if ask "Add recommended Oh-My-Zsh plugins?"; then
+      set_omz_plugins
+    fi
+
+    if ask "Add recommended Oh-My-Zsh theme?"; then
+      set_omz_themes
+    fi
+
+    if ask "Add recommended plugins?"; then
+      set_plugins
+    fi
+
+    zsh -ilc "@zi-scheduler burst"
+    command cat <<-EOF
+[34m▓▒░[0m[1;36m ■■■■■■■■■■■■■■■■ Successfully created .zshrc ■■■■■■■■■■■■[0m
+EOF
+    return 0
+  fi
 }
 
-CLOSE_PROFILE() {
-  git_refs="$(
-    command cd "${ZI_HOME}/${ZI_BIN_DIR_NAME}" || true
-    command git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit | head -5
-  )"
-  printf '%s\n' "[34m▓▒░[0m[38;5;226m Latest changes:[0m"
-  printf '%s\n' "${git_refs}"
+default_zshrc() {
+  if [ "$ZOPT" != skip ] && [ "$AOPT" = default ]; then
+    say_info "Creating .zshrc file..."
+    set_loader
+    set_annexes
+    set_omz_lib
+    set_omz_plugins
+    set_omz_themes
+    set_plugins
+
+    zsh -ilc "@zi-scheduler burst"
+    command cat <<-EOF
+[34m▓▒░[0m[1;36m ■■■■■■■■■■■■■■■■ Successfully created .zshrc ■■■■■■■■■■■■[0m
+EOF
+    return 0
+  fi
 }
 
 MAIN() {
-  if [ "${AOPT}" = zpmod ]; then
-    ZPMOD_PROFILE "$@"
-  else
-    MAIN_PROFILE
-    ANNEX_PROFILE
-    CLOSE_PROFILE
-  fi
+  set_repository "$@"
+  default_zshrc
+
   command cat <<-EOF
-[34m▓▒░[0m[1;36m ■■■■■■■■■■■■■■■■■ Successfully installed ❮ ZI ❯ ■■■■■■■■■[0m
+
 [34m▓▒░[0m[38;5;226m Wiki:         https://wiki.zshell.dev[0m
 [34m▓▒░[0m[38;5;226m Issues:       https://github.com/z-shell/zi/issues[0m
 [34m▓▒░[0m[38;5;226m Discussions:  https://discussions.zshell.dev[0m
+
 [34m▓▒░[0m[1;36m ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■[0m
+
 EOF
-  exit 0
+  exit $?
 }
 
 while true; do
