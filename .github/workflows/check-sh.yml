@@ -25,7 +25,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
     needs: [shellcheck]
@@ -33,11 +33,6 @@ jobs:
       group: ci-${{ github.workflow }}-${{ github.ref }}
       cancel-in-progress: false
     steps:
-      - name: 🪟 Set CRLF (Windows)
-        if: startsWith(matrix.os, 'windows')
-        run: |
-          git config --global core.autocrlf input
-          git config --global --add safe.directory /cygdrive/d/a/zi-src/zi-src
       - uses: actions/checkout@v3.1.0
       - uses: rlespinasse/github-slug-action@v4
       - name: 📦 Dependencies (Linux)
@@ -49,12 +44,6 @@ jobs:
         if: startsWith(matrix.os, 'macos')
         run: |
           brew install curl zsh
-      - name: 🪟 Dependencies (Windows)
-        if: startsWith(matrix.os, 'windows')
-        uses: egor-tensin/setup-cygwin@v3
-        with:
-          platform: x64
-          packages: curl git zsh
       - name: 🐧 Install on Linux
         if: startsWith(matrix.os, 'ubuntu')
         run: |
@@ -79,16 +68,3 @@ jobs:
           sh -x ./lib/sh/install.sh -- -a zunit
           command rm -rf ~/.zi
           sh -x ./lib/sh/install.sh -- -a zpmod
-      - name: 🪟 Install on Windows
-        if: startsWith(matrix.os, 'windows')
-        run: |
-          sh -x ./lib/sh/install.sh -- -i skip
-          command rm -rf /home/runneradmin/.zi
-          sh -x ./lib/sh/install.sh -- -a annex
-          command rm -rf /home/runneradmin/.zi
-          sh -x ./lib/sh/install.sh -- -a loader
-          command rm -rf /home/runneradmin/.zi
-          sh -x ./lib/sh/install.sh -- -a zunit
-          command rm -rf /home/runneradmin/.zi
-          sh -x ./lib/sh/install.sh -- -a zpmod
-        shell: C:\tools\cygwin\bin\bash.exe --login --norc -eo pipefail -o igncr '{0}'
