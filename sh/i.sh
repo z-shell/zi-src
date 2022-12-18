@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
-# -*- mode: zsh; sh-indentation: 2; indent-tabs-mode: nil; sh-basic-offset: 2; -*-
-# vim: ft=zsh sw=2 ts=2 et
+# -*- mode: sh; sh-indentation: 2; indent-tabs-mode: nil; sh-basic-offset: 2; -*-
+# vim: ft=sh sw=2 ts=2 et
 trap 'rm -rf "$WORKDIR"' EXIT INT
 WORKDIR="$(mktemp -d)"
 
@@ -257,7 +257,7 @@ _set_externals() {
     cd "${WORKDIR}" || return
     command wget -q "${RAW_GIT_OUPUT}" && command chmod a+x "${WORKDIR}"/git-process-output.zsh
   else
-    err "[1;31m▓▒░[0m Something went wrong:"
+    say "[1;31m▓▒░[0m Something went wrong:"
     err "[1;32mcurl[0m or [1;32mwget[0m not available or failed to create temp directory, cannot proceed."
   fi
 }
@@ -480,7 +480,7 @@ EOF
             command cat "${zpmod_file}" >>"${THE_ZDOTDIR}/.zshrc"
             zsh -ic "@zi-scheduler burst"
           else
-            err "${col_error}Module didn't build.${col_rst}. You can copy the error messages and submit"
+            say "${col_error}Module did not build.${col_rst}. You can copy the error messages and submit"
             err "error-report at: https://${HOST}/z-shell/zpmod/issues"
           fi
         fi
