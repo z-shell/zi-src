@@ -6,7 +6,8 @@ on:
   push:
     branches: [main]
     tags: ["v*.*.*"]
-    paths: ["lib/**"]
+    paths:
+      - "lib/**"
 
 jobs:
   deploy:
@@ -23,8 +24,8 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         run: |
           TAG_NAME="${GITHUB_REF##refs/tags/}"
-          echo "::set-output name=tag_name::${TAG_NAME}"
-          echo "::set-output name=deploy_tag_name::deploy-${TAG_NAME}"
+          echo "tag_name=${TAG_NAME}" >> $GITHUB_OUTPUT
+          echo "deploy_tag_name=deploy-${TAG_NAME}" >> $GITHUB_OUTPUT
       - name: 🚀 Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:

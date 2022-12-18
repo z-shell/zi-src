@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
-# -*- mode: zsh; sh-indentation: 2; indent-tabs-mode: nil; sh-basic-offset: 2; -*-
-# vim: ft=zsh sw=2 ts=2 et
+# -*- mode: sh; sh-indentation: 2; indent-tabs-mode: nil; sh-basic-offset: 2; -*-
+# vim: ft=sh sw=2 ts=2 et
 
 trap 'rm -rf "$WORKDIR"' EXIT INT
 WORKDIR="$(mktemp -d)"
