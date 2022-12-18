@@ -7,6 +7,7 @@ trap 'rm -rf "$WORKDIR"' EXIT INT
 
 # Variables
 WORKDIR="$(mktemp -d)"
+SET_TIME="$(date '+%Y-%m-%d_%H:%M:%S')"
 ZI_REPO="https://github.com/z-shell/zi"
 MOD_REPO="https://github.com/z-shell/zpmod"
 GIT_BAR="${WORKDIR}/git-progress-bar.zsh"
@@ -139,9 +140,9 @@ git_clone() {
 
 prepare_installer() {
   # Check for required commands
+  say_info "Checking for dependencies..."
   check_cmd git
   check_cmd zsh
-
   # Establish Zi home directory
   if [ -z "$ZI_HOME" ]; then
     if [ -d "${HOME}" ]; then
@@ -155,51 +156,39 @@ prepare_installer() {
       ZI_HOME="${XDG_DATA_HOME}/.zi"
     fi
   fi
-
   if [ ! -d "$ZI_HOME" ]; then
     command mkdir -p "$ZI_HOME"
   fi
-
   if [ ! -w "$ZI_HOME" ]; then
     command chown -R "$(whoami)"
     command chmod -R go-w "$ZI_HOME"
   fi
-
-  # Establish Zi bin directory
   if [ -z "$ZI_BIN_DIR" ]; then
     ZI_BIN_DIR="${ZI_HOME}/bin"
   fi
-
   if [ ! -d "$ZI_BIN_DIR" ]; then
     command mkdir -p "$ZI_BIN_DIR"
   fi
-
   if [ ! -w "$ZI_BIN_DIR" ]; then
     command chown -R "$(whoami)"
     command chmod -R go-w "$ZI_BIN_DIR"
   fi
-
   if [ -z "$ZSH_CACHE_DIR" ]; then
     ZSH_CACHE_DIR="${ZSH_HOME_DIR}/.cache/zi"
   fi
-
   if [ ! -d "$ZSH_CACHE_DIR" ]; then
     command mkdir -p "$ZSH_CACHE_DIR"
   fi
-
   if [ ! -w "$ZSH_CACHE_DIR" ]; then
     command chown -R "$(whoami)"
     command chmod -R go-w "$ZSH_CACHE_DIR"
   fi
-
   if [ -z "$ZSH_LOG_DIR" ]; then
     ZSH_LOG_DIR="${ZSH_HOME_DIR}/.cache/zi/logs"
   fi
-
   if [ -z "$ZSH_LOG_FILE" ]; then
     ZSH_LOG_FILE="${ZSH_LOG_DIR}/$(date +%Y-%m-%d).log"
   fi
-
   if [ ! -f "$GIT_BAR" ]; then
     download "$GIT_BAR_URL" "$GIT_BAR"
   fi
@@ -207,40 +196,42 @@ prepare_installer() {
 
 check_zshrc() {
   # Check if Zi is already installed
-  if grep -E '(zi|init|zinit)\.zsh' "${ZSH_HOME_DIR}/.zshrc" >/dev/null 2>&1; then
-    say_info "Zi already set in .zshrc, backing up to .zshrc.bak"
-    command mv "${ZSH_HOME_DIR}/.zshrc" "${ZSH_HOME_DIR}/.zshrc.bak"
-  elif [ -f "${ZSH_HOME_DIR}/.zshrc" ]; then
-    say_info "Backing up to current .zshrc to .zshrc.bak"
-    command mv "${ZSH_HOME_DIR}/.zshrc" "${ZSH_HOME_DIR}/.zshrc.bak"
+  if [ -f "${ZSH_HOME_DIR}/.zshrc" ]; then
+    if grep -E '(zi|init|zinit)\.zsh' "${ZSH_HOME_DIR}/.zshrc" >/dev/null 2>&1; then
+      say_info "Zi already set in .zshrc, backing up to .zshrc.bak-${SET_TIME}"
+      command mv "${ZSH_HOME_DIR}/.zshrc" "${ZSH_HOME_DIR}/.zshrc.bak-${SET_TIME}"
+      return 0
+    fi
+    say_info "Backing up to current .zshrc to .zshrc.bak-${SET_TIME}"
+    command mv "${ZSH_HOME_DIR}/.zshrc" "${ZSH_HOME_DIR}/.zshrc.bak-${SET_TIME}"
+    return 0
+  else
+    say_info "No .zshrc found, skipping configuration..."
+    return 0
   fi
 }
 
 set_repository() {
   prepare_installer "$@"
-
   if [ -d "${ZI_BIN_DIR}/.git" ]; then
     builtin cd "${ZI_BIN_DIR}" && say_info "Found Zi at $ZI_BIN_DIR, updating..."
     command git clean --quiet -d -f -f
     command git reset --quiet --hard HEAD
     command git pull --quiet origin HEAD
-    say_ok "Update Successful!"
-    return 0
+    say_ok "■■■■■■■■■■■■■■■■■ Update successful! ■■■■■■■■■■■■■■■"
   elif [ -d "$ZI_BIN_DIR" ]; then
-    git_clone "$ZI_REPO" "$ZI_BIN_DIR"
+    git_clone "$ZI_REPO" "$ZI_BIN_DIR" || say_err "Failed to clone Zi!"
     if [ -f "${ZI_BIN_DIR}/zi.zsh" ]; then
-      command cat <<-EOF
-[34m▓▒░[0m[1;36m ■■■■■■■■■■■■■■■■■ Successfully installed Zi ■■■■■■■■■■■■■[0m
-EOF
+      say_ok "■■■■■■■■■■■■■■■■ Install successful! ■■■■■■■■■■■■■■■"
+      if [ "$ZOPT" = skip ]; then
+        exit 0
+      fi
       return 0
-    else
-      say_err "Something went wrong, couldn't proceed with installation."
     fi
   fi
 }
 
 set_loader() {
-  check_zshrc
   # Establish Zi config directory
   if [ -z "$ZI_CONFIG_DIR" ]; then
     ZI_CONFIG_DIR="${XDG_CONFIG_HOME:-${HOME}/.config}/zi"
@@ -254,8 +245,14 @@ set_loader() {
     command chmod go-w "$ZI_CONFIG_DIR"
   fi
 
-  download "$LOADER_URL" "${ZI_CONFIG_DIR}/init.zsh"
-  command sed -i "s/branch=\"main\"/branch=\"${BOPT}\"/g" "${ZI_CONFIG_DIR}/init.zsh"
+  if [ ! -f "${ZI_CONFIG_DIR}/init.zsh" ]; then
+    download "$LOADER_URL" "${ZI_CONFIG_DIR}/init.zsh"
+    command sed -i "s/branch=\"main\"/branch=\"${BOPT}\"/g" "${ZI_CONFIG_DIR}/init.zsh"
+  else
+    download "$LOADER_URL" "${ZI_CONFIG_DIR}/init.zsh"
+    command sed -i "s/branch=\"main\"/branch=\"${BOPT}\"/g" "${ZI_CONFIG_DIR}/init.zsh"
+  fi
+  check_zshrc
   command cat <<-EOF >>"$ZSH_HOME_DIR/.zshrc"
 # Zi Loader ========================================================================================================= #
 # https://wiki.zshell.dev/docs/getting_started/installation
@@ -264,6 +261,8 @@ if [[ -r "${XDG_CONFIG_HOME:-${HOME}/.config}/zi/init.zsh" ]]; then
 fi
 
 EOF
+  zsh -ilc "@zi-scheduler burst"
+  say_ok "■■■■■■■■■■■■■■■■ Successfully created .zshrc ■■■■■■■■■■■■"
   return 0
 }
 
@@ -290,6 +289,8 @@ autoload -Uz _zi
 (( \${+_comps} )) && _comps[zi]=_zi
 
 EOF
+  zsh -ilc "@zi-scheduler burst"
+  say_ok "■■■■■■■■■■■■■■■■ Successfully created .zshrc ■■■■■■■■■■■■"
   return 0
 }
 
@@ -344,7 +345,7 @@ zi wait lucid for \\
     z-shell/F-Sy-H \\
   atload'!_zsh_autosuggest_start' \\
     zsh-users/zsh-autosuggestions \\
-  blockf atpull' zi creinstall -q .' \\
+  # blockf atpull' zi creinstall -q .' \\
     zsh-users/zsh-completions \\
   atinit'zstyle ":history-search-multi-word" page-size "7"' \\
     z-shell/H-S-MW
@@ -394,7 +395,7 @@ set_zpmod() {
     command git clone -q "$MOD_REPO" "$MOD_HOME"
   fi
 
-  say_info "Checkig version for zsh..."
+  say_info "Checking version for zsh..."
   ZSH_CURRENT=$(zsh --version </dev/null | head -n1 | cut -d" " -f2,6- | tr -d '-')
   ZSH_REQUIRED="5.8.1"
   if expr "${ZSH_CURRENT}" \< "${ZSH_REQUIRED}" >/dev/null; then
@@ -491,18 +492,17 @@ EOF
 
 MAIN() {
   set_repository "$@"
-  default_zshrc
-
+  if [ "$AOPT" = loader ]; then
+    set_loader
+  fi
   command cat <<-EOF
-
 [34m▓▒░[0m[38;5;226m Wiki:         https://wiki.zshell.dev[0m
 [34m▓▒░[0m[38;5;226m Issues:       https://github.com/z-shell/zi/issues[0m
 [34m▓▒░[0m[38;5;226m Discussions:  https://discussions.zshell.dev[0m
-
 [34m▓▒░[0m[1;36m ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■[0m
-
 EOF
-  exit $?
+  exit_code=$?
+  exit $exit_code
 }
 
 while true; do

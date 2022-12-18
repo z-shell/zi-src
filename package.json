@@ -22,7 +22,6 @@
   },
   "engines": {
     "node": ">=16",
-    "yarn": "3.2.4",
     "pnpm": ">=7"
   },
   "packageManager": "pnpm@7.15.0"
