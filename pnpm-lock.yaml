@@ -5,30 +5,30 @@ importers:
   .:
     specifiers:
       '@trunkio/launcher': 1.2.3
-      wrangler: 2.2.1
+      wrangler: 2.6.2
     devDependencies:
       '@trunkio/launcher': 1.2.3
-      wrangler: 2.2.1
+      wrangler: 2.6.2
 
   workers/cdn:
     specifiers:
-      '@cloudflare/workers-types': 3.18.0
-      typescript: 4.8.4
-      wrangler: 2.2.1
+      '@cloudflare/workers-types': 4.20221111.1
+      typescript: 4.9.4
+      wrangler: 2.6.2
     devDependencies:
-      '@cloudflare/workers-types': 3.18.0
-      typescript: 4.8.4
-      wrangler: 2.2.1
+      '@cloudflare/workers-types': 4.20221111.1
+      typescript: 4.9.4
+      wrangler: 2.6.2
 
   workers/r2-store:
     specifiers:
-      '@cloudflare/workers-types': 3.18.0
-      typescript: 4.8.4
-      wrangler: 2.2.1
+      '@cloudflare/workers-types': 4.20221111.1
+      typescript: 4.9.4
+      wrangler: 2.6.2
     devDependencies:
-      '@cloudflare/workers-types': 3.18.0
-      typescript: 4.8.4
-      wrangler: 2.2.1
+      '@cloudflare/workers-types': 4.20221111.1
+      typescript: 4.9.4
+      wrangler: 2.6.2
 
 packages:
 
@@ -38,8 +38,8 @@ packages:
       mime: 3.0.0
     dev: true
 
-  /@cloudflare/workers-types/3.18.0:
-    resolution: {integrity: sha512-ehKOJVLMeR+tZkYhWEaLYQxl0TaIZu/kE86HF3/RidR8Xv5LuQxpbh+XXAoKVqsaphWLhIgBhgnlN5HGdheXSQ==}
+  /@cloudflare/workers-types/4.20221111.1:
+    resolution: {integrity: sha512-BNV2wN8V6Zduvo7UzxcdjBbLQ906D2KhS804PDufLgx/sanGJCHVJMOIaLvS/b61JKtot1U7P/l1fjrjZ7/E3A==}
     dev: true
 
   /@esbuild-plugins/node-globals-polyfill/0.1.1_esbuild@0.14.51:
@@ -891,8 +891,8 @@ packages:
       is-number: 7.0.0
     dev: true
 
-  /typescript/4.8.4:
-    resolution: {integrity: sha512-QCh+85mCy+h0IGff8r5XWzOVSbBO+KfeYrMQh7NJ58QujwcE22u+NUSmUxqF+un70P9GXKxa2HCNiTTMJknyjQ==}
+  /typescript/4.9.4:
+    resolution: {integrity: sha512-Uz+dTXYzxXXbsFpM86Wh3dKCxrQqUcVMxwU54orwlJjOpO3ao8L7j5lH+dWfTwgCwIuM9GQ2kvVotzYJMXTBZg==}
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true
@@ -921,8 +921,8 @@ packages:
       isexe: 2.0.0
     dev: true
 
-  /wrangler/2.2.1:
-    resolution: {integrity: sha512-e3+GEtUmbaa+orDHS7q68lbm3DdqchdIBmgapTcQOzznpxu7Os4fOdGTjhv63EcPjsDkVVVMbh/zbxHE7fZUuQ==}
+  /wrangler/2.6.2:
+    resolution: {integrity: sha512-+in4oEQXDs6+vE+1c6niBd3IrW1DMRTbauR6G0u3TpD6UaXOLwLdBxRLEbN3m82dN+WNm7l1MbFZrKc/TnWjhw==}
     engines: {node: '>=16.13.0'}
     hasBin: true
     dependencies:
