@@ -32,6 +32,7 @@
   - https://init.zshell.dev
   - https://git.io/zi-loader
 - Installer:
+
   - https://get.zshell.dev
   - https://git.io/get-zi
   - Options:
