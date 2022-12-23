@@ -24,19 +24,19 @@ jobs:
       - name: "⤵️ Check out code from GitHub"
         uses: actions/checkout@v3.2.0
       - name: "⏫ Run rclone/r2-store"
-        uses: z-shell/.github/actions/rclone@v1.0.4
+        uses: z-shell/.github/actions/rclone@v1.0.5
         with:
           config: ${{ secrets.R2_STORE }}
           args: "sync ${{ env.local_path }} ${{ env.r2_remote_path }}"
           debug: false
         #- name: "⏫ Run rclone/cdn"
-        #uses: z-shell/.github/actions/rclone@v1.0.4
+        #uses: z-shell/.github/actions/rclone@v1.0.5
         #with:
         #  config: ${{ secrets.CDN_STORE }}
         #  args: "sync ${{ env.local_path }} ${{ env.cdn_remote_path }}"
         #  debug: false
         #- name: "⏫ Run rclone/cdn_us_central_remote_path"
-        #uses: z-shell/.github/actions/rclone@v1.0.4
+        #uses: z-shell/.github/actions/rclone@v1.0.5
         #with:
         #  config: ${{ secrets.GCP_STORE }}
         #  args: "sync ${{ env.local_path }} ${{ env.cdn_us_central_remote_path }}"
