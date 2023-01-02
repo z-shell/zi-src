@@ -1,6 +1,0 @@
-name = "cdn"
-main = "src/index.ts"
-compatibility_date = "2022-09-21"
-workers_dev = true
-account_id = "2db2112b269ed3616ed3a863a222f3e8"
-route = { pattern = "cdn.zshell.dev", custom_domain = true }

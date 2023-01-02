@@ -2,13 +2,13 @@
 name: "🤠 Wrangler"
 
 on:
-  schedule:
-    - cron: "0 03 * * 1/3"
-  push:
-    branches: [main]
-    paths:
-      - "lib/**"
-      - "workers/**"
+  #  schedule:
+  #    - cron: "0 03 * * 1/3"
+  #  push:
+  #    branches: [main]
+  #    paths:
+  #      - "lib/**"
+  #      - "workers/**"
   workflow_dispatch:
     inputs:
       environment:
