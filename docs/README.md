@@ -32,24 +32,14 @@
   - https://init.zshell.dev
   - https://git.io/zi-loader
 - Installer:
-
   - https://get.zshell.dev
   - https://git.io/get-zi
-  - Options:
-    - `-a loader`
-    - `-i skip`
-
 - R2:
-  - https://r2-store.zshell.dev
   - https://r2.zshell.dev
 - IPFS:
   - https://ipfs.zshell.dev
-
-### CDN
-
-- R2: https://r2.zshell.dev
-- IPFS: https://ipfs.zshell.dev
-- jsDeliver: https://cdn.jsdelivr.net/gh/z-shell/zi-src@main
+- jsDeliver: 
+  - https://cdn.jsdelivr.net/gh/z-shell/zi-src@main
 
 <h2 align="left">Credits</h2>
  <p align="center"><a href="https://trunk.io" rel="nofollow">
