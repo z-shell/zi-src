@@ -15,7 +15,7 @@ jobs:
         uses: jmgilman/actions-generate-checksum@57c13a1f01a90b2a8bb449ec29bc23728b96c1cd
         with:
           patterns: |
-            lib/sh/install-zpmod.sh
+            lib/sh/install_zpmod.sh
             lib/sh/install.sh
             lib/zsh/init.zsh
       - run: mv checksum.txt lib/
