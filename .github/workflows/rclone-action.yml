@@ -3,7 +3,8 @@ name: "🔄 Rclone"
 on:
   push:
     paths:
-      - "lib/**"
+      - lib/**
+  issue_comment: /rclone
   workflow_dispatch: {}
 
 concurrency:
