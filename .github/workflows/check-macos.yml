@@ -6,12 +6,10 @@ on:
     branches: [main]
     paths:
       - "lib/sh/**"
-      - ".github/workflows/check-sh.yml"
   pull_request:
     branches: [main]
     paths:
       - "lib/sh/**"
-      - ".github/workflows/check-sh.yml"
   workflow_dispatch:
 
 concurrency:
