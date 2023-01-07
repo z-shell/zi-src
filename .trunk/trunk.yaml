@@ -1,6 +1,6 @@
 version: 0.1
 cli:
-  version: 1.3.0
+  version: 1.3.1
 plugins:
   sources:
     - id: trunk
@@ -16,8 +16,8 @@ lint:
     - git-diff-check@SYSTEM
     - actionlint@1.6.22
     - gitleaks@8.15.2
-    - markdownlint@0.32.2
-    - prettier@2.8.1
+    - markdownlint@0.33.0
+    - prettier@2.8.2
     - shellcheck@0.9.0
     - shfmt@3.5.0
     - taplo@0.7.0
