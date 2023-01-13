@@ -1,9 +1,11 @@
-/sh/install.sh
+/sh/*
+  Cache-Control: public, max-age=31536000, immutable
   Access-Control-Allow-Origin: *
-  X-Robots-Tag: nosnippet
+  X-Robots-Tag: nosnippet, noindex
   Content-Type: text/plain; charset=utf-8
 
-/zsh/init.zsh
+/zsh/*
+  Cache-Control: public, max-age=31536000, immutable
   Access-Control-Allow-Origin: *
-  X-Robots-Tag: nosnippet
+  X-Robots-Tag: nosnippet, noindex
   Content-Type: text/plain; charset=utf-8

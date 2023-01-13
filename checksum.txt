@@ -1,2 +1,3 @@
+aff5e54299d6cd07fc123f8200c456b12bfcc23bb921ebcc2c326d9afd163d04 lib/sh/install_zpmod.sh
 6214cad3026f4150dfe1070592f6b24256cae5c60c596bdfebda07ffeaaf39fc lib/sh/install.sh
 7fab1ecb8d2ffbdb4aa98dd1e51cebaeaa4d8137e1de11938f3e0df24af262bb lib/zsh/init.zsh
