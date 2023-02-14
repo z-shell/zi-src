@@ -20,7 +20,7 @@ jobs:
             lib/zsh/init.zsh
       - run: mv checksum.txt lib/
       - name: "🆗 Commit"
-        uses: z-shell/.github/actions/commit@v1.0.5
+        uses: z-shell/.github/actions/commit@v1.0.6
         with:
           commitMessage: Checksum ${{ github.sha }}
           workDir: lib
