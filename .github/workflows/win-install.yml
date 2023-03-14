@@ -34,7 +34,6 @@ jobs:
           git config --global core.autocrlf input
           git config --global --add safe.directory /cygdrive/d/a/zi-src/zi-src
       - uses: actions/checkout@v3.3.0
-      - uses: rlespinasse/github-slug-action@v4
       - name: 🪟 Dependencies (Windows)
         uses: egor-tensin/setup-cygwin@v4
         with:
