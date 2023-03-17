@@ -22,7 +22,7 @@ jobs:
       #cdn_us_central_remote_path: "cdn-us-central:gcp-space/src"
     steps:
       - name: "⤵️ Check out code from GitHub"
-        uses: actions/checkout@v3.3.0
+        uses: actions/checkout@v3.4.0
       - name: "⏫ Run rclone/r2-store"
         uses: z-shell/.github/actions/rclone@v1.0.6
         with:
