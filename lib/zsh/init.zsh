@@ -11,15 +11,17 @@ local branch="main"
 local verbose_mode="${verbose_mode:-false}"
 typeset -A ZI
 # Where ZI should create all working directories, e.g.: "~/.zi"
-ZI[HOME_DIR]="${HOME}/.zi"
+ZI[HOME_DIR]="${ZI[HOME_DIR]:-${HOME}/.zi}"
 # Where ZI code resides, e.g.: "~/.zi/bin"
-ZI[BIN_DIR]="${HOME}/.zi/bin"
+ZI[BIN_DIR]="$ZI[HOME_DIR]/bin"
 # Zsh modules directory
-ZI[ZMODULES_DIR]="${HOME}/.zi/zmodules"
+ZI[ZMODULES_DIR]="$ZI[HOME_DIR]/zmodules"
+# Where ZI cache is, e.g.: "~/.cache/zi"
+ZI[CACHE_DIR]="${ZI[CACHE_DIR]:-$HOME/.cache/zi}"
 # Path to .zcompdump file, with the file included (i.e. its name can be different)
-ZI[ZCOMPDUMP_PATH]="${HOME}/.cache/zi/.zcompdump"
+ZI[ZCOMPDUMP_PATH]="$ZI[CACHE_DIR]/.zcompdump"
 # If set to 1, then mutes some of the ZI warnings, specifically the plugin already registered warning
-ZI[MUTE_WARNINGS]='0'
+ZI[MUTE_WARNINGS]="${ZI[MUTE_WARNINGS]:-0}"
 
 # Clone ZI repository if it doesn't exist
 zzsetup() {
