@@ -22,7 +22,9 @@ OMZP
 OMZT
 SAVEHIST
 tcsetpgrp
+TMPDIR
 WORKDIR
+ZCOMPDUMP
 ZDOTDIR
 zicdreplay
 zicompinit
@@ -30,5 +32,6 @@ zinit
 zmodload
 zmodules
 ZOPT
+ZPFX
 zpmod
 zzinit
