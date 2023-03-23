@@ -49,10 +49,10 @@ say() {
 ask() {
   question="$1"
   printf "\033[34;1m▓▒░ \033[00m» "
-  say -yellow "$question" -n
+  say -yellow "${question}" -n
   printf " \033[00m[y/N]: "
   read -r answer
-  case $answer in
+  case ${answer} in
   [yY]*)
     true
     ;;
@@ -111,7 +111,7 @@ done
 shift $((OPTIND - 1))
 
 # Default options
-[ -z "$BOPT" ] && BOPT="main"
+[ -z "${BOPT}" ] && BOPT="main"
 
 # Functions
 is_cmd() { command -v "$1" >/dev/null 2>&1; }
@@ -134,7 +134,7 @@ download() {
 }
 
 git_clone() {
-  command git clone --progress --depth 1 --branch "$BOPT" "$1" "$2" 2>&1 | { "$GIT_BAR" || cat; } 2>/dev/null
+  command git clone --progress --depth 1 --branch "${BOPT}" "$1" "$2" 2>&1 | { "${GIT_BAR}" || cat; } 2>/dev/null
 }
 
 prepare_installer() {
@@ -143,65 +143,65 @@ prepare_installer() {
   check_cmd zsh
 
   # Establish Zi home directory
-  if [ -z "$ZI_HOME" ]; then
+  if [ -z "${ZI_HOME}" ]; then
     if [ -d "${HOME}" ]; then
-      ZSH_HOME_DIR="$HOME"
+      ZSH_HOME_DIR="${HOME}"
       ZI_HOME="${HOME}/.zi"
     elif [ -d "${ZDOTDIR}" ]; then
-      ZSH_HOME_DIR="$ZDOTDIR"
+      ZSH_HOME_DIR="${ZDOTDIR}"
       ZI_HOME="${ZDOTDIR}/.zi"
     elif [ -d "${XDG_DATA_HOME}" ]; then
-      ZSH_HOME_DIR="$XDG_DATA_HOME"
+      ZSH_HOME_DIR="${XDG_DATA_HOME}"
       ZI_HOME="${XDG_DATA_HOME}/.zi"
     fi
   fi
 
-  if [ ! -d "$ZI_HOME" ]; then
-    command mkdir -p "$ZI_HOME"
+  if [ ! -d "${ZI_HOME}" ]; then
+    command mkdir -p "${ZI_HOME}"
   fi
 
-  if [ ! -w "$ZI_HOME" ]; then
-    command chown -R "$(whoami)"
-    command chmod -R go-w "$ZI_HOME"
+  if [ ! -w "${ZI_HOME}" ]; then
+    command chown -R "$(whoami || true)"
+    command chmod -R go-w "${ZI_HOME}"
   fi
 
   # Establish Zi bin directory
-  if [ -z "$ZI_BIN_DIR" ]; then
+  if [ -z "${ZI_BIN_DIR}" ]; then
     ZI_BIN_DIR="${ZI_HOME}/bin"
   fi
 
-  if [ ! -d "$ZI_BIN_DIR" ]; then
-    command mkdir -p "$ZI_BIN_DIR"
+  if [ ! -d "${ZI_BIN_DIR}" ]; then
+    command mkdir -p "${ZI_BIN_DIR}"
   fi
 
-  if [ ! -w "$ZI_BIN_DIR" ]; then
-    command chown -R "$(whoami)"
-    command chmod -R go-w "$ZI_BIN_DIR"
+  if [ ! -w "${ZI_BIN_DIR}" ]; then
+    command chown -R "$(whoami || true)"
+    command chmod -R go-w "${ZI_BIN_DIR}"
   fi
 
-  if [ -z "$ZSH_CACHE_DIR" ]; then
+  if [ -z "${ZSH_CACHE_DIR}" ]; then
     ZSH_CACHE_DIR="${ZSH_HOME_DIR}/.cache/zi"
   fi
 
-  if [ ! -d "$ZSH_CACHE_DIR" ]; then
-    command mkdir -p "$ZSH_CACHE_DIR"
+  if [ ! -d "${ZSH_CACHE_DIR}" ]; then
+    command mkdir -p "${ZSH_CACHE_DIR}"
   fi
 
-  if [ ! -w "$ZSH_CACHE_DIR" ]; then
-    command chown -R "$(whoami)"
-    command chmod -R go-w "$ZSH_CACHE_DIR"
+  if [ ! -w "${ZSH_CACHE_DIR}" ]; then
+    command chown -R "$(whoami || true)"
+    command chmod -R go-w "${ZSH_CACHE_DIR}"
   fi
 
-  if [ -z "$ZSH_LOG_DIR" ]; then
+  if [ -z "${ZSH_LOG_DIR}" ]; then
     ZSH_LOG_DIR="${ZSH_HOME_DIR}/.cache/zi/logs"
   fi
 
-  if [ -z "$ZSH_LOG_FILE" ]; then
+  if [ -z "${ZSH_LOG_FILE}" ]; then
     ZSH_LOG_FILE="${ZSH_LOG_DIR}/$(date +%Y-%m-%d).log"
   fi
 
-  if [ ! -f "$GIT_BAR" ]; then
-    download "$GIT_BAR_URL" "$GIT_BAR"
+  if [ ! -f "${GIT_BAR}" ]; then
+    download "${GIT_BAR_URL}" "${GIT_BAR}"
   fi
 }
 
@@ -220,14 +220,14 @@ set_repository() {
   prepare_installer "$@"
 
   if [ -d "${ZI_BIN_DIR}/.git" ]; then
-    builtin cd "${ZI_BIN_DIR}" && say_info "Found Zi at $ZI_BIN_DIR, updating..."
+    builtin cd "${ZI_BIN_DIR}" && say_info "Found Zi at ${ZI_BIN_DIR}, updating..."
     command git clean --quiet -d -f -f
     command git reset --quiet --hard HEAD
     command git pull --quiet origin HEAD
     say_ok "Update Successful!"
     return 0
-  elif [ -d "$ZI_BIN_DIR" ]; then
-    git_clone "$ZI_REPO" "$ZI_BIN_DIR"
+  elif [ -d "${ZI_BIN_DIR}" ]; then
+    git_clone "${ZI_REPO}" "${ZI_BIN_DIR}"
     if [ -f "${ZI_BIN_DIR}/zi.zsh" ]; then
       command cat <<-EOF
 [34m▓▒░[0m[1;36m ■■■■■■■■■■■■■■■■■ Successfully installed Zi ■■■■■■■■■■■■■[0m
@@ -242,21 +242,21 @@ EOF
 set_loader() {
   check_zshrc
   # Establish Zi config directory
-  if [ -z "$ZI_CONFIG_DIR" ]; then
+  if [ -z "${ZI_CONFIG_DIR}" ]; then
     ZI_CONFIG_DIR="${XDG_CONFIG_HOME:-${HOME}/.config}/zi"
   fi
 
-  if [ ! -d "$ZI_CONFIG_DIR" ]; then
-    command mkdir -p "$ZI_CONFIG_DIR"
+  if [ ! -d "${ZI_CONFIG_DIR}" ]; then
+    command mkdir -p "${ZI_CONFIG_DIR}"
   fi
 
-  if [ ! -w "$ZI_CONFIG_DIR" ]; then
-    command chmod go-w "$ZI_CONFIG_DIR"
+  if [ ! -w "${ZI_CONFIG_DIR}" ]; then
+    command chmod go-w "${ZI_CONFIG_DIR}"
   fi
 
-  download "$LOADER_URL" "${ZI_CONFIG_DIR}/init.zsh"
+  download "${LOADER_URL}" "${ZI_CONFIG_DIR}/init.zsh"
   command sed -i "s/branch=\"main\"/branch=\"${BOPT}\"/g" "${ZI_CONFIG_DIR}/init.zsh"
-  command cat <<-EOF >>"$ZSH_HOME_DIR/.zshrc"
+  command cat <<-EOF >>"${ZSH_HOME_DIR}/.zshrc"
 # Zi Loader ========================================================================================================= #
 # https://wiki.zshell.dev/docs/getting_started/installation
 if [[ -r "${XDG_CONFIG_HOME:-${HOME}/.config}/zi/init.zsh" ]]; then
@@ -269,17 +269,17 @@ EOF
 
 set_installer() {
   check_zshrc
-  command cat <<-EOF >>"$ZSH_HOME_DIR/.zshrc"
+  command cat <<-EOF >>"${ZSH_HOME_DIR}/.zshrc"
 # Zi source directory =============================================================================================== #
 # https://wiki.zshell.dev/docs/guides/customization#customizing-paths
 typeset -A ZI
-ZI[BIN_DIR]="$ZI_BIN_DIR"
+ZI[BIN_DIR]="${ZI_BIN_DIR}"
 
 # Auto install Zi =================================================================================================== #
 if [[ ! -f \${ZI[BIN_DIR]}/zi.zsh ]]; then
   print -P "%F{33}▓▒░ %F{160}Installing (%F{33}z-shell/zi%F{160})…%f"
   command mkdir -p "\$ZI[BIN_DIR]" && \\
-  command git clone -q --branch "${BOPT}" $ZI_REPO "\${ZI[BIN_DIR]}" && \\
+  command git clone -q --branch "${BOPT}" ${ZI_REPO} "\${ZI[BIN_DIR]}" && \\
   print -P "%F{33}▓▒░ %F{34}Installation successful…%f%b" || print -P "%F{160}▓▒░ The clone has failed.%f%b"
 fi
 
@@ -294,7 +294,7 @@ EOF
 }
 
 set_omz_lib() {
-  command cat <<-EOF >>"$ZSH_HOME_DIR/.zshrc"
+  command cat <<-EOF >>"${ZSH_HOME_DIR}/.zshrc"
 # Oh-My-Zsh lib ===================================================================================================== #
 # https://wiki.zshell.dev/docs/getting_started/migration#omz-library
 zi is-snippet wait lucid for \\
@@ -308,7 +308,7 @@ EOF
 }
 
 set_omz_plugins() {
-  command cat <<-EOF >>"$ZSH_HOME_DIR/.zshrc"
+  command cat <<-EOF >>"${ZSH_HOME_DIR}/.zshrc"
 # Oh-My-Zsh plugins ================================================================================================= #
 # https://wiki.zshell.dev/docs/getting_started/migration#omz-plugins
 zi is-snippet wait lucid for \\
@@ -323,7 +323,7 @@ EOF
 }
 
 set_omz_themes() {
-  command cat <<-EOF >>"$ZSH_HOME_DIR/.zshrc"
+  command cat <<-EOF >>"${ZSH_HOME_DIR}/.zshrc"
 # Oh-My-Zsh theme =================================================================================================== #
 # https://wiki.zshell.dev/community/gallery/collection/themes
 # https://wiki.zshell.dev/docs/getting_started/migration#omz-themes
@@ -335,7 +335,7 @@ EOF
 }
 
 set_plugins() {
-  command cat <<-EOF >>"$ZSH_HOME_DIR/.zshrc"
+  command cat <<-EOF >>"${ZSH_HOME_DIR}/.zshrc"
 # Popular plugins =================================================================================================== #
 # https://wiki.zshell.dev/ecosystem
 # https://wiki.zshell.dev/community/gallery/collection/plugins
@@ -352,7 +352,7 @@ EOF
 }
 
 set_themes() {
-  command cat <<-EOF >>"$ZSH_HOME_DIR/.zshrc"
+  command cat <<-EOF >>"${ZSH_HOME_DIR}/.zshrc"
 # Popular themes ==================================================================================================== #
 # https://wiki.zshell.dev/community/gallery/collection/themes
 
@@ -360,7 +360,7 @@ EOF
 }
 
 set_annexes() {
-  command cat <<-EOF >>"$ZSH_HOME_DIR/.zshrc"
+  command cat <<-EOF >>"${ZSH_HOME_DIR}/.zshrc"
 #  Meta-plugins & annexes =========================================================================================== #
 # https://wiki.zshell.dev/ecosystem/category/-annexes
 zi for \\
@@ -374,24 +374,24 @@ set_zpmod() {
   check_cmd make
 
   # Establish zpmod directory
-  if [ -z "$MOD_HOME" ]; then
+  if [ -z "${MOD_HOME}" ]; then
     MOD_HOME="${ZI_HOME}/zmodules/zpmod"
   fi
 
-  if [ ! -d "$MOD_HOME" ]; then
-    command mkdir -p "$MOD_HOME"
+  if [ ! -d "${MOD_HOME}" ]; then
+    command mkdir -p "${MOD_HOME}"
   fi
 
-  if [ ! -w "$MOD_HOME" ]; then
-    command chmod go-w "$MOD_HOME"
+  if [ ! -w "${MOD_HOME}" ]; then
+    command chmod go-w "${MOD_HOME}"
   fi
 
   if [ -d "${MOD_HOME}/.git" ]; then
-    say_info "Updating ZPMOD at $MOD_HOME"
-    builtin cd "$MOD_HOME" && command git pull -q --ff-only origin main
+    say_info "Updating ZPMOD at ${MOD_HOME}"
+    builtin cd "${MOD_HOME}" && command git pull -q --ff-only origin main
   else
-    say_info "Downloading ZPMOD to $MOD_HOME"
-    command git clone -q "$MOD_REPO" "$MOD_HOME"
+    say_info "Downloading ZPMOD to ${MOD_HOME}"
+    command git clone -q "${MOD_REPO}" "${MOD_HOME}"
   fi
 
   say_info "Checkig version for zsh..."
@@ -401,9 +401,9 @@ set_zpmod() {
     say_err "Zsh version 5.8.1 and above required."
   else
     say_info "Zsh version ${ZSH_CURRENT} is compatible."
-    builtin cd "$MOD_HOME" || err "Failed to change directory to $MOD_HOME."
+    builtin cd "${MOD_HOME}" || err "Failed to change directory to ${MOD_HOME}."
     say_info "Building module ZPMOD, running: a make clean, then ./configure and then make."
-    say_info "The module source are located at: $MOD_HOME"
+    say_info "The module source are located at: ${MOD_HOME}"
     if test -f Makefile; then
       if [ "$1" = "--clean" ]; then
         say_info "Running: make distclean..."
@@ -435,7 +435,7 @@ EOF
 }
 
 interactive_zshrc() {
-  if [ "$ZOPT" != skip ] && [ "$AOPT" = interactive ]; then
+  if [ "${ZOPT}" != skip ] && [ "${AOPT}" = interactive ]; then
     say_info "Creating .zshrc interactively..."
     if ask "Install Zi Loader?"; then
       set_loader
@@ -472,7 +472,7 @@ EOF
 }
 
 default_zshrc() {
-  if [ "$ZOPT" != skip ] && [ "$AOPT" = default ]; then
+  if [ "${ZOPT}" != skip ] && [ "${AOPT}" = default ]; then
     say_info "Creating .zshrc file..."
     set_loader
     set_annexes
