@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ⤵️ Check out code from GitHub
-        uses: actions/checkout@v3.5.1
+        uses: actions/checkout@v3.5.2
       - name: ☑️ ShellCheck
         uses: ludeeus/action-shellcheck@00cae500b08a931fb5698e11e79bfbd38e612a38
         with:
@@ -33,7 +33,7 @@ jobs:
     needs: [shellcheck]
     steps:
       - name: ⤵️ Check out code from GitHub
-        uses: actions/checkout@v3.5.1
+        uses: actions/checkout@v3.5.2
       - name: ⚙️  Prepare dependencies
         run: |
           brew install zsh
