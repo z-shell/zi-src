@@ -27,13 +27,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3.5.3
       - name: "🤠 Deploy > cdn"
-        uses: cloudflare/wrangler-action@3.0.0
+        uses: cloudflare/wrangler-action@3.0.1
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           workingDirectory: "workers/cdn"
           command: "publish"
       - name: "🤠 Deploy > r2-store"
-        uses: cloudflare/wrangler-action@3.0.0
+        uses: cloudflare/wrangler-action@3.0.1
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           workingDirectory: "workers/r2-store"
