@@ -23,8 +23,8 @@ jobs:
     secrets:
       trunk-token: ${{ secrets.TRUNK_TOKEN }}
   upgrade:
-    if: github.event.schedule == '0 07 * * 5'
+    if: github.event.schedule == '0 01 * * 1'
     name: "✨ Upgrade"
     uses: z-shell/.github/.github/workflows/trunk.yml@main
     with:
-      upgrade_action: true
+      action: upgrade
