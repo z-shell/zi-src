@@ -8,16 +8,23 @@ on:
     types: [opened, synchronize]
   schedule:
     - cron: "0 07 * * 5"
+    - cron: "0 01 * * 1"
   workflow_dispatch: {}
 
 jobs:
   check:
     if: github.event.schedule != '0 07 * * 5'
-    name: "⚡"
+    name: "⚡ Check"
     uses: z-shell/.github/.github/workflows/trunk.yml@v1.0.7
   upload:
     if: github.event.schedule == '0 07 * * 5'
-    name: "🆙"
+    name: "🆙 Upload"
     uses: z-shell/.github/.github/workflows/trunk.yml@v1.0.7
     secrets:
       trunk-token: ${{ secrets.TRUNK_TOKEN }}
+  upgrade:
+    if: github.event.schedule == '0 07 * * 5'
+    name: "✨ Upgrade"
+    uses: z-shell/.github/.github/workflows/trunk.yml@v1.0.7
+    with:
+      upgrade_action: true
