@@ -2,6 +2,8 @@
 # -*- mode: sh; sh-indentation: 2; indent-tabs-mode: nil; sh-basic-offset: 2; -*-
 # vim: ft=sh sw=2 ts=2 et
 
+# shellcheck disable=all
+
 # Temporary work directory
 trap 'rm -rf "$WORKDIR"' EXIT INT
 
