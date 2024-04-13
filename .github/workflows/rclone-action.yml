@@ -2,6 +2,7 @@
 name: "🔄 Rclone"
 on:
   push:
+    branches: [main]
     paths:
       - "lib/**"
   workflow_dispatch: {}
@@ -14,12 +15,9 @@ jobs:
   sync:
     if: github.repository == 'z-shell/zi-src'
     runs-on: ubuntu-latest
-    environment: "cloud-storage"
     env:
       local_path: "lib"
-      r2_remote_path: "r2store:r2-store/src"
-      #cdn_remote_path: "cdn:digital-space/src"
-      #cdn_us_central_remote_path: "cdn-us-central:gcp-space/src"
+      remote_path: "r2:r2-store/src"
     steps:
       - name: "⤵️ Check out code from GitHub"
         uses: actions/checkout@v4.1.1
@@ -27,17 +25,5 @@ jobs:
         uses: z-shell/.github/actions/rclone@56c2250b6e49c6d510a9dc4107ea8ad3b9135c2f
         with:
           config: ${{ secrets.R2_STORE }}
-          args: "copy ${{ env.local_path }} ${{ env.r2_remote_path }}"
+          args: "copy ${{ env.local_path }} ${{ env.remote_path }}"
           debug: false
-        #- name: "⏫ Run rclone/cdn"
-        #uses: z-shell/.github/actions/rclone@v1.0.7
-        #with:
-        #  config: ${{ secrets.CDN_STORE }}
-        #  args: "sync ${{ env.local_path }} ${{ env.cdn_remote_path }}"
-        #  debug: false
-        #- name: "⏫ Run rclone/cdn_us_central_remote_path"
-        #uses: z-shell/.github/actions/rclone@v1.0.7
-        #with:
-        #  config: ${{ secrets.GCP_STORE }}
-        #  args: "sync ${{ env.local_path }} ${{ env.cdn_us_central_remote_path }}"
-        #  debug: false
