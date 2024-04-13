@@ -25,5 +25,5 @@ jobs:
         uses: z-shell/.github/actions/rclone@56c2250b6e49c6d510a9dc4107ea8ad3b9135c2f
         with:
           config: ${{ secrets.R2_STORE }}
-          args: "copy ${{ env.local_path }} ${{ env.remote_path }}"
+          args: "copy --check-first ${{ env.local_path }} ${{ env.remote_path }}"
           debug: false
