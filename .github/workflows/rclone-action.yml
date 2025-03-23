@@ -20,9 +20,9 @@ jobs:
       remote_path: "r2:r2-store/src"
     steps:
       - name: "⤵️ Check out code from GitHub"
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        uses: actions/checkout@v4
       - name: "⏫ Run rclone/r2-store"
-        uses: z-shell/.github/actions/rclone@56c2250b6e49c6d510a9dc4107ea8ad3b9135c2f
+        uses: z-shell/.github/actions/rclone@v1
         with:
           config: ${{ secrets.R2_STORE }}
           args: "copy --check-first ${{ env.local_path }} ${{ env.remote_path }}"
