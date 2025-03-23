@@ -10,7 +10,7 @@ jobs:
   checksum:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4.1.1
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
       - name: "🆗 Generate checksum"
         uses: jmgilman/actions-generate-checksum@57c13a1f01a90b2a8bb449ec29bc23728b96c1cd
         with:
