@@ -20,7 +20,7 @@ jobs:
       remote_path: "r2:r2-store/src"
     steps:
       - name: "⤵️ Check out code from GitHub"
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
       - name: "⏫ Run rclone/r2-store"
         uses: z-shell/.github/actions/rclone@56c2250b6e49c6d510a9dc4107ea8ad3b9135c2f
         with:
