@@ -22,7 +22,7 @@ jobs:
       - name: "⤵️ Check out code from GitHub"
         uses: actions/checkout@v4
       - name: "⏫ Run rclone/r2-store"
-        uses: z-shell/.github/actions/rclone@main
+        uses: z-shell/.github/actions/rclone@v1
         with:
           config: ${{ secrets.R2_STORE }}
           args: "copy --check-first ${{ env.local_path }} ${{ env.remote_path }}"
